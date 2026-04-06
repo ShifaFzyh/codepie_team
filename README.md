@@ -25,8 +25,8 @@ Dashboard Admin Manajemen Artikel adalah aplikasi web yang digunakan untuk menge
 4. Buka browser di http://localhost:3000
 
 ## Tim Pengembang
-- Login: Alya Reina Sagita
-- Role-based Access: Tri Nurjulyanti
-- CRUD Artikel: Eko Budi Prasetyo
-- Dashboard Statistik: Lestari
-- Database: Shifa Nur Fauziyyah
+- Alya Reina Sagita
+- Tri Nurjulyanti
+- Eko Budi Prasetyo
+- Lestari
+- Shifa Nur Fauziyyah
