@@ -9,9 +9,23 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(router);
 
+// Test koneksi database
+app.get("/test-koneksi", (req, res) =>{
+    db.query ("SELECT 1", (err, result) => {
+        if (err) {
+            res.json({ message: "Koneksi gagal"});
+        } else {
+            res.json({ 
+                message: "Koneksi database berhasil" ,
+                result: result
+            });
+        }
+    });
+});
+
 // Halaman login
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'views/login.html'));
+    res.sendFile(path.join(__dirname, '/views/login.html'));
 });
 
 // Proses login

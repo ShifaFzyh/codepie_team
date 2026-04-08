@@ -1,7 +1,7 @@
-const Users = require ("../models/Userss")
+const Users = require ("../models/Users")
 class UsersController {
     index(req, res) {
-        users.getAll((err, results) =>{
+        Users.getAll((err, results) =>{
             if (err) {
                 return res.json({ message: "Gagal mengambil data users"});
             }
@@ -12,10 +12,11 @@ class UsersController {
         });
 
     }
+
     //controller untuk menampilkan data users berdasarkan id
     show (req, res){
         const {id} = req.params;
-        users.getByID(id, (err, result) => {
+        Users.getByID(id, (err, result) => {
             if (err) {
                 return res.json({ message: "Data tidak ditemukan"});
             }
