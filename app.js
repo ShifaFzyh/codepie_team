@@ -1,8 +1,13 @@
 const express = require('express');
+const router = require('./routes/api');
+const db = require('./config/database');
+
 const app = express();
 const path = require('path');
 
+app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(router);
 
 // Halaman login
 app.get('/', (req, res) => {
@@ -14,13 +19,13 @@ app.post('/login', (req, res) => {
     const email = req.body.email;
     const password = req.body.password;
 
-    // Contoh data user (sementara, nanti dari database)
+    // Cek data user
     let role = "";
 
     if(email === "admin@gmail.com" && password === "12345"){
         role = "admin";
-    } else if(email === "user@gmail.com" && password === "12345"){
-        role = "user";
+    } else if(email === "editor@gmail.com" && password === "12345"){
+        role = "editor";
     } else {
         return res.send("Login gagal!");
     }
@@ -28,8 +33,8 @@ app.post('/login', (req, res) => {
     // Redirect berdasarkan role
     if(role === "admin"){
         res.redirect('/admin');
-    } else if(role === "user"){
-        res.redirect('/user');
+    } else if(role === "editor"){
+        res.redirect('/editor');
     }
 });
 
