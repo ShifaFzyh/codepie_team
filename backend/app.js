@@ -10,10 +10,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Melayani file statis dari folder frontend yang sejajar dengan backend
-app.use(express.static(path.join(__dirname, '../frontend')));
-
+app.use(express.static(path.join(__dirname, '../frontend/public')));
 // Masukkan router API
 app.use(router);
+
 
 // Test koneksi database
 app.get("/test-koneksi", (req, res) =>{
@@ -30,6 +30,14 @@ app.get("/test-koneksi", (req, res) =>{
 // Halaman login
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '../frontend/views/login.html'));
+});
+
+app.get('/admin', (req, res) => {
+    res.sendFile(path.join(__dirname, '../frontend/views/dashboard_admin.html'));
+});
+
+app.get('/user', (req, res) => {
+    res.sendFile(path.join(__dirname, '../frontend/views/dashboard_user.html'));
 });
 
 // Proses login
@@ -61,12 +69,12 @@ app.post('/login', (req, res) => {
 
 // Route dashboard admin
 app.get('/admin', (req, res) => {
-    res.sendFile(path.join(__dirname, 'frontend/views/dashboard_admin.html'));
+    res.sendFile(path.join(__dirname, '../frontend/views/dashboard_admin.html'));
 });
 
 // Route dashboard user
-app.get('/user', (req, res) => {
-    res.sendFile(path.join(__dirname, 'frontend/views/dashboard_user.html'));
+app.get('/editor', (req, res) => {
+    res.sendFile(path.join(__dirname, '../frontend/views/dashboard_user.html'));
 });
 
 // Server listening
