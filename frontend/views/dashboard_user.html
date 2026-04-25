@@ -1,12 +1,312 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <title>Dashboard User</title>
-</head>
-<body>
-    <h1>Dashboard User</h1>
-    <p>Buat Artikel</p>
-    <p>Edit Artikel</p>
-    <a href="/">Logout</a>
-</body>
-</html>
+
+<html class="h-full bg-background" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Create Article - Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-low": "#edf4fd",
+                        "secondary-fixed": "#dbe4ed",
+                        "primary-fixed": "#d8e2ff",
+                        "on-tertiary-container": "#fffbff",
+                        "tertiary-fixed-dim": "#ffb695",
+                        "on-tertiary-fixed-variant": "#7c2e00",
+                        "on-surface": "#151c22",
+                        "on-primary-fixed-variant": "#004493",
+                        "surface-bright": "#f6faff",
+                        "inverse-surface": "#293138",
+                        "inverse-primary": "#adc7ff",
+                        "on-surface-variant": "#414754",
+                        "surface-container-highest": "#dbe3ec",
+                        "on-error": "#ffffff",
+                        "primary-fixed-dim": "#adc7ff",
+                        "on-error-container": "#93000a",
+                        "error": "#ba1a1a",
+                        "surface-dim": "#d3dbe3",
+                        "on-primary-container": "#fefcff",
+                        "error-container": "#ffdad6",
+                        "on-secondary-container": "#5b646b",
+                        "secondary-container": "#d8e1ea",
+                        "on-primary-fixed": "#001a41",
+                        "on-secondary-fixed": "#141d23",
+                        "tertiary-fixed": "#ffdbcc",
+                        "surface-tint": "#005bc0",
+                        "on-background": "#151c22",
+                        "outline": "#717786",
+                        "on-tertiary-fixed": "#351000",
+                        "inverse-on-surface": "#eaf2fa",
+                        "outline-variant": "#c1c6d7",
+                        "on-primary": "#ffffff",
+                        "surface": "#f6faff",
+                        "tertiary-container": "#c64f00",
+                        "on-tertiary": "#ffffff",
+                        "tertiary": "#9e3d00",
+                        "surface-variant": "#dbe3ec",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary": "#575f67",
+                        "surface-container": "#e7eff7",
+                        "on-secondary": "#ffffff",
+                        "surface-container-high": "#e1e9f1",
+                        "secondary-fixed-dim": "#bfc8d0",
+                        "background": "#f6faff",
+                        "on-secondary-fixed-variant": "#3f484f",
+                        "primary-container": "#0070ea",
+                        "primary": "#0059bb"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "lg": "1.5rem",
+                        "sidebar_width": "250px",
+                        "base": "1rem",
+                        "xl": "3rem",
+                        "gutter": "15px",
+                        "xs": "0.25rem",
+                        "md": "1rem",
+                        "sm": "0.5rem"
+                    },
+                    "fontFamily": {
+                        "sidebar-nav": ["Inter"],
+                        "body-md": ["Inter"],
+                        "h2": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "h1": ["Inter"],
+                        "label-caps": ["Inter"],
+                        "h3": ["Inter"]
+                    },
+                    "fontSize": {
+                        "sidebar-nav": ["1rem", {"lineHeight": "1.2", "fontWeight": "400"}],
+                        "body-md": ["1rem", {"lineHeight": "1.5", "fontWeight": "400"}],
+                        "h2": ["1.5rem", {"lineHeight": "1.2", "fontWeight": "600"}],
+                        "body-sm": ["0.875rem", {"lineHeight": "1.5", "fontWeight": "400"}],
+                        "h1": ["1.8rem", {"lineHeight": "1.2", "fontWeight": "600"}],
+                        "label-caps": ["0.75rem", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                        "h3": ["1.25rem", {"lineHeight": "1.2", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .active-link .material-symbols-outlined {
+            font-variation-settings: 'FILL' 1;
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #4a5568;
+            border-radius: 4px;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="h-full font-body-md text-on-surface">
+<!-- NavigationDrawer (Shared Component) -->
+<aside class="fixed inset-y-0 left-0 w-64 z-50 bg-slate-800 dark:bg-slate-950 border-r border-slate-700 dark:border-slate-800 shadow-xl flex flex-col h-full font-inter text-sm antialiased">
+<div class="px-6 py-4 flex items-center gap-3">
+<div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
+<span class="text-white font-bold">A</span>
+</div>
+<span class="text-xl font-bold text-white tracking-tight">Articles Flow Codepie</span>
+</div>
+<div class="px-4 py-6 border-b border-slate-700 mx-2 mb-4">
+<div class="flex items-center gap-3">
+<img alt="Admin User" class="w-10 h-10 rounded-full border border-slate-600" data-alt="Close up professional portrait of a male executive with a confident smile in a modern office environment" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDVNGr_KQJqqsaSW36M2mb-3TfLvscQV6txFD8P4cueX9R7JUcXoZJy6WUM7l1WZRwaMzsnSUDiitaY_oStJ3-GmmQ7574KJMNDV38G9PfmBlvNxwB8tK__aKVSNj88KFH1XOJXdxlyYxCkbZQ_5X3PtHkYYyvtSKS9lZkOCBIGu9IbbVPYlXyk34p1ARvRw5TwepM_Lhpwzy_x3-URaD_0u-80n2bO6Is9liqDVDwAM7Dq4_14iqTAiPraSUuhRvCkPJoGSQktZ3Wp"/>
+<div>
+<p class="text-white font-semibold">Users</p>
+<div class="flex items-center gap-1.5">
+<span class="w-2 h-2 bg-green-500 rounded-full"></span>
+<span class="text-slate-400 text-xs">Online</span>
+</div>
+</div>
+</div>
+</div>
+<nav class="flex-1 overflow-y-auto">
+<a class="text-slate-300 hover:bg-slate-700 hover:text-white rounded-sm flex items-center px-4 py-2 my-1 mx-2 transition-colors" href="#">
+<span class="material-symbols-outlined mr-3" data-icon="dashboard">dashboard</span>
+                Dashboard
+            </a>
+<a class="bg-blue-600 text-white rounded-sm flex items-center px-4 py-2 my-1 mx-2 active-link" href="/editor">
+<span class="material-symbols-outlined mr-3" data-icon="description" style="font-variation-settings: 'FILL' 1;">description</span>
+                Create Articles
+            </a>
+<a class="text-slate-300 hover:bg-slate-700 hover:text-white rounded-sm flex items-center px-4 py-2 my-1 mx-2 transition-colors" href="/editor/create">
+<span class="material-symbols-outlined mr-3" data-icon="edit">edit</span>
+                Edit Articles
+            </a>
+<a class="text-slate-300 hover:bg-slate-700 hover:text-white rounded-sm flex items-center px-4 py-2 my-1 mx-2 transition-colors" href="#">
+<span class="material-symbols-outlined mr-3" data-icon="settings">settings</span>
+                Settings
+            </a>
+</a>
+<a class="text-slate-300 hover:bg-slate-700 hover:text-white rounded-sm flex items-center px-4 py-2 my-1 mx-2 transition-colors" href="/">
+<span class="material-symbols-outlined mr-3" data-icon="logout">logout</span>
+                Logout
+            </a>
+</nav>
+<div class="p-4 text-slate-500 text-xs border-t border-slate-700 mx-2">
+            © 2026 Codepie. All rights reserved.
+        </div>
+</aside>
+<!-- TopAppBar (Shared Component) -->
+<header class="fixed top-0 right-0 left-64 h-14 z-40 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 shadow-sm flex items-center justify-between px-6 w-full font-inter text-base font-semibold">
+<div class="flex items-center gap-4">
+<button class="text-slate-600 hover:text-blue-500 cursor-pointer transition-transform active:scale-95">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+<h1 class="text-lg font-black text-slate-900 dark:text-white">Dashboard</h1>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative group">
+<button class="text-slate-600 dark:text-slate-400 hover:text-blue-500 cursor-pointer">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="absolute -top-1 -right-1 w-4 h-4 bg-error text-white text-[10px] flex items-center justify-center rounded-full">3</span>
+</button>
+</div>
+<button class="text-slate-600 dark:text-slate-400 hover:text-blue-500 cursor-pointer transition-transform active:scale-95">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+</button>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="ml-64 pt-14 min-h-screen bg-surface">
+<div class="p-lg">
+<!-- Breadcrumbs -->
+<nav class="mb-lg flex items-center text-body-sm text-on-surface-variant">
+<a class="hover:text-primary transition-colors flex items-center" href="#">
+<span class="material-symbols-outlined text-sm mr-1" data-icon="home">home</span>
+                    Home
+                </a>
+<span class="mx-2 text-outline-variant">/</span>
+<a class="hover:text-primary transition-colors" href="#">Articles</a>
+<span class="mx-2 text-outline-variant">/</span>
+<span class="text-primary font-semibold">Create</span>
+</nav>
+<!-- Page Header -->
+<div class="mb-lg">
+<h2 class="font-h2 text-h2 text-on-surface">Create New Article</h2>
+<p class="text-body-sm text-on-surface-variant mt-1">Draft a new story for your audience. All changes are autosaved to drafts.</p>
+</div>
+<!-- Content Area - Form Layout -->
+<div class="grid grid-cols-12 gap-gutter">
+<!-- Main Form Column -->
+<div class="col-span-12 lg:col-span-8">
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-lg shadow-sm">
+<form class="space-y-lg">
+<!-- Title Input -->
+<div class="space-y-xs">
+<label class="font-label-caps text-label-caps text-on-surface uppercase tracking-wider" for="article-title">Article Title</label>
+<input class="w-full border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary rounded-lg p-md text-body-md transition-all" id="article-title" placeholder="Enter a compelling title..." type="text"/>
+</div>
+<!-- Content Area (Rich Text Mockup) -->
+<div class="space-y-xs">
+<label class="font-label-caps text-label-caps text-on-surface uppercase tracking-wider">Content Body</label>
+<div class="border border-outline-variant rounded-lg overflow-hidden focus-within:ring-1 focus-within:ring-primary transition-all">
+<div class="bg-surface-container-low border-b border-outline-variant p-sm flex items-center gap-2">
+<button class="p-1 hover:bg-secondary-container rounded" type="button"><span class="material-symbols-outlined text-lg" data-icon="format_bold">format_bold</span></button>
+<button class="p-1 hover:bg-secondary-container rounded" type="button"><span class="material-symbols-outlined text-lg" data-icon="format_italic">format_italic</span></button>
+<button class="p-1 hover:bg-secondary-container rounded" type="button"><span class="material-symbols-outlined text-lg" data-icon="format_list_bulleted">format_list_bulleted</span></button>
+<div class="w-px h-4 bg-outline-variant mx-1"></div>
+<button class="p-1 hover:bg-secondary-container rounded" type="button"><span class="material-symbols-outlined text-lg" data-icon="link">link</span></button>
+<button class="p-1 hover:bg-secondary-container rounded" type="button"><span class="material-symbols-outlined text-lg" data-icon="image">image</span></button>
+</div>
+<textarea class="w-full border-none focus:ring-0 p-md text-body-md" placeholder="Start writing your article here..." rows="12"></textarea>
+</div>
+<p class="text-[10px] text-outline text-right mt-1">Word count: 0</p>
+</div>
+</form>
+</div>
+</div>
+<!-- Sidebar Settings Column -->
+<div class="col-span-12 lg:col-span-4 space-y-gutter">
+<!-- Publishing Controls -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-lg shadow-sm">
+<h3 class="font-h3 text-h3 text-on-surface mb-md">Publication Settings</h3>
+<div class="space-y-lg">
+<!-- Category Dropdown -->
+<div class="space-y-xs">
+<label class="font-label-caps text-label-caps text-on-surface uppercase tracking-wider" for="category">Category</label>
+<select class="w-full border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary rounded-lg p-md text-body-md" id="category">
+<option>Programming</option>
+<option>Cyber Security</option>
+<option>Web Development</option>
+<option>Tips & Trik</option>
+<option>Kesehatan</option>
+</select>
+</div>
+<!-- Status Toggle -->
+<div class="flex items-center justify-between p-md bg-surface-container-low rounded-lg border border-outline-variant/30">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="visibility">visibility</span>
+<div>
+<p class="text-body-sm font-semibold">Visibility</p>
+<p class="text-[10px] text-outline">Publish immediately</p>
+</div>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox" value=""/>
+<div class="w-11 h-6 bg-secondary-container peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+<div class="space-y-xs">
+<label class="font-label-caps text-label-caps text-on-surface uppercase tracking-wider">Status</label>
+<div class="grid grid-cols-2 gap-2">
+<button class="flex items-center justify-center gap-2 py-2 px-4 border-2 border-primary bg-primary-container text-on-primary-container font-semibold rounded-lg text-sm">
+<span class="material-symbols-outlined text-sm" data-icon="check_circle">check_circle</span>
+                                        Publish
+                                    </button>
+<button class="flex items-center justify-center gap-2 py-2 px-4 border border-outline-variant hover:bg-surface-container-high transition-colors font-semibold rounded-lg text-sm">
+<span class="material-symbols-outlined text-sm" data-icon="draft">draft</span>
+                                        Draft
+                                    </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Featured Image Placeholder -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-lg shadow-sm">
+<h3 class="font-h3 text-h3 text-on-surface mb-md">Cover Image</h3>
+<div class="aspect-video bg-surface-container-high rounded-lg border-2 border-dashed border-outline-variant flex flex-col items-center justify-center gap-2 cursor-pointer hover:bg-surface-container-low transition-colors group">
+<span class="material-symbols-outlined text-4xl text-outline group-hover:text-primary" data-icon="add_photo_alternate">add_photo_alternate</span>
+<p class="text-body-sm font-semibold text-outline">Upload Image</p>
+<p class="text-[10px] text-outline-variant text-center px-4">Recommended size: 1200 x 630 px</p>
+</div>
+</div>
+<!-- Sticky Action Buttons -->
+<div class="flex items-center gap-3 pt-md">
+<button class="flex-1 bg-primary text-on-primary font-bold py-3 rounded-lg shadow-lg hover:shadow-primary/20 hover:scale-[1.02] active:scale-[0.98] transition-all">
+                            Save Article
+                        </button>
+<button class="flex-1 bg-white border border-outline-variant text-on-surface-variant font-bold py-3 rounded-lg hover:bg-surface-container-low transition-all">
+                            Cancel
+                        </button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

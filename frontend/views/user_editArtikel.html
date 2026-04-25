@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "surface-container-low": "#edf4fd",
+            "secondary-fixed": "#dbe4ed",
+            "primary-fixed": "#d8e2ff",
+            "on-tertiary-container": "#fffbff",
+            "tertiary-fixed-dim": "#ffb695",
+            "on-tertiary-fixed-variant": "#7c2e00",
+            "on-surface": "#151c22",
+            "on-primary-fixed-variant": "#004493",
+            "surface-bright": "#f6faff",
+            "inverse-surface": "#293138",
+            "inverse-primary": "#adc7ff",
+            "on-surface-variant": "#414754",
+            "surface-container-highest": "#dbe3ec",
+            "on-error": "#ffffff",
+            "primary-fixed-dim": "#adc7ff",
+            "on-error-container": "#93000a",
+            "error": "#ba1a1a",
+            "surface-dim": "#d3dbe3",
+            "on-primary-container": "#fefcff",
+            "error-container": "#ffdad6",
+            "on-secondary-container": "#5b646b",
+            "secondary-container": "#d8e1ea",
+            "on-primary-fixed": "#001a41",
+            "on-secondary-fixed": "#141d23",
+            "tertiary-fixed": "#ffdbcc",
+            "surface-tint": "#005bc0",
+            "on-background": "#151c22",
+            "outline": "#717786",
+            "on-tertiary-fixed": "#351000",
+            "inverse-on-surface": "#eaf2fa",
+            "outline-variant": "#c1c6d7",
+            "on-primary": "#ffffff",
+            "surface": "#f6faff",
+            "tertiary-container": "#c64f00",
+            "on-tertiary": "#ffffff",
+            "tertiary": "#9e3d00",
+            "surface-variant": "#dbe3ec",
+            "surface-container-lowest": "#ffffff",
+            "secondary": "#575f67",
+            "surface-container": "#e7eff7",
+            "on-secondary": "#ffffff",
+            "surface-container-high": "#e1e9f1",
+            "secondary-fixed-dim": "#bfc8d0",
+            "background": "#f6faff",
+            "on-secondary-fixed-variant": "#3f484f",
+            "primary-container": "#0070ea",
+            "primary": "#0059bb"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          "spacing": {
+            "lg": "1.5rem",
+            "sidebar_width": "250px",
+            "base": "1rem",
+            "xl": "3rem",
+            "gutter": "15px",
+            "xs": "0.25rem",
+            "md": "1rem",
+            "sm": "0.5rem"
+          },
+          "fontFamily": {
+            "sidebar-nav": ["Inter"],
+            "body-md": ["Inter"],
+            "h2": ["Inter"],
+            "body-sm": ["Inter"],
+            "h1": ["Inter"],
+            "label-caps": ["Inter"],
+            "h3": ["Inter"]
+          },
+          "fontSize": {
+            "sidebar-nav": ["1rem", {"lineHeight": "1.2", "fontWeight": "400"}],
+            "body-md": ["1rem", {"lineHeight": "1.5", "fontWeight": "400"}],
+            "h2": ["1.5rem", {"lineHeight": "1.2", "fontWeight": "600"}],
+            "body-sm": ["0.875rem", {"lineHeight": "1.5", "fontWeight": "400"}],
+            "h1": ["1.8rem", {"lineHeight": "1.2", "fontWeight": "600"}],
+            "label-caps": ["0.75rem", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "700"}],
+            "h3": ["1.25rem", {"lineHeight": "1.2", "fontWeight": "600"}]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background font-body-md text-on-background min-h-screen">
+<!-- NavigationDrawer -->
+<aside class="fixed inset-y-0 left-0 w-64 z-50 bg-slate-800 dark:bg-slate-950 border-r border-slate-700 dark:border-slate-800 shadow-xl flex flex-col h-full font-inter text-sm antialiased">
+<div class="px-6 py-4 flex items-center gap-3">
+<div class="w-8 h-8 bg-blue-600 rounded flex items-center justify-center text-white font-bold">A</div>
+<span class="text-xl font-bold text-white tracking-tight">Articles Flow Codepie</span>
+</div>
+<!-- Profile Header -->
+<div class="px-4 py-6 border-b border-slate-700 mx-2 mb-4">
+<div class="flex items-center gap-3">
+<img alt="Admin User" class="w-10 h-10 rounded-full border border-slate-600" data-alt="Close up professional portrait of a male executive with a confident smile in a modern office environment" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDVNGr_KQJqqsaSW36M2mb-3TfLvscQV6txFD8P4cueX9R7JUcXoZJy6WUM7l1WZRwaMzsnSUDiitaY_oStJ3-GmmQ7574KJMNDV38G9PfmBlvNxwB8tK__aKVSNj88KFH1XOJXdxlyYxCkbZQ_5X3PtHkYYyvtSKS9lZkOCBIGu9IbbVPYlXyk34p1ARvRw5TwepM_Lhpwzy_x3-URaD_0u-80n2bO6Is9liqDVDwAM7Dq4_14iqTAiPraSUuhRvCkPJoGSQktZ3Wp"/>
+<div>
+<p class="text-white font-semibold">Users</p>
+<div class="flex items-center gap-1.5">
+<span class="w-2 h-2 bg-green-500 rounded-full"></span>
+<span class="text-slate-400 text-xs uppercase tracking-wider">Online</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Nav Items -->
+<nav class="flex-1 mt-4 space-y-1">
+<a class="text-slate-300 hover:bg-slate-700 hover:text-white rounded-sm flex items-center px-4 py-2 my-1 mx-2 transition-colors" href="#">
+<span class="material-symbols-outlined mr-3 text-lg" data-icon="dashboard">dashboard</span>
+<span class="font-sidebar-nav">Dashboard</span>
+</a>
+<!-- Active State Logic: Mapping 'Articles' -->
+<a class="bg-blue-600 text-white rounded-sm flex items-center px-4 py-2 my-1 mx-2 transition-all opacity-90" href="/editor/create">
+<span class="material-symbols-outlined mr-3 text-lg" data-icon="memo">edit</span>
+<span class="font-sidebar-nav">Edit Articles</span>
+</a>
+<a class="text-slate-300 hover:bg-slate-700 hover:text-white rounded-sm flex items-center px-4 py-2 my-1 mx-2 transition-colors" href="/editor">
+<span class="material-symbols-outlined mr-3 text-lg" data-icon="description">description</span>
+<span class="font-sidebar-nav">Create Articles</span>
+</a>
+<a class="text-slate-300 hover:bg-slate-700 hover:text-white rounded-sm flex items-center px-4 py-2 my-1 mx-2 transition-colors" href="#">
+<span class="material-symbols-outlined mr-3 text-lg" data-icon="settings">settings</span>
+<span class="font-sidebar-nav">Settings</span>
+</a>
+<a class="text-slate-300 hover:bg-slate-700 hover:text-white rounded-sm flex items-center px-4 py-2 my-1 mx-2 transition-colors" href="/">
+<span class="material-symbols-outlined mr-3 text-lg" data-icon="logout">logout</span>
+<span class="font-sidebar-nav">Logout</span>
+</a>
+</nav>
+<div class="p-4 text-slate-500 text-xs border-t border-slate-700 mx-2">
+            © 2026 Codepie. All rights reserved.
+        </div>
+</aside>
+<!-- Main Content Area -->
+<div class="ml-64 min-h-screen flex flex-col">
+<!-- TopAppBar -->
+<header class="fixed top-0 right-0 left-64 h-14 z-40 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 shadow-sm flex items-center justify-between px-6 w-full">
+<div class="flex items-center gap-4">
+<button class="text-slate-600 hover:text-blue-500 cursor-pointer transition-transform active:scale-95">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+<h1 class="text-lg font-black text-slate-900 dark:text-white font-inter">Dashboard</h1>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-slate-600 hover:text-blue-500 cursor-pointer transition-transform active:scale-95">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+</button>
+</div>
+</header>
+<!-- Page Content -->
+<main class="mt-14 p-6 bg-[#f4f6f9] flex-1">
+<!-- Breadcrumbs & Header -->
+<div class="flex flex-col md:flex-row md:items-center justify-between mb-8">
+<div>
+<h2 class="font-h1 text-h1 text-on-surface mb-2">Edit Article</h2>
+<nav class="flex items-center space-x-2 text-on-surface-variant font-body-sm">
+<a class="hover:text-primary transition-colors" href="#">Home</a>
+<span class="text-outline-variant">/</span>
+<a class="hover:text-primary transition-colors" href="#">Articles</a>
+<span class="text-outline-variant">/</span>
+<span class="hover:text-primary transition-colors">Edit</span>
+<span class="text-outline-variant">/</span>
+<span class="font-bold text-on-surface">#10294</span>
+</nav>
+</div>
+<div class="mt-4 md:mt-0 text-right">
+<p class="font-body-sm text-on-surface-variant">
+<span class="font-semibold">Last modified:</span> March 24, 2026 14:32 PM
+          </p>
+</div>
+</div>
+<!-- Content Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+<!-- Main Form Column -->
+<div class="lg:col-span-8 space-y-6">
+<section class="bg-white rounded border border-slate-200 shadow-[0_0_1px_rgba(0,0,0,0.125),0_1px_3px_rgba(0,0,0,0.2)]">
+<div class="border-t-4 border-primary rounded-t p-6">
+<form class="space-y-6">
+<div>
+<label class="block font-label-caps text-label-caps text-on-surface mb-2 uppercase">Article Title</label>
+<input class="w-full border border-outline-variant rounded p-3 text-body-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all" type="text" value="The Future of Enterprise Architecture in 2024"/>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div>
+<label class="block font-label-caps text-label-caps text-on-surface mb-2 uppercase">Category</label>
+<select class="w-full border border-outline-variant rounded p-3 text-body-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+<option>Programming</option>
+<option selected="">Cyber Security</option>
+<option>Web Development</option>
+<option>Tips & Trik</option>
+<option>Kesehatan</option>
+</select>
+</div>
+<div>
+<label class="block font-label-caps text-label-caps text-on-surface mb-2 uppercase">Status</label>
+<div class="flex items-center mt-2 space-x-4">
+<label class="flex items-center gap-2 cursor-pointer">
+<input checked="" class="w-4 h-4 text-primary focus:ring-primary" name="status" type="radio"/>
+<span class="text-body-sm">Published</span>
+</label>
+<label class="flex items-center gap-2 cursor-pointer">
+<input class="w-4 h-4 text-primary focus:ring-primary" name="status" type="radio"/>
+<span class="text-body-sm">Draft</span>
+</label>
+</div>
+</div>
+</div>
+<div>
+<label class="block font-label-caps text-label-caps text-on-surface mb-2 uppercase">Content Body</label>
+<textarea class="w-full border border-outline-variant rounded p-4 text-body-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent leading-relaxed" rows="12">Modern enterprise architecture is undergoing a seismic shift towards decentralization and modularity. In this article, we explore how organizations are moving away from monolithic legacy systems to embrace a mesh-based approach.
+
+Key highlights include:
+1. The role of AI in automating infrastructure management.
+2. Why resilience is the new scalability.
+3. Security at the edge of the network.
+
+As we look toward 2024, the priority for CIOs remains clear: agility over efficiency. Organizations that cannot adapt their technological foundation in real-time will find themselves lagging behind competitors who have embraced the "Architecture-as-Code" philosophy.</textarea>
+</div>
+</form>
+</div>
+<div class="bg-surface-container px-6 py-4 rounded-b flex items-center justify-between border-t border-slate-100">
+<button class="px-6 py-2 bg-secondary text-on-secondary rounded font-semibold hover:opacity-90 transition-all active:scale-95">
+                Cancel
+              </button>
+<button class="px-8 py-2 bg-primary text-on-primary rounded font-semibold hover:opacity-90 transition-all active:scale-95 shadow-sm">
+                Update Article
+              </button>
+</div>
+</section>
+</div>
+<!-- Sidebar Options Column -->
+<div class="lg:col-span-4 space-y-6">
+<!-- Featured Image Card -->
+<div class="bg-white rounded border border-slate-200 shadow-sm p-6 overflow-hidden">
+<h3 class="font-h3 text-h3 mb-4">Featured Image</h3>
+<div class="relative rounded-lg group overflow-hidden bg-slate-100 aspect-video mb-4">
+<img alt="Article Cover" class="w-full h-full object-cover" data-alt="Sleek 3D isometric representation of a digital network with glowing blue data lines and futuristic geometric shapes on a dark background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCx0wvWcggpbieAfDpPtxdlFWKyzzY0d0v241-3M6URPJ4wOaiLS_T3gXTWOMXCUAsKFkXQ_8h5QxmbgiMP1aHxkWzt2pE2NJBB9d8SVVABkL7ILcfb4MAOYL1hCAYDdvuK5DUk8TfcvxF6YoCdfaBYivTIU1P4OG7GAU-dXapOlpHuribhmQyhRQicVdBlbcORwfU6M3yZiwPgYBpz6CJxtitOjuuJUqYuVVlB1xH6d9ujl7PFoi1diE2kSQsU16kW9_mzAf7Qa1BF"/>
+<div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="bg-white text-on-surface px-4 py-2 rounded-full font-bold text-sm">Change Image</button>
+</div>
+</div>
+<p class="text-xs text-on-surface-variant italic">Optimal size: 1200x630px</p>
+</div>
+<!-- Publication Metadata -->
+<div class="bg-white rounded border border-slate-200 shadow-sm overflow-hidden">
+<div class="bg-surface-container-high px-4 py-3 border-b border-slate-200">
+<h3 class="text-sm font-bold uppercase tracking-widest text-on-surface-variant">Publishing Info</h3>
+</div>
+<div class="p-4 space-y-4">
+<div class="flex justify-between items-center text-body-sm">
+<span class="text-on-surface-variant">Author:</span>
+<span class="font-semibold text-primary">A. Pierce</span>
+</div>
+<div class="flex justify-between items-center text-body-sm">
+<span class="text-on-surface-variant">Visibility:</span>
+<span class="bg-green-100 text-green-800 px-2 py-0.5 rounded-full text-xs font-bold">Public</span>
+</div>
+<div class="flex justify-between items-center text-body-sm">
+<span class="text-on-surface-variant">Revisions:</span>
+<span class="font-semibold">12</span>
+</div>
+<hr class="border-slate-100"/>
+<button class="w-full text-left flex items-center text-error font-semibold text-sm hover:underline">
+<span class="material-symbols-outlined text-sm mr-2" data-icon="delete">delete</span>
+                Move to trash
+              </button>
+</div>
+</div>
+<!-- Tags Card -->
+<div class="bg-white rounded border border-slate-200 shadow-sm p-6">
+<h3 class="font-h3 text-h3 mb-4">Tags</h3>
+<div class="flex flex-wrap gap-2 mb-4">
+<span class="px-3 py-1 bg-surface-container-low text-primary text-xs font-bold rounded-full border border-primary-fixed">Enterprise</span>
+<span class="px-3 py-1 bg-surface-container-low text-primary text-xs font-bold rounded-full border border-primary-fixed">Strategy</span>
+<span class="px-3 py-1 bg-surface-container-low text-primary text-xs font-bold rounded-full border border-primary-fixed">2024</span>
+<button class="px-2 py-1 border border-dashed border-outline rounded-full text-xs text-outline-variant hover:border-primary hover:text-primary transition-colors">
+                + Add Tag
+              </button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

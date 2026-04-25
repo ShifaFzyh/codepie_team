@@ -1,12 +1,415 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <title>Dashboard Admin</title>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f4f6f9;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "error-container": "#ffdad6",
+                        "surface-container": "#e7eff7",
+                        "tertiary-container": "#c64f00",
+                        "on-secondary-container": "#5b646b",
+                        "error": "#ba1a1a",
+                        "secondary": "#575f67",
+                        "outline-variant": "#c1c6d7",
+                        "primary-fixed": "#d8e2ff",
+                        "on-surface": "#151c22",
+                        "on-surface-variant": "#414754",
+                        "surface": "#f6faff",
+                        "on-tertiary-fixed-variant": "#7c2e00",
+                        "on-error-container": "#93000a",
+                        "on-secondary": "#ffffff",
+                        "secondary-container": "#d8e1ea",
+                        "surface-variant": "#dbe3ec",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-high": "#e1e9f1",
+                        "on-primary-fixed": "#001a41",
+                        "surface-tint": "#005bc0",
+                        "primary": "#0059bb",
+                        "on-primary-fixed-variant": "#004493",
+                        "tertiary": "#9e3d00",
+                        "on-primary-container": "#fefcff",
+                        "surface-bright": "#f6faff",
+                        "on-tertiary-fixed": "#351000",
+                        "primary-fixed-dim": "#adc7ff",
+                        "secondary-fixed-dim": "#bfc8d0",
+                        "inverse-surface": "#293138",
+                        "on-secondary-fixed-variant": "#3f484f",
+                        "on-secondary-fixed": "#141d23",
+                        "outline": "#717786",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary-fixed": "#ffdbcc",
+                        "tertiary-fixed-dim": "#ffb695",
+                        "inverse-on-surface": "#eaf2fa",
+                        "inverse-primary": "#adc7ff",
+                        "on-error": "#ffffff",
+                        "secondary-fixed": "#dbe4ed",
+                        "background": "#f6faff",
+                        "surface-dim": "#d3dbe3",
+                        "on-primary": "#ffffff",
+                        "surface-container-highest": "#dbe3ec",
+                        "on-tertiary-container": "#fffbff",
+                        "primary-container": "#0070ea",
+                        "surface-container-low": "#edf4fd",
+                        "on-background": "#151c22"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "xl": "3rem",
+                        "sidebar_width": "250px",
+                        "xs": "0.25rem",
+                        "md": "1rem",
+                        "lg": "1.5rem",
+                        "sm": "0.5rem",
+                        "base": "1rem",
+                        "gutter": "15px"
+                    },
+                    "fontFamily": {
+                        "h2": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "h1": ["Inter"],
+                        "label-caps": ["Inter"],
+                        "h3": ["Inter"],
+                        "body-md": ["Inter"],
+                        "sidebar-nav": ["Inter"]
+                    },
+                    "fontSize": {
+                        "h2": ["1.5rem", {"lineHeight": "1.2", "fontWeight": "600"}],
+                        "body-sm": ["0.875rem", {"lineHeight": "1.5", "fontWeight": "400"}],
+                        "h1": ["1.8rem", {"lineHeight": "1.2", "fontWeight": "600"}],
+                        "label-caps": ["0.75rem", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                        "h3": ["1.25rem", {"lineHeight": "1.2", "fontWeight": "600"}],
+                        "body-md": ["1rem", {"lineHeight": "1.5", "fontWeight": "400"}],
+                        "sidebar-nav": ["1rem", {"lineHeight": "1.2", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
 </head>
-<body>
-    <h1>Dashboard Admin</h1>
-    <p>Kelola Artikel</p>
-    <p>Kelola User</p>
-    <a href="/">Logout</a>
-</body>
-</html>
+<body class="bg-background text-on-background"><!-- Note: index.html and admin-users.html must exist in the same local directory for sidebar navigation links to function correctly. -->
+<!-- NavigationDrawer Shell -->
+<aside class="fixed left-0 top-0 h-full w-64 bg-slate-800 dark:bg-slate-950 border-r border-slate-700 dark:border-slate-800 shadow-xl dark:shadow-none flex flex-col h-screen py-4 z-50">
+<div class="px-6 mb-8">
+<span class="text-xl font-bold text-white dark:text-slate-100">Articles Flow Codepie</span>
+</div>
+<div class="flex items-center gap-3 px-6 mb-8">
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-slate-600">
+<img alt="Admin Avatar" data-alt="professional portrait of a male executive in a dark suit with a neutral background, high-end corporate photography style" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCbznNSyUJ0Lg7gh8uJfXfGAhjEHClMTYfs3rs9PpIQLbEDwg9uK9rclS-OCI0ZsA5XQu2JZTPIR3VcavEZ5EmEuw5xYK3-X2mtMck0Yqz9wkEKODqT0aGxnpkMKKQwKNdS2l5yyg971q0lV7uDsAHA3CCtgNS_iOYtIIBLh5CIwBhftwdnw0Rm26Iy_WH6FKO8Ocz___IxxlqPxrfNGWZC0GqQibMgPPZ-6Fg5xXA48uAl6XwsWKCrzZk6eMdm_H1KuloXCUYpQrXJ"/>
+</div>
+<div class="flex flex-col">
+<span class="font-sans text-sm font-medium tracking-tight text-white">Admin</span>
+<div class="flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-green-500"></span>
+<span class="text-[10px] text-slate-400 uppercase tracking-widest">Online</span>
+</div>
+</div>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="text-slate-300 hover:bg-slate-700 hover:text-white rounded-md mx-2 px-3 py-2 flex items-center gap-3 transition-colors transition-all duration-200 ease-in-out font-sans text-sm font-medium tracking-tight" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span>Dashboard</span>
+</a>
+<a class="bg-blue-600 text-white rounded-md mx-2 px-3 py-2 flex items-center gap-3 transition-all duration-200 ease-in-out font-sans text-sm font-medium tracking-tight" href="/admin">
+<span class="material-symbols-outlined" data-icon="description">description</span>
+<span>Articles</span>
+</a>
+<a class="text-slate-300 hover:bg-slate-700 hover:text-white rounded-md mx-2 px-3 py-2 flex items-center gap-3 transition-colors transition-all duration-200 ease-in-out font-sans text-sm font-medium tracking-tight" href="/admin/users">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span>Users</span>
+</a>
+<a class="text-slate-300 hover:bg-slate-700 hover:text-white rounded-md mx-2 px-3 py-2 flex items-center gap-3 transition-colors transition-all duration-200 ease-in-out font-sans text-sm font-medium tracking-tight" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span>Settings</span>
+</a>
+</a>
+<a class="text-slate-300 hover:bg-slate-700 hover:text-white rounded-md mx-2 px-3 py-2 flex items-center gap-3 transition-colors transition-all duration-200 ease-in-out font-sans text-sm font-medium tracking-tight" href="/">
+<span class="material-symbols-outlined" data-icon="Logout">logout</span>
+<span>Logout</span>
+</a>
+</nav>
+</aside>
+<!-- TopAppBar Shell -->
+<header class="fixed top-0 right-0 w-[calc(100%-16rem)] h-16 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 shadow-sm dark:shadow-none flex justify-between items-center px-6 z-40">
+<div class="flex items-center gap-4">
+<button class="hover:bg-slate-50 dark:hover:bg-slate-800 rounded-full p-2 cursor-pointer active:opacity-70">
+<span class="material-symbols-outlined text-slate-600" data-icon="menu">menu</span>
+</button>
+<h1 class="text-lg font-black text-slate-800 dark:text-slate-100 font-sans">Articles Flow Codepie</h1>
+</div>
+<div class="flex items-center gap-4">
+<button class="hover:bg-slate-50 dark:hover:bg-slate-800 rounded-full p-2 cursor-pointer active:opacity-70 relative">
+<span class="material-symbols-outlined text-slate-600" data-icon="notifications">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full border border-white"></span>
+</button>
+<div class="h-8 w-[1px] bg-slate-200 mx-2"></div>
+<div class="flex items-center gap-2 cursor-pointer">
+<span class="text-sm font-medium text-slate-700">Admin</span>
+<img alt="User Avatar" class="w-8 h-8 rounded-full bg-primary-container text-white flex items-center justify-center text-xs font-bold" data-alt="close up of a professional user avatar icon in high definition minimalist style" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBqo8wyRI0NIrM39qbJGdOoucHczRIuuePrBbGHgX3pGfJiRouVr5BC5xgrYwxvx1v2QD4AnJQmCdfyi-fRmd2Qcsxp1wYjJ2kjcX-Xojv5v50aN0S2QJd6qusnT-LvFNqGkM-xi9HHbQeAwSDS91HiQwcQ2kwcRhhUBDKuoU9bGq564YLzjDWXE3VHFOzk6M6d0HC0qECELo89lBuFmRINT64N_8d42Eg3r18pW4-GLE1IQGjth85gyinnqPNL6pymimx9NhIiKLLt"/>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="ml-64 pt-16 min-h-screen p-lg">
+<div class="max-w-7xl mx-auto space-y-lg">
+<!-- Breadcrumbs & Action Header -->
+<div class="flex justify-between items-end">
+<div>
+<nav class="flex items-center gap-2 text-on-secondary-container mb-2 font-body-sm text-body-sm">
+<span>Home</span>
+<span class="material-symbols-outlined text-xs">chevron_right</span>
+<span class="text-on-surface">Articles</span>
+</nav>
+<h2 class="font-h1 text-h1 text-on-surface tracking-tight">Articles</h2>
+</div>
+<button class="bg-primary hover:bg-primary-container text-white px-md py-sm rounded-lg flex items-center gap-2 transition-all shadow-md active:scale-95">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+<span class="font-sans font-semibold">Add New Article</span>
+</button>
+</div>
+<!-- Dashboard Stats Grid -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-md">
+<div class="bg-white p-md rounded-xl border border-outline-variant shadow-sm flex items-center gap-md">
+<div class="w-12 h-12 bg-blue-50 rounded-lg flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" data-icon="article">article</span>
+</div>
+<div>
+<p class="text-on-secondary-container text-label-caps font-label-caps">TOTAL ARTICLES</p>
+<p class="text-h2 font-h2 text-on-surface">1,284</p>
+</div>
+</div>
+<div class="bg-white p-md rounded-xl border border-outline-variant shadow-sm flex items-center gap-md">
+<div class="w-12 h-12 bg-green-50 rounded-lg flex items-center justify-center text-green-600">
+<span class="material-symbols-outlined" data-icon="check_circle">check_circle</span>
+</div>
+<div>
+<p class="text-on-secondary-container text-label-caps font-label-caps">PUBLISHED</p>
+<p class="text-h2 font-h2 text-on-surface">942</p>
+</div>
+</div>
+<div class="bg-white p-md rounded-xl border border-outline-variant shadow-sm flex items-center gap-md">
+<div class="w-12 h-12 bg-orange-50 rounded-lg flex items-center justify-center text-orange-600">
+<span class="material-symbols-outlined" data-icon="edit_note">edit_note</span>
+</div>
+<div>
+<p class="text-on-secondary-container text-label-caps font-label-caps">DRAFTS</p>
+<p class="text-h2 font-h2 text-on-surface">342</p>
+</div>
+</div>
+<div class="bg-white p-md rounded-xl border border-outline-variant shadow-sm flex items-center gap-md">
+<div class="w-12 h-12 bg-purple-50 rounded-lg flex items-center justify-center text-purple-600">
+<span class="material-symbols-outlined" data-icon="visibility">visibility</span>
+</div>
+<div>
+<p class="text-on-secondary-container text-label-caps font-label-caps">TOTAL VIEWS</p>
+<p class="text-h2 font-h2 text-on-surface">45.2k</p>
+</div>
+</div>
+</div>
+<!-- Table Card -->
+<div class="bg-white rounded-xl border border-outline-variant shadow-sm overflow-hidden">
+<div class="p-md border-b border-outline-variant flex justify-between items-center bg-surface-container-low">
+<div class="flex items-center gap-4">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-sm">search</span>
+<input class="pl-9 pr-4 py-2 border border-outline-variant rounded-lg text-sm focus:ring-2 focus:ring-primary focus:border-transparent outline-none w-64 bg-white" placeholder="Search articles..." type="text"/>
+</div>
+<select class="border border-outline-variant rounded-lg text-sm px-4 py-2 bg-white focus:ring-2 focus:ring-primary outline-none">
+<option>All Categories</option>
+<option>Programming</option>
+<option>Cyber Security</option>
+<option>Web Development</option>
+<option>Tips & Trik</option>
+<option>Kesehatan</option>
+</select>
+</div>
+<div class="flex items-center gap-2">
+<button class="p-2 hover:bg-slate-100 rounded-lg text-outline">
+<span class="material-symbols-outlined">filter_list</span>
+</button>
+<button class="p-2 hover:bg-slate-100 rounded-lg text-outline">
+<span class="material-symbols-outlined">download</span>
+</button>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead class="bg-surface-container-highest border-b border-outline-variant">
+<tr>
+<th class="px-6 py-4 font-label-caps text-label-caps text-on-surface-variant">ID</th>
+<th class="px-6 py-4 font-label-caps text-label-caps text-on-surface-variant">Title</th>
+<th class="px-6 py-4 font-label-caps text-label-caps text-on-surface-variant">Author</th>
+<th class="px-6 py-4 font-label-caps text-label-caps text-on-surface-variant">Date</th>
+<th class="px-6 py-4 font-label-caps text-label-caps text-on-surface-variant">Status</th>
+<th class="px-6 py-4 font-label-caps text-label-caps text-on-surface-variant text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant">
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="px-6 py-4 text-body-sm font-body-sm text-on-surface-variant">#10294</td>
+<td class="px-6 py-4">
+<div class="flex flex-col">
+<span class="font-h3 text-body-md font-semibold text-on-surface">The Future of AI in Enterprise Management</span>
+<span class="text-xs text-on-secondary-container">Tech &amp; Business</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<img alt="Author" class="w-6 h-6 rounded-full" data-alt="professional portrait of a journalist, cinematic office lighting, blurred bookshelf background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAMjed8LKOWnOoW48nzojacWbtLCY2Mg6bPOO56s2kC2ROisbWc15n2wxvRica4Dr1pmOXNsF84OI5hgFYjlySIT-osQOLiLnxnCED-qQT5YGZ3nazsOvvov8wou8d_nAo0F_ou-FqMvnScuhZTd23TSoZuc-OHpRPO1QgUV-VG2Uyf2TrjNsWQG2xL_GSjUhk9xCXJgfwPHQz8mVpi5eQpIqWdrlVDHlRoI3d8liSbGZ_LAN0RJJFoxawLFkeHsbwMYtkDdl2uzLc2"/>
+<span class="text-body-sm font-body-sm text-on-surface">John Doe</span>
+</div>
+</td>
+<td class="px-6 py-4 text-body-sm font-body-sm text-on-surface">Oct 24, 2023</td>
+<td class="px-6 py-4">
+<span class="px-2 py-1 bg-green-100 text-green-700 rounded-full text-[10px] font-bold uppercase tracking-wider border border-green-200">Published</span>
+</td>
+<td class="px-6 py-4 text-right">
+<div class="flex justify-end gap-2">
+<button class="p-1.5 hover:bg-primary-fixed text-primary rounded-lg transition-colors">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="p-1.5 hover:bg-error-container text-error rounded-lg transition-colors">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="px-6 py-4 text-body-sm font-body-sm text-on-surface-variant">#10293</td>
+<td class="px-6 py-4">
+<div class="flex flex-col">
+<span class="font-h3 text-body-md font-semibold text-on-surface">Sustainability Trends in Modern Architecture</span>
+<span class="text-xs text-on-secondary-container">Design</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<img alt="Author" class="w-6 h-6 rounded-full" data-alt="close up headshot of a female architect in a bright studio, daylight lighting, minimalist aesthetic" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDZTjaC_nDca1SWjrdvh35c-u1V4RQNSSFxSb6R7tar80AOWiZ5QQWPbHVQ0SdNpVFI9OJpU5GsBisbDgSwt1nIJ4oHs6xpzY-qrjyjMSTfUovGpOt0jlz4IUnlNI85Xl9N3HxP_EhAJz0xpFHOk-AdPVEHTvxue-1BDfxeStZbDgrVG5tV7LLmIOGQp4IJx29p_7e7erdsaDr8pheny9_bAezh50n-jv2VoW-gPhfDaGv4_LE9JXArLeEImSCm1i-JxDa6qDg9AGc3"/>
+<span class="text-body-sm font-body-sm text-on-surface">Sarah Williams</span>
+</div>
+</td>
+<td class="px-6 py-4 text-body-sm font-body-sm text-on-surface">Oct 22, 2023</td>
+<td class="px-6 py-4">
+<span class="px-2 py-1 bg-slate-100 text-slate-600 rounded-full text-[10px] font-bold uppercase tracking-wider border border-slate-200">Draft</span>
+</td>
+<td class="px-6 py-4 text-right">
+<div class="flex justify-end gap-2">
+<button class="p-1.5 hover:bg-primary-fixed text-primary rounded-lg transition-colors">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="p-1.5 hover:bg-error-container text-error rounded-lg transition-colors">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="px-6 py-4 text-body-sm font-body-sm text-on-surface-variant">#10292</td>
+<td class="px-6 py-4">
+<div class="flex flex-col">
+<span class="font-h3 text-body-md font-semibold text-on-surface">Navigating the Global Remote Work Revolution</span>
+<span class="text-xs text-on-secondary-container">Culture</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<img alt="Author" class="w-6 h-6 rounded-full" data-alt="portrait of a professional creative in a modern cafe setting, warm lighting, soft background focus" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDXmIZeKwd-FNbHFGCUbI31_6eNmtJUWmPdkEdH08R2rByBEr-AB9j_b1Sv81hJtxDy73QY4qwFM1bgvgUtYDmgSTC2Zk-NbufQ1DoctwgISo27vXTVEK_zGa1AAZZrNiVXVxsbr4eGKj0km3Aw0BCvEbdkMF07b4mkV8fYiapycDFGNEbOBsrz6VQXCVxyH57lq3kwegk66IsWjcYO_yZBEFbIZcxzg24Z_ikMWYjmhEY1DtC3-goAtmaVJNRt167nkar7LrRhi6DO"/>
+<span class="text-body-sm font-body-sm text-on-surface">Marcus Lee</span>
+</div>
+</td>
+<td class="px-6 py-4 text-body-sm font-body-sm text-on-surface">Oct 20, 2023</td>
+<td class="px-6 py-4">
+<span class="px-2 py-1 bg-green-100 text-green-700 rounded-full text-[10px] font-bold uppercase tracking-wider border border-green-200">Published</span>
+</td>
+<td class="px-6 py-4 text-right">
+<div class="flex justify-end gap-2">
+<button class="p-1.5 hover:bg-primary-fixed text-primary rounded-lg transition-colors">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="p-1.5 hover:bg-error-container text-error rounded-lg transition-colors">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="px-6 py-4 text-body-sm font-body-sm text-on-surface-variant">#10291</td>
+<td class="px-6 py-4">
+<div class="flex flex-col">
+<span class="font-h3 text-body-md font-semibold text-on-surface">10 Essential Tools for Digital Nomads</span>
+<span class="text-xs text-on-secondary-container">Lifestyle</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<img alt="Author" class="w-6 h-6 rounded-full" data-alt="professional headshot of an editor, soft lighting, creative workspace environment" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBqPmmDSL5EhQnN5H2uz4XIfGq92LdPYN9v5wdQCrcHDip9Ce9sg-F0nK7Ea-Y9gVGqxYQ-TXowMij3nY8C1EmuK9enxFaZ5q6tBp4jpEWgH29y-Ee3pkzK7SJ5OS4YH3ZEwdqnCDRuJ-QFoZ_scbbFwGH19FZARbRnr6q49uKvxboRWQfb7a_XJLO6al4QRdZtNG-juAieXfjVuvwRaE6pEEFd6GYhBp04uR5wdEZDpFm_Y2dloJkEM4P4Dm9Ys_wD1Fyc6pUKzjmC"/>
+<span class="text-body-sm font-body-sm text-on-surface">John Doe</span>
+</div>
+</td>
+<td class="px-6 py-4 text-body-sm font-body-sm text-on-surface">Oct 18, 2023</td>
+<td class="px-6 py-4">
+<span class="px-2 py-1 bg-green-100 text-green-700 rounded-full text-[10px] font-bold uppercase tracking-wider border border-green-200">Published</span>
+</td>
+<td class="px-6 py-4 text-right">
+<div class="flex justify-end gap-2">
+<button class="p-1.5 hover:bg-primary-fixed text-primary rounded-lg transition-colors">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="p-1.5 hover:bg-error-container text-error rounded-lg transition-colors">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination -->
+<div class="p-md flex justify-between items-center bg-white">
+<span class="text-body-sm text-on-secondary-container">Showing 1 to 4 of 1,284 entries</span>
+<div class="flex items-center gap-1">
+<button class="p-2 border border-outline-variant rounded-lg hover:bg-surface-container text-on-surface disabled:opacity-50" disabled="">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button class="px-4 py-2 bg-primary text-white rounded-lg font-body-sm">1</button>
+<button class="px-4 py-2 border border-outline-variant hover:bg-surface-container rounded-lg font-body-sm">2</button>
+<button class="px-4 py-2 border border-outline-variant hover:bg-surface-container rounded-lg font-body-sm">3</button>
+<span class="px-2 text-on-secondary-container">...</span>
+<button class="px-4 py-2 border border-outline-variant hover:bg-surface-container rounded-lg font-body-sm">321</button>
+<button class="p-2 border border-outline-variant rounded-lg hover:bg-surface-container text-on-surface">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- FAB (Suppressed on this page per rule, as it's a management list, but included in layout if user had requested a specific action) -->
+</body></html>
