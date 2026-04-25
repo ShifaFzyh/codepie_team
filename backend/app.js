@@ -36,8 +36,16 @@ app.get('/admin', (req, res) => {
     res.sendFile(path.join(__dirname, '../frontend/views/dashboard_admin.html'));
 });
 
-app.get('/user', (req, res) => {
+app.get('/admin/users', (req, res) => {
+    res.sendFile(path.join(__dirname, '../frontend/views/admin_kelolaUser.html'));
+});
+
+app.get('/editor', (req, res) => {
     res.sendFile(path.join(__dirname, '../frontend/views/dashboard_user.html'));
+});
+
+app.get('/editor/create', (req, res) => {
+    res.sendFile(path.join(__dirname, '../frontend/views/user_editArtikel.html'));
 });
 
 // Proses login
