@@ -1,12 +1,6 @@
--- MySQL Workbench Forward Engineering
-
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
-
--- -----------------------------------------------------
--- Schema db_dashboard_artikel
--- -----------------------------------------------------
 
 -- -----------------------------------------------------
 -- Schema db_dashboard_artikel
@@ -22,10 +16,9 @@ CREATE TABLE IF NOT EXISTS `db_dashboard_artikel`.`categories` (
   `category_name` VARCHAR(50) NOT NULL,
   `slug` VARCHAR(100) NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE INDEX `slug` (`slug` ASC) VISIBLE)
+  UNIQUE INDEX `slug` (`slug` ASC))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4;
-
 
 -- -----------------------------------------------------
 -- Table `db_dashboard_artikel`.`users`
@@ -40,44 +33,43 @@ CREATE TABLE IF NOT EXISTS `db_dashboard_artikel`.`users` (
   `status` ENUM('active', 'inactive') NULL DEFAULT 'active',
   `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(),
   PRIMARY KEY (`id`),
-  UNIQUE INDEX `username` (`username` ASC) VISIBLE,
-  UNIQUE INDEX `email` (`email` ASC) VISIBLE)
+  UNIQUE INDEX `username` (`username` ASC),
+  UNIQUE INDEX `email` (`email` ASC))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4;
-
 
 -- -----------------------------------------------------
 -- Table `db_dashboard_artikel`.`posts`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `db_dashboard_artikel`.`posts` (
+DROP TABLE IF EXISTS `db_dashboard_artikel`.`posts`;
+
+CREATE TABLE `db_dashboard_artikel`.`posts` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `title` VARCHAR(255) NOT NULL,
   `slug` VARCHAR(255) NOT NULL,
   `content` TEXT NOT NULL,
-  `thumbnail` VARCHAR(255) NULL DEFAULT NULL,
+  `image` VARCHAR(255) DEFAULT NULL,
+  `author_id` INT(11) NOT NULL,
+  `category_id` INT(11) DEFAULT NULL,
   `status` ENUM('draft', 'published') NULL DEFAULT 'draft',
   `views` INT(11) NULL DEFAULT 0,
-  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(),
-  `update_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP() ON UPDATE CURRENT_TIMESTAMP(),
-  `users_id` INT(11) NOT NULL,
-  `categories_id` INT(11) NOT NULL,
-  PRIMARY KEY (`id`, `users_id`, `categories_id`),
-  UNIQUE INDEX `slug` (`slug` ASC) VISIBLE,
-  INDEX `fk_posts_users_idx` (`users_id` ASC) VISIBLE,
-  INDEX `fk_posts_categories1_idx` (`categories_id` ASC) VISIBLE,
-  CONSTRAINT `fk_posts_users`
-    FOREIGN KEY (`users_id`)
+  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `slug_UNIQUE` (`slug` ASC),
+  INDEX `fk_posts_author_idx` (`author_id` ASC),
+  INDEX `fk_posts_category_idx` (`category_id` ASC),
+  CONSTRAINT `fk_posts_author`
+    FOREIGN KEY (`author_id`)
     REFERENCES `db_dashboard_artikel`.`users` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_posts_categories1`
-    FOREIGN KEY (`categories_id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_posts_category`
+    FOREIGN KEY (`category_id`)
     REFERENCES `db_dashboard_artikel`.`categories` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4;
-
+    ON DELETE SET NULL
+    ON UPDATE CASCADE
+) ENGINE = InnoDB DEFAULT CHARACTER SET = utf8mb4;
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;

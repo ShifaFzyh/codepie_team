@@ -1,11 +1,13 @@
 const express = require('express');
 const path = require('path');
+const cors = require('cors');
 const app = express();
 
 // Pastikan path ini benar. Jika app.js di folder backend, maka panggil ./
 const router = require('./routes/api'); 
 const db = require('./config/database');
 
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -32,19 +34,40 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '../frontend/views/login.html'));
 });
 
+// Route dashboard admin
 app.get('/admin', (req, res) => {
     res.sendFile(path.join(__dirname, '../frontend/views/dashboard_admin.html'));
+});
+
+// Route admin articles management
+app.get('/admin/articles/create', (req, res) => {
+    res.sendFile(path.join(__dirname, '../frontend/views/admin_createArtikel.html'));
+});
+
+app.get('/admin/articles/:id/edit', (req, res) => {
+    res.sendFile(path.join(__dirname, '../frontend/views/admin_editArtikel.html'));
 });
 
 app.get('/admin/users', (req, res) => {
     res.sendFile(path.join(__dirname, '../frontend/views/admin_kelolaUser.html'));
 });
 
+// Route form tambah user
+app.get('/admin/users/create', (req, res) => {
+    res.sendFile(path.join(__dirname, '../frontend/views/kelolaUser.html'));
+});
+
+// Route dashboard editor
 app.get('/editor', (req, res) => {
     res.sendFile(path.join(__dirname, '../frontend/views/dashboard_user.html'));
 });
 
 app.get('/editor/create', (req, res) => {
+    res.sendFile(path.join(__dirname, '../frontend/views/user_editArtikel.html'));
+});
+
+// Route untuk edit artikel user
+app.get('/editor/edit', (req, res) => {
     res.sendFile(path.join(__dirname, '../frontend/views/user_editArtikel.html'));
 });
 
@@ -72,17 +95,6 @@ app.post('/login', (req, res) => {
         res.redirect('/editor');
     }
 
-});
-
-
-// Route dashboard admin
-app.get('/admin', (req, res) => {
-    res.sendFile(path.join(__dirname, '../frontend/views/dashboard_admin.html'));
-});
-
-// Route dashboard user
-app.get('/editor', (req, res) => {
-    res.sendFile(path.join(__dirname, '../frontend/views/dashboard_user.html'));
 });
 
 // Server listening
