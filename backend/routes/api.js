@@ -1,25 +1,35 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const UsersController = require('../controllers/UsersController');
-const PostsController = require('../controllers/PostsController');
 
-// API Routes dengan prefix /api
-const apiRoutes = express.Router();
+// Import Controller
+const UsersController = require("../controllers/UsersController");
+const PostsController = require("../controllers/PostsController");
+const CategoriesController = require("../controllers/CategoriesController");
+
+// Base Route
+router.get("/", (req, res) => {
+    res.json({ message: "Selamat datang di API Dashboard Artikel!" });
+});
 
 // Routes untuk Users
-apiRoutes.get('/users', UsersController.index);
-apiRoutes.get('/users/:id', UsersController.show);
-apiRoutes.post('/users', UsersController.store);
-apiRoutes.put('/users/:id', UsersController.update);
-apiRoutes.delete('/users/:id', UsersController.destroy);
+router.get("/users", UsersController.index);
+router.get('/users/:id', UsersController.show);
+router.post('/users', UsersController.store);
+router.put('/users/:id', UsersController.update);
+router.delete('/users/:id', UsersController.destroy);
 
 // Routes untuk Posts
-apiRoutes.get('/posts', PostsController.index);
-apiRoutes.get('/posts/:id', PostsController.show);
-apiRoutes.post('/posts', PostsController.store);
-apiRoutes.put('/posts/:id', PostsController.update);
-apiRoutes.delete('/posts/:id', PostsController.destroy);
+router.get("/posts", PostsController.index);
+router.get('/posts/:id', PostsController.show);
+router.post('/posts', PostsController.store);
+router.put('/posts/:id', PostsController.update);
+router.delete('/posts/:id', PostsController.destroy);
 
-router.use('/api', apiRoutes);
+// Routes untuk Categories
+router.get("/categories", CategoriesController.index);
+router.get('/categories/:id', CategoriesController.show);
+router.post('/categories', CategoriesController.store);
+router.put('/categories/:id', CategoriesController.update);
+router.delete('/categories/:id', CategoriesController.destroy);
 
 module.exports = router;
