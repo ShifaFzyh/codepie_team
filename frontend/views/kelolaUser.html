@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Add New User - Admin Panel</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary-fixed-variant": "#003ea8",
+                    "surface": "#faf8ff",
+                    "on-secondary": "#ffffff",
+                    "error": "#ba1a1a",
+                    "surface-variant": "#e1e2ed",
+                    "on-primary-container": "#eeefff",
+                    "on-secondary-fixed-variant": "#444749",
+                    "on-surface": "#191b23",
+                    "primary": "#004ac6",
+                    "on-error": "#ffffff",
+                    "on-tertiary-fixed-variant": "#7d2d00",
+                    "background": "#faf8ff",
+                    "primary-fixed": "#dbe1ff",
+                    "on-surface-variant": "#434655",
+                    "on-background": "#191b23",
+                    "inverse-surface": "#2e3039",
+                    "secondary": "#5c5f61",
+                    "inverse-on-surface": "#f0f0fb",
+                    "surface-container-high": "#e7e7f3",
+                    "on-secondary-fixed": "#191c1e",
+                    "surface-bright": "#faf8ff",
+                    "tertiary": "#943700",
+                    "on-error-container": "#93000a",
+                    "surface-container": "#ededf9",
+                    "secondary-fixed-dim": "#c4c7c9",
+                    "primary-container": "#2563eb",
+                    "tertiary-fixed": "#ffdbcd",
+                    "tertiary-container": "#bc4800",
+                    "surface-container-lowest": "#ffffff",
+                    "inverse-primary": "#b4c5ff",
+                    "secondary-container": "#e0e3e5",
+                    "on-secondary-container": "#626567",
+                    "on-primary-fixed": "#00174b",
+                    "error-container": "#ffdad6",
+                    "surface-container-low": "#f3f3fe",
+                    "secondary-fixed": "#e0e3e5",
+                    "surface-tint": "#0053db",
+                    "on-tertiary": "#ffffff",
+                    "outline-variant": "#c3c6d7",
+                    "surface-container-highest": "#e1e2ed",
+                    "on-tertiary-fixed": "#360f00",
+                    "surface-dim": "#d9d9e5",
+                    "outline": "#737686",
+                    "on-tertiary-container": "#ffede6",
+                    "primary-fixed-dim": "#b4c5ff",
+                    "on-primary": "#ffffff",
+                    "tertiary-fixed-dim": "#ffb596"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "sm": "8px",
+                    "grid-gutter": "24px",
+                    "container-margin": "32px",
+                    "xs": "4px",
+                    "md": "16px",
+                    "lg": "24px",
+                    "xl": "32px",
+                    "base-unit": "4px"
+            },
+            "fontFamily": {
+                    "label-sm": ["Inter"],
+                    "body-sm": ["Inter"],
+                    "label-md": ["Inter"],
+                    "body-md": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "h2": ["Inter"],
+                    "h1": ["Inter"],
+                    "display": ["Inter"],
+                    "h3": ["Inter"]
+            },
+            "fontSize": {
+                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "letterSpacing": "0", "fontWeight": "400"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "letterSpacing": "0", "fontWeight": "400"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "letterSpacing": "0", "fontWeight": "400"}],
+                    "h2": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "h1": ["30px", {"lineHeight": "38px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "display": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "h3": ["20px", {"lineHeight": "28px", "letterSpacing": "0", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen flex">
+<!-- NavigationDrawer -->
+<aside class="hidden md:flex flex-col h-screen w-64 border-r fixed left-0 top-0 bg-slate-50 dark:bg-slate-950 border-slate-200 dark:border-slate-800 p-4 gap-2 z-40 transition-all duration-200 ease-in-out">
+<div class="mb-8 px-2">
+<span class="text-xs font-black tracking-widest text-slate-400 uppercase">ADMIN PANEL</span>
+</div>
+<nav class="flex flex-col gap-1">
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg font-inter text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/50 transition-all duration-200 ease-in-out cursor-pointer active:opacity-80" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span>Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg font-inter text-sm font-semibold bg-white dark:bg-slate-900 text-blue-600 dark:text-blue-400 border-r-4 border-blue-600 shadow-sm transition-all duration-200 ease-in-out cursor-pointer active:opacity-80" href="#">
+<span class="material-symbols-outlined" data-icon="group" style="font-variation-settings: 'FILL' 1;">group</span>
+<span>Users</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg font-inter text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/50 transition-all duration-200 ease-in-out cursor-pointer active:opacity-80" href="#">
+<span class="material-symbols-outlined" data-icon="security">security</span>
+<span>Roles</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg font-inter text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/50 transition-all duration-200 ease-in-out cursor-pointer active:opacity-80" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span>Settings</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg font-inter text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/50 transition-all duration-200 ease-in-out cursor-pointer active:opacity-80" href="#">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+<span>Audit Logs</span>
+</a>
+</nav>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 md:ml-64 flex flex-col min-h-screen">
+<!-- TopAppBar -->
+<header class="sticky top-0 z-50 flex items-center justify-between px-6 py-3 w-full bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 shadow-sm dark:shadow-none">
+<div class="flex items-center gap-4">
+<button class="md:hidden p-2 text-slate-600 hover:bg-slate-100 rounded-lg">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+<h1 class="font-inter text-lg font-bold text-slate-900 dark:text-white">User Management</h1>
+</div>
+<div class="flex items-center gap-3 cursor-pointer active:opacity-80">
+<span class="font-inter text-sm font-semibold tracking-tight text-slate-600 dark:text-slate-400">Admin Profile</span>
+<div class="h-8 w-8 rounded-full bg-primary-fixed flex items-center justify-center text-on-primary-fixed-variant text-xs font-bold overflow-hidden border border-outline-variant">
+<img alt="Admin Profile" data-alt="Close-up profile portrait of a professional administrator with a clean neutral background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBBRNF_HBu7a_AaW9DpOHjMW5XqvRiIWr5PwNmYgO8qR9d6rUjBnz0dy1aXKZK04GoNdBTf0U8ol_-B-DD106vhp_Whvs7HwfCWCKRyoafMrEOO4JpUVrWtGQGE5bbfE-4HFOSE_ghh9oZBPCMEhCwyRhIC-WokERYfujGjbblqQ-nkXnfVwrVTstCkJuoTL5YuPChjt3IXuTLXYw_EsH2MJTA4WBLLf9X2ZiK3BOwbc0e-OTNacSklNUlQs1lQbj5HET6xZBvU1Gp8"/>
+</div>
+</div>
+</header>
+<!-- Canvas -->
+<div class="p-container-margin max-w-5xl w-full mx-auto">
+<div class="mb-xl flex flex-col gap-xs">
+<h2 class="font-h1 text-h1 text-on-surface">Add New User</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Configure details and access level for a new team member.</p>
+</div>
+<form class="flex flex-col gap-lg" id="userForm">
+<!-- Grid Layout for sections -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-lg items-start">
+<!-- Basic Information Section -->
+<div class="lg:col-span-8 flex flex-col gap-lg">
+<section class="bg-surface-container-lowest border border-outline-variant rounded-xl shadow-sm overflow-hidden">
+<div class="px-lg py-md border-b border-outline-variant bg-surface-container-low/30">
+<h3 class="font-h3 text-h3 text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="person">person</span>
+                                    Basic Information
+                                </h3>
+</div>
+<div class="p-lg grid grid-cols-1 md:grid-cols-2 gap-md">
+<div class="flex flex-col gap-xs">
+<label class="font-label-md text-label-md text-on-surface-variant">Full Name</label>
+<input class="w-full h-11 px-md rounded border border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary transition-all text-body-sm" id="fullName" placeholder="e.g. John Doe" type="text"/>
+</div>
+<div class="flex flex-col gap-xs">
+<label class="font-label-md text-label-md text-on-surface-variant">Email Address</label>
+<input class="w-full h-11 px-md rounded border border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary transition-all text-body-sm" id="email" placeholder="john.doe@company.com" type="email"/>
+</div>
+<div class="flex flex-col gap-xs md:col-span-2">
+<label class="font-label-md text-label-md text-on-surface-variant">Password</label>
+<div class="relative">
+<input class="w-full h-11 px-md rounded border border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary transition-all text-body-sm" id="password" placeholder="••••••••" type="password"/>
+<button class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400" type="button">
+<span class="material-symbols-outlined text-md" data-icon="visibility">visibility</span>
+</button>
+</div>
+<p class="text-[11px] text-on-surface-variant/70 mt-1">Minimum 8 characters with at least one number and special character.</p>
+</div>
+</div>
+</section>
+<!-- Permissions Section -->
+<section class="bg-surface-container-lowest border border-outline-variant rounded-xl shadow-sm overflow-hidden">
+<div class="px-lg py-md border-b border-outline-variant bg-surface-container-low/30">
+<h3 class="font-h3 text-h3 text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="lock_person">lock_person</span>
+                                    Permissions
+                                </h3>
+</div>
+<div class="p-lg flex flex-col gap-md">
+<div class="flex items-center justify-between py-xs">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface">Active Status</span>
+<span class="text-xs text-on-surface-variant">Allow user to log in and access the platform immediately</span>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" id="activeStatus" type="checkbox"/>
+<div class="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+<div class="h-px bg-outline-variant/30"></div>
+<div class="flex items-center justify-between py-xs">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface">System Notifications</span>
+<span class="text-xs text-on-surface-variant">Enable automated email alerts for system changes</span>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input class="sr-only peer" id="systemNotifications" type="checkbox"/>
+<div class="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+</div>
+</section>
+</div>
+<!-- Sidebar Configuration -->
+<div class="lg:col-span-4 flex flex-col gap-lg">
+<section class="bg-surface-container-lowest border border-outline-variant rounded-xl shadow-sm overflow-hidden">
+<div class="px-lg py-md border-b border-outline-variant bg-surface-container-low/30">
+<h3 class="font-h3 text-h3 text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="manage_accounts">manage_accounts</span>
+                                    User Role
+                                </h3>
+</div>
+<div class="p-lg flex flex-col gap-md">
+<div class="flex flex-col gap-xs">
+<label class="font-label-md text-label-md text-on-surface-variant">Assigned Role</label>
+<select class="w-full h-11 px-md rounded border border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary transition-all text-body-sm appearance-none bg-no-repeat bg-right" id="userRole" style="background-image: url('data:image/svg+xml;charset=utf-8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 fill=%22none%22 viewBox=%220 0 20 20%22%3E%3Cpath stroke=%22%236b7280%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22 stroke-width=%221.5%22 d=%22m6 8 4 4 4-4%22/%3E%3C/svg%3E'); background-position: right 0.5rem center; background-size: 1.5em 1.5em;">
+<option value="viewer">Viewer</option>
+<option value="editor">Editor</option>
+<option value="admin">Admin</option>
+</select>
+</div>
+<div class="bg-surface-container p-md rounded flex flex-col gap-sm">
+<div class="flex items-center gap-2 text-primary">
+<span class="material-symbols-outlined text-[18px]" data-icon="info">info</span>
+<span class="font-label-sm text-label-sm uppercase tracking-wider">Role Preview</span>
+</div>
+<p class="text-xs text-on-surface-variant">Viewers have read-only access to dashboards and reports. They cannot modify settings or users.</p>
+</div>
+</div>
+</section>
+<!-- Decorative/Informational Card -->
+</div>
+</div>
+</div>
+<!-- Form Actions -->
+<div class="flex items-center justify-end gap-md py-lg border-t border-outline-variant mt-lg">
+<button class="px-xl h-11 rounded border border-outline-variant font-label-md text-label-md text-on-surface-variant hover:bg-slate-100 transition-colors cursor-pointer active:opacity-80" id="cancelBtn" type="button">
+                        Cancel
+                    </button>
+<button class="px-xl h-11 rounded bg-primary font-label-md text-label-md text-on-primary hover:brightness-110 shadow-md transition-all cursor-pointer active:opacity-80" id="submitBtn" type="submit">
+                        Create User
+                    </button>
+</div>
+</form>
+</div>
+<!-- Footer -->
+<footer class="mt-auto py-md px-container-margin border-t border-slate-200 dark:border-slate-800 text-center">
+<p class="text-xs text-slate-500 font-label-sm">© 2026 Codepie. All rights reserved.</p>
+</footer>
+</main>
+
+<script>
+  const API_BASE = 'http://localhost:3000/api';
+
+  const userForm = document.getElementById('userForm');
+  const fullNameInput = document.getElementById('fullName');
+  const emailInput = document.getElementById('email');
+  const passwordInput = document.getElementById('password');
+  const activeStatusCheck = document.getElementById('activeStatus');
+  const systemNotificationsCheck = document.getElementById('systemNotifications');
+  const userRoleSelect = document.getElementById('userRole');
+  const cancelBtn = document.getElementById('cancelBtn');
+
+  // Handle form submission
+  userForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    // Validation
+    if (!fullNameInput.value.trim()) {
+      alert('Full Name is required');
+      return;
+    }
+    if (!emailInput.value.trim()) {
+      alert('Email is required');
+      return;
+    }
+    if (!passwordInput.value.trim()) {
+      alert('Password is required');
+      return;
+    }
+    if (passwordInput.value.length < 8) {
+      alert('Password must be at least 8 characters');
+      return;
+    }
+
+    // Prepare data
+    const userData = {
+      nama: fullNameInput.value.trim(),
+      email: emailInput.value.trim(),
+      password: passwordInput.value,
+      role: userRoleSelect.value,
+      status: activeStatusCheck.checked ? 'active' : 'inactive',
+      notifications: systemNotificationsCheck.checked ? 1 : 0
+    };
+
+    try {
+      const response = await fetch(`${API_BASE}/users`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(userData)
+      });
+
+      const result = await response.json();
+
+      if (response.ok && result.id) {
+        alert('User created successfully!');
+        userForm.reset();
+      } else {
+        alert('Error: ' + (result.message || 'Failed to create user'));
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      alert('Error creating user: ' + error.message);
+    }
+  });
+
+  // Handle cancel button
+  cancelBtn.addEventListener('click', () => {
+    if (confirm('Are you sure you want to cancel? Any unsaved changes will be lost.')) {
+      userForm.reset();
+    }
+  });
+</script>
+</body></html>

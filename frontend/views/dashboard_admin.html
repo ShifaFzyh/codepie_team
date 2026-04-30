@@ -189,7 +189,7 @@
 </nav>
 <h2 class="font-h1 text-h1 text-on-surface tracking-tight">Articles</h2>
 </div>
-<button class="bg-primary hover:bg-primary-container text-white px-md py-sm rounded-lg flex items-center gap-2 transition-all shadow-md active:scale-95">
+<button onclick="addArticle()" class="bg-primary hover:bg-primary-container text-white px-md py-sm rounded-lg flex items-center gap-2 transition-all shadow-md active:scale-95">
 <span class="material-symbols-outlined" data-icon="add">add</span>
 <span class="font-sans font-semibold">Add New Article</span>
 </button>
@@ -271,7 +271,7 @@
 <th class="px-6 py-4 font-label-caps text-label-caps text-on-surface-variant text-right">Actions</th>
 </tr>
 </thead>
-<tbody class="divide-y divide-outline-variant">
+<tbody id="articleTableBody" class="divide-y divide-outline-variant">
 <tr class="hover:bg-surface-container-low transition-colors">
 <td class="px-6 py-4 text-body-sm font-body-sm text-on-surface-variant">#10294</td>
 <td class="px-6 py-4">
@@ -412,4 +412,48 @@
 </div>
 </main>
 <!-- FAB (Suppressed on this page per rule, as it's a management list, but included in layout if user had requested a specific action) -->
+<script>
+    const API_URL = 'http://localhost:3000/api/posts';
+
+    // Fungsi Add Article
+    function addArticle() {
+        window.location.href ="/admin/articles/create";
+    }
+
+    // Fungsi Load Data
+    async function loadArticles() {
+        const response = await fetch(API_URL);
+        const result = await response.json();
+        const tbody = document.getElementById('articleTableBody');
+        tbody.innerHTML = ''; 
+
+        result.data.forEach(post => {
+            tbody.innerHTML += `
+                <tr class="hover:bg-surface-container-low transition-colors">
+                    <td class="px-6 py-4 text-body-sm">#${post.id}</td>
+                    <td class="px-6 py-4 font-semibold text-on-surface">${post.title}</td>
+                    <td class="px-6 py-4 text-body-sm">${post.author_id}</td>
+                    <td class="px-6 py-4 text-body-sm">${new Date(post.created_at).toLocaleDateString()}</td>
+                    <td class="px-6 py-4"><span class="px-2 py-1 bg-green-100 text-green-700 rounded-full text-[10px]">Published</span></td>
+                    <td class="px-6 py-4 text-right">
+                        <div class="flex justify-end gap-2">
+                            <button onclick="deleteArticle(${post.id})" class="p-1.5 hover:bg-error-container text-error rounded-lg">
+                                <span class="material-symbols-outlined text-[18px]">delete</span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>`;
+        });
+    }
+
+    // Fungsi Delete
+    async function deleteArticle(id) {
+        if(confirm('Yakin hapus artikel ini?')) {
+            await fetch(`${API_URL}/${id}`, { method: 'DELETE' });
+            loadArticles(); // Refresh data
+        }
+    }
+
+    loadArticles(); // Panggil saat halaman dimuat
+</script>
 </body></html>

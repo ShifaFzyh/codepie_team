@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Create New Article - Admin Panel</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-tertiary-fixed-variant": "#7d2d00",
+                    "surface-variant": "#e1e2ed",
+                    "on-error-container": "#93000a",
+                    "outline-variant": "#c3c6d7",
+                    "primary-fixed-dim": "#b4c5ff",
+                    "inverse-on-surface": "#f0f0fb",
+                    "surface-dim": "#d9d9e5",
+                    "on-background": "#191b23",
+                    "outline": "#737686",
+                    "on-surface-variant": "#434655",
+                    "on-tertiary": "#ffffff",
+                    "on-error": "#ffffff",
+                    "tertiary-fixed": "#ffdbcd",
+                    "on-primary-fixed": "#00174b",
+                    "on-primary": "#ffffff",
+                    "background": "#faf8ff",
+                    "on-secondary-fixed-variant": "#444749",
+                    "surface-bright": "#faf8ff",
+                    "primary-fixed": "#dbe1ff",
+                    "surface": "#faf8ff",
+                    "on-secondary-fixed": "#191c1e",
+                    "on-primary-fixed-variant": "#003ea8",
+                    "tertiary-fixed-dim": "#ffb596",
+                    "primary-container": "#2563eb",
+                    "surface-container-low": "#f3f3fe",
+                    "tertiary-container": "#bc4800",
+                    "surface-container": "#ededf9",
+                    "on-tertiary-container": "#ffede6",
+                    "secondary-fixed-dim": "#c4c7c9",
+                    "secondary-fixed": "#e0e3e5",
+                    "secondary-container": "#e0e3e5",
+                    "surface-tint": "#0053db",
+                    "error": "#ba1a1a",
+                    "on-tertiary-fixed": "#360f00",
+                    "surface-container-high": "#e7e7f3",
+                    "on-secondary-container": "#626567",
+                    "inverse-primary": "#b4c5ff",
+                    "primary": "#004ac6",
+                    "tertiary": "#943700",
+                    "surface-container-highest": "#e1e2ed",
+                    "surface-container-lowest": "#ffffff",
+                    "inverse-surface": "#2e3039",
+                    "on-surface": "#191b23",
+                    "on-secondary": "#ffffff",
+                    "on-primary-container": "#eeefff",
+                    "secondary": "#5c5f61",
+                    "error-container": "#ffdad6"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "xs": "4px",
+                    "lg": "24px",
+                    "base-unit": "4px",
+                    "container-margin": "32px",
+                    "xl": "32px",
+                    "sm": "8px",
+                    "md": "16px",
+                    "grid-gutter": "24px"
+            },
+            "fontFamily": {
+                    "display": ["Inter"],
+                    "h3": ["Inter"],
+                    "h2": ["Inter"],
+                    "h1": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "label-md": ["Inter"],
+                    "body-sm": ["Inter"],
+                    "body-md": ["Inter"],
+                    "label-sm": ["Inter"]
+            },
+            "fontSize": {
+                    "display": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "h3": ["20px", {"lineHeight": "28px", "letterSpacing": "0", "fontWeight": "600"}],
+                    "h2": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "h1": ["30px", {"lineHeight": "38px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "letterSpacing": "0", "fontWeight": "400"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "letterSpacing": "0", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "letterSpacing": "0", "fontWeight": "400"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .editor-placeholder::after {
+            content: "Start typing your story here...";
+            color: #94a3b8;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface font-body-md text-on-surface">
+<!-- TopAppBar -->
+<header class="flex justify-between items-center w-full px-6 h-16 z-40 sticky top-0 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 shadow-sm dark:shadow-none">
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800 p-2 rounded transition-all">menu</button>
+<h1 class="font-['Inter'] text-slate-900 dark:text-slate-100 text-xl font-bold">Admin Dashboard</h1>
+</div>
+<div class="flex items-center gap-3">
+<span class="text-label-md text-slate-600 hidden md:block">Admin</span>
+<div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container font-bold text-xs">AU</div>
+</div>
+</header>
+<div class="flex min-h-screen">
+<!-- NavigationDrawer -->
+<aside class="fixed left-0 top-0 h-full flex flex-col pt-16 z-30 w-64 h-screen border-r border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 hidden md:flex">
+<div class="px-6 py-8 flex flex-col items-start">
+<span class="text-lg font-black text-blue-600 dark:text-blue-400">Admin</span>
+<span class="text-xs text-slate-400 font-medium uppercase tracking-wider mt-1"></span>
+</div>
+<nav class="flex-1 px-2 space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors font-['Inter'] text-sm font-medium" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+                    Dashboard
+                </a>
+<a class="flex items-center gap-3 px-4 py-3 bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 border-r-4 border-blue-600 font-['Inter'] text-sm font-medium" href="#">
+<span class="material-symbols-outlined">description</span>
+                    Articles
+                </a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors font-['Inter'] text-sm font-medium" href="#">
+<span class="material-symbols-outlined">group</span>
+                    Users
+                </a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors font-['Inter'] text-sm font-medium" href="#">
+<span class="material-symbols-outlined">settings</span>
+                    Settings
+                </a>
+</nav>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 md:ml-64 p-6 lg:p-10">
+<div class="max-w-6xl mx-auto">
+<!-- Page Header -->
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+<div>
+<h2 class="font-h1 text-h1 text-on-surface">Create New Article</h2>
+<p class="text-body-sm text-secondary mt-1">Craft a compelling story for your audience.</p>
+</div>
+<div class="flex items-center gap-3">
+<button class="px-5 py-2.5 rounded-lg border border-outline-variant bg-white text-secondary font-label-md hover:bg-surface-container transition-all" id="saveDraftBtn" type="button">Save Draft</button>
+<button class="px-5 py-2.5 rounded-lg bg-primary text-on-primary font-label-md shadow-md hover:shadow-lg transition-all" id="publishBtn" type="button">Publish</button>
+</div>
+</div>
+<!-- Content Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-lg">
+<!-- Left Column: Editor & Main Info -->
+<div class="lg:col-span-2 space-y-lg">
+<!-- Primary Details Card -->
+<div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant shadow-sm">
+<div class="space-y-6">
+<div class="space-y-2">
+<label class="font-label-md text-on-surface">Article Title</label>
+<input class="w-full px-4 py-3 bg-white border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all text-body-md" id="articleTitle" placeholder="Enter a descriptive title..." type="text"/>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div class="space-y-2">
+<label class="font-label-md text-on-surface">Category</label>
+<select class="w-full px-4 py-3 bg-white border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all text-body-md appearance-none" id="category">
+<option value="">All Categories</option>
+<option>Programming</option>
+<option>Cyber Security</option>
+<option>Web Development</option>
+<option>Tips & Trik</option>
+<option>Kesehatan</option>
+</select>
+</div>
+<div class="space-y-2">
+<label class="font-label-md text-on-surface">Tags</label>
+<input class="w-full px-4 py-3 bg-white border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all text-body-md" id="tags" placeholder="e.g. AI, Future, UI/UX" type="text"/>
+</div>
+</div>
+</div>
+</div>
+<!-- Rich Text Editor Placeholder -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant shadow-sm flex flex-col">
+<div class="p-3 border-b border-outline-variant flex flex-wrap gap-2 items-center bg-surface-container-low rounded-t-xl">
+<button class="p-2 hover:bg-surface-container-highest rounded text-secondary material-symbols-outlined text-sm">format_bold</button>
+<button class="p-2 hover:bg-surface-container-highest rounded text-secondary material-symbols-outlined text-sm">format_italic</button>
+<button class="p-2 hover:bg-surface-container-highest rounded text-secondary material-symbols-outlined text-sm">format_underlined</button>
+<div class="w-px h-6 bg-outline-variant mx-1"></div>
+<button class="p-2 hover:bg-surface-container-highest rounded text-secondary material-symbols-outlined text-sm">format_list_bulleted</button>
+<button class="p-2 hover:bg-surface-container-highest rounded text-secondary material-symbols-outlined text-sm">format_list_numbered</button>
+<div class="w-px h-6 bg-outline-variant mx-1"></div>
+<button class="p-2 hover:bg-surface-container-highest rounded text-secondary material-symbols-outlined text-sm">link</button>
+<button class="p-2 hover:bg-surface-container-highest rounded text-secondary material-symbols-outlined text-sm">image</button>
+<button class="p-2 hover:bg-surface-container-highest rounded text-secondary material-symbols-outlined text-sm">code</button>
+</div>
+<div class="p-6 min-h-[400px] bg-white rounded-b-xl focus:outline-none editor-placeholder font-body-md leading-relaxed text-on-surface" id="articleContent" contenteditable="true"></div>
+</div>
+</div>
+<!-- Right Column: Featured Image & Settings -->
+<div class="space-y-lg">
+<!-- Featured Image Card -->
+<div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant shadow-sm">
+<h3 class="font-h3 text-h3 mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">image</span>
+                                Featured Image
+                            </h3>
+<div class="relative aspect-video rounded-lg border-2 border-dashed border-outline-variant hover:border-primary transition-colors bg-surface flex flex-col items-center justify-center cursor-pointer overflow-hidden group">
+<img class="absolute inset-0 w-full h-full object-cover opacity-20 group-hover:opacity-30 transition-opacity" data-alt="Modern desk workspace with a laptop and a notebook, clean professional photography with soft natural morning light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDQNp1UKZf-IGHVxd0KWlsluLfpfRXJ_Qq4sgkKZMGs1Gja0B6Inz9rr4wy-dVXd2YpTcdIf_Al0CALip17hZNka6TKrW2U-bKVqsb2oXjLw8rgFjy362aFNNx6ZVWoFSeZOBqlfnsCmedt0PYhQJ3rKHahohC7jOKvlVUSTbjNeFVqbnaommbglaViutkzsEH5b74Mu0innLtzayewP8e1-OucIvsjNyxOXPgVRHdAOzeKwgzq8Bvsbym4Ge3ygGRt_nlIKsnPS2pc"/>
+<div class="relative z-10 flex flex-col items-center">
+<span class="material-symbols-outlined text-4xl text-outline mb-2">cloud_upload</span>
+<span class="font-label-md text-secondary">Click to upload or drag &amp; drop</span>
+<span class="text-xs text-outline mt-1">SVG, PNG, JPG or GIF (max. 5MB)</span>
+</div>
+</div>
+</div>
+<!-- Publishing Settings Card -->
+<div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant shadow-sm">
+<h3 class="font-h3 text-h3 mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">send</span>
+                                Publishing
+                            </h3>
+<div class="space-y-6">
+<div class="flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-label-md text-on-surface">Status</span>
+<span class="text-xs text-secondary">Current: Draft</span>
+</div>
+<div class="flex bg-surface-container p-1 rounded-lg">
+<button class="px-3 py-1 text-xs font-semibold rounded bg-white shadow-sm text-primary">Draft</button>
+<button class="px-3 py-1 text-xs font-semibold text-secondary hover:text-on-surface">Public</button>
+</div>
+</div>
+<div class="space-y-2">
+<label class="font-label-md text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">visibility</span>
+                                        Visibility
+                                    </label>
+<select class="w-full px-3 py-2 bg-white border border-outline-variant rounded-lg text-body-sm" id="visibility">
+<option value="public">Everyone</option>
+<option>Members Only</option>
+<option>Password Protected</option>
+<option>Private</option>
+</select>
+</div>
+<div class="space-y-2">
+<label class="font-label-md text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">calendar_today</span>
+                                        Schedule
+                                    </label>
+<div class="relative">
+<input class="w-full px-3 py-2 bg-white border border-outline-variant rounded-lg text-body-sm appearance-none" id="schedule" type="datetime-local"/>
+</div>
+<p class="text-[10px] text-secondary">Leave blank to publish immediately.</p>
+</div>
+<div class="pt-4 border-t border-outline-variant space-y-3">
+<div class="flex items-center gap-3">
+<input class="rounded text-primary focus:ring-primary border-outline-variant" id="allowComments" type="checkbox"/>
+<span class="text-body-sm text-secondary">Allow comments</span>
+</div>
+<div class="flex items-center gap-3">
+<input class="rounded text-primary focus:ring-primary border-outline-variant" id="pinToFeatured" type="checkbox"/>
+<span class="text-body-sm text-secondary">Pin to featured</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Secondary Actions -->
+<div class="bg-error-container/20 p-4 rounded-xl border border-error/10">
+<button class="w-full flex items-center justify-center gap-2 py-2 text-error font-label-md hover:bg-error/5 rounded-lg transition-colors" id="discardBtn" type="button">
+<span class="material-symbols-outlined text-sm">delete</span>
+                                Discard Article
+                            </button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- Mobile Bottom Navigation (Hidden on MD+) -->
+<nav class="md:hidden fixed bottom-0 left-0 right-0 h-16 bg-white border-t border-slate-200 flex items-center justify-around z-50">
+<button class="flex flex-col items-center text-blue-600">
+<span class="material-symbols-outlined">description</span>
+<span class="text-[10px] font-bold">Edit</span>
+</button>
+<button class="flex flex-col items-center text-slate-400">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-[10px]">Settings</span>
+</button>
+<div class="w-10 h-10 bg-primary rounded-full flex items-center justify-center text-white shadow-lg -mt-8 border-4 border-white">
+<span class="material-symbols-outlined">publish</span>
+</div>
+<button class="flex flex-col items-center text-slate-400">
+<span class="material-symbols-outlined">visibility</span>
+<span class="text-[10px]">Preview</span>
+</button>
+<button class="flex flex-col items-center text-slate-400">
+<span class="material-symbols-outlined">save</span>
+<span class="text-[10px]">Save</span>
+</button>
+</nav>
+
+<script>
+  const API_BASE = 'http://localhost:3000/api';
+
+  // Get form elements
+  const articleTitle = document.getElementById('articleTitle');
+  const category = document.getElementById('category');
+  const tags = document.getElementById('tags');
+  const articleContent = document.getElementById('articleContent');
+  const visibility = document.getElementById('visibility');
+  const schedule = document.getElementById('schedule');
+  const allowComments = document.getElementById('allowComments');
+  const pinToFeatured = document.getElementById('pinToFeatured');
+  
+  // Get buttons
+  const saveDraftBtn = document.getElementById('saveDraftBtn');
+  const publishBtn = document.getElementById('publishBtn');
+  const discardBtn = document.getElementById('discardBtn');
+
+  // Prepare article data
+  function getArticleData(status = 'draft') {
+    if (!articleTitle.value.trim()) {
+      alert('Title is required');
+      return null;
+    }
+    if (!articleContent.textContent.trim()) {
+      alert('Content is required');
+      return null;
+    }
+
+    return {
+      title: articleTitle.value.trim(),
+      slug: articleTitle.value.toLowerCase().replace(/\s+/g, '-'),
+      content: articleContent.innerHTML,
+      image: null,
+      category_id: category.value || 1,
+      author_id: 1,
+      status: status,
+      visibility: visibility.value,
+      schedule: schedule.value,
+      allow_comments: allowComments.checked ? 1 : 0,
+      pin_to_featured: pinToFeatured.checked ? 1 : 0
+    };
+  }
+
+  // Save Draft
+  saveDraftBtn.addEventListener('click', async () => {
+    const data = getArticleData('draft');
+    if (!data) return;
+
+    try {
+      const response = await fetch(`${API_BASE}/posts`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+
+      const result = await response.json();
+      if (result.success || result.id) {
+        alert('Article saved as draft successfully!');
+        // Clear form after save
+        articleTitle.value = '';
+        articleContent.innerHTML = '';
+        tags.value = '';
+      } else {
+        alert('Error: ' + (result.message || 'Failed to save draft'));
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      alert('Error saving draft: ' + error.message);
+    }
+  });
+
+  // Publish Article
+  publishBtn.addEventListener('click', async () => {
+    const data = getArticleData('publish');
+    if (!data) return;
+
+    if (!confirm('Are you sure you want to publish this article?')) return;
+
+    try {
+      const response = await fetch(`${API_BASE}/posts`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+
+      const result = await response.json();
+      if (result.success || result.id) {
+        alert('Article published successfully!');
+        // Redirect to articles list
+        window.location.href = '/admin';
+      } else {
+        alert('Error: ' + (result.message || 'Failed to publish article'));
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      alert('Error publishing article: ' + error.message);
+    }
+  });
+
+  // Discard Article
+  discardBtn.addEventListener('click', () => {
+    if (confirm('Are you sure you want to discard this article? This action cannot be undone.')) {
+      articleTitle.value = '';
+      articleContent.innerHTML = '';
+      tags.value = '';
+      category.value = '';
+      visibility.value = 'public';
+      schedule.value = '';
+      allowComments.checked = false;
+      pinToFeatured.checked = false;
+      alert('Article discarded');
+    }
+  });
+</script>
+</body></html>
