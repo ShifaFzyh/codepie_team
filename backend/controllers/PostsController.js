@@ -25,7 +25,7 @@ class PostsController {
     static show(req, res) {
         try {
             const error = validateId(req.params.id);
-            if (error) return errorHandler(res, error, 400, error);
+            if (error) return errorHandler(res, error, 400);
 
             Posts.getByID(req.params.id, (err, result) => {
                 if (err) return errorHandler(res, err);
@@ -50,7 +50,7 @@ class PostsController {
     static store(req, res) {
         try {
             const error = validatePost(req.body);
-            if (error) return errorHandler(res, error, 400, error);
+            if (error) return errorHandler(res, error, 400);
 
             Posts.create(req.body, (err, result) => {
                 if (err) return errorHandler(res, err);
@@ -71,10 +71,10 @@ class PostsController {
     static update(req, res) {
         try {
             const errorId = validateId(req.params.id);
-            if (errorId) return errorHandler(res, errorId, 400, errorId);
+            if (errorId) return errorHandler(res, errorId, 400);
 
             const error = validatePost(req.body);
-            if (error) return errorHandler(res, error, 400, error);
+            if (error) return errorHandler(res, error, 400);
 
             Posts.update(req.params.id, req.body, (err, result) => {
                 if (err) return errorHandler(res, err);
@@ -98,7 +98,7 @@ class PostsController {
     static destroy(req, res) {
         try {
             const error = validateId(req.params.id);
-            if (error) return errorHandler(res, error, 400, error);
+            if (error) return errorHandler(res, error, 400);
 
             Posts.delete(req.params.id, (err, result) => {
                 if (err) return errorHandler(res, err);
