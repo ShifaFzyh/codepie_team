@@ -32,6 +32,11 @@ class Users {
         const sql = "DELETE FROM users WHERE id = ?";
         db.query(sql, [id], callback);
     }
+
+    static findByEmail(email, callback) {
+        const query = "SELECT * FROM users WHERE email = ?";
+        db.query(query, [email], callback);
+    }
 }
 
 module.exports = Users;

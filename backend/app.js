@@ -10,11 +10,11 @@ const db = require('./config/database');
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use('/uploads', express.static('uploads'));
+
 
 // Melayani file statis dari folder frontend yang sejajar dengan backend
 app.use(express.static(path.join(__dirname, '../frontend/public')));
-// Masukkan router API
-app.use(router);
 
 
 // Test koneksi database
@@ -68,8 +68,10 @@ app.get('/editor/create', (req, res) => {
 
 // Route untuk edit artikel user
 app.get('/editor/edit', (req, res) => {
-    res.sendFile(path.join(__dirname, '../frontend/views/user_editArtikel.html'));
+    res.sendFile(path.join(__dirname, '../frontend/views/user_home.html'));
 });
+
+
 
 // Proses login
 app.post('/login', (req, res) => {
@@ -96,6 +98,10 @@ app.post('/login', (req, res) => {
     }
 
 });
+
+// Masukkan router API
+app.use('/api', router);
+
 
 // Server listening
 app.listen(3000, () => {

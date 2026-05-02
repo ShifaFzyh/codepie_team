@@ -1,8 +1,13 @@
 const Posts = require('../models/Posts');
 const errorHandler = require('../utils/errorHandler');
 const { validatePost, validateId } = require('../utils/postValidation');
+const upload = require('../utils/upload');
+const fs = require('fs');
+const path = require('path');
+
 
 class PostsController {
+
 
     // Ambil semua data
     static index(req, res) {
@@ -46,29 +51,47 @@ class PostsController {
         }
     }
 
-    // Tambah data
-    static store(req, res) {
+    // Tambah data + upload gambar
+static store(req, res) {
+    upload.single('image')(req, res, (uploadErr) => {
+        if (uploadErr) return errorHandler(res, uploadErr.message, 400);
+
         try {
             const error = validatePost(req.body);
             if (error) return errorHandler(res, error, 400);
 
-            Posts.create(req.body, (err, result) => {
+            // ✅ Generate slug otomatis dari title
+           const slug = req.body.title
+            .toLowerCase()
+            .replace(/[^a-z0-9]+/g, '-')
+            .replace(/(^-|-$)/g, '') + '-' + Date.now();
+
+            const data = {
+                ...req.body,
+                slug,
+                image: req.file ? req.file.filename : null
+            };
+
+            Posts.create(data, (err, result) => {
                 if (err) return errorHandler(res, err);
 
                 res.status(201).json({
                     success: true,
                     message: "Post berhasil dibuat",
-                    id: result.insertId
+                    id: result.insertId,
+                    image: data.image ? `/uploads/${data.image}` : null
                 });
             });
-
         } catch (err) {
             return errorHandler(res, err);
         }
-    }
+    });
+}
+// Update data + ganti gambar
+static update(req, res) {
+    upload.single('image')(req, res, (uploadErr) => {
+        if (uploadErr) return errorHandler(res, uploadErr.message, 400);
 
-    // Update data
-    static update(req, res) {
         try {
             const errorId = validateId(req.params.id);
             if (errorId) return errorHandler(res, errorId, 400);
@@ -76,23 +99,34 @@ class PostsController {
             const error = validatePost(req.body);
             if (error) return errorHandler(res, error, 400);
 
-            Posts.update(req.params.id, req.body, (err, result) => {
-                if (err) return errorHandler(res, err);
+            const data = { ...req.body };
 
-                if (result.affectedRows === 0) {
-                    return errorHandler(res, "Post tidak ditemukan", 404);
-                }
+            if (req.file) {
+                data.image = req.file.filename;
+
+                // Hapus gambar lama
+                Posts.getByID(req.params.id, (err, result) => {
+                    if (!err && result.length > 0 && result[0].image) {
+                        const oldImage = path.join(__dirname, '../uploads', result[0].image);
+                        if (fs.existsSync(oldImage)) fs.unlinkSync(oldImage);
+                    }
+                });
+            }
+
+            Posts.update(req.params.id, data, (err, result) => {
+                if (err) return errorHandler(res, err);
+                if (result.affectedRows === 0) return errorHandler(res, "Post tidak ditemukan", 404);
 
                 res.status(200).json({
                     success: true,
                     message: "Post berhasil diperbarui"
                 });
             });
-
         } catch (err) {
             return errorHandler(res, err);
         }
-    }
+    });
+}
 
     // Hapus data
     static destroy(req, res) {
@@ -117,6 +151,9 @@ class PostsController {
             return errorHandler(res, err);
         }
     }
+
+
 }
+
 
 module.exports = PostsController;
