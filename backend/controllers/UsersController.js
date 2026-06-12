@@ -48,7 +48,7 @@ class UsersController {
             const user = result[0];
 
             // Bandingkan password dengan hash
-            const isMatch = await bcrypt.compare(password, user.password);
+            const isMatch = password === user.password;
             if (!isMatch) {
                 return res.status(401).json({ message: "Email atau password salah" });
             }
