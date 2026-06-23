@@ -1,6 +1,6 @@
 /* 1. SEMUA @IMPORT WAJIB BERADA DI SINI (PALING ATAS) */
 @import "tailwindcss";
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap');
 
 /* 2. PLUGINS */
@@ -70,14 +70,25 @@
 
   /* --- CUSTOM FONT SIZE & FAMILY --- */
   --font-inter: "Inter", sans-serif;
-  
+
   --animate-hover-lift: transform 0.3s ease;
 }
 
 /* 4. STYLE KUSTOM LAINNYA (DI PALING BAWAH) */
 .material-symbols-outlined {
-    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
 }
+
+body {
+  font-family: 'Inter', sans-serif;
+  min-height: 100dvh;
+}
+
 .hero-gradient {
-    background: linear-gradient(180deg, rgba(25, 28, 30, 0) 0%, rgba(25, 28, 30, 0.8) 100%);
+  background: linear-gradient(180deg, rgba(25, 28, 30, 0) 0%, rgba(25, 28, 30, 0.8) 100%);
 }
+
+/* Custom scrollbar */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #4a5568; border-radius: 4px; }
