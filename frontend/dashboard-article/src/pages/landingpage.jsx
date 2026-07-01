@@ -337,7 +337,7 @@ const PublicLanding = () => {
           </div>
         </div>
         <div style={styles.footerBottom}>
-          <p>© 2025 Codepie. All rights reserved.</p>
+          <p>© 2026 Codepie. All rights reserved.</p>
           <p>Made with <span style={{ color: '#7C6FE4' }}>♥</span> in Fullstack</p>
         </div>
       </footer>

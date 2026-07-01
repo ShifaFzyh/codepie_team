@@ -87,7 +87,7 @@ const Footer = () => {
 
       {/* Bottom Bar */}
       <div className="w-full border-t border-white/10 px-margin-desktop py-lg max-w-[1280px] mx-auto flex flex-col md:flex-row justify-between items-center text-surface-dim text-caption gap-sm">
-        <p>© 2024 InkFlow Publishing. All rights reserved.</p>
+        <p>© 2026 Codepie. All rights reserved.</p>
         <p className="flex items-center gap-xs">
           Made with{" "}
           <span
@@ -96,7 +96,7 @@ const Footer = () => {
           >
             favorite
           </span>{" "}
-          in San Francisco
+          in Fullstack
         </p>
       </div>
     </footer>
