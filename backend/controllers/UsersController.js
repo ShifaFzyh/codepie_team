@@ -6,22 +6,18 @@ class UsersController {
 
     // ==================== AUTH ====================
 
-    // Register user baru
     async register(req, res) {
         const { username, name, email, password } = req.body;
 
         Users.findByEmail(email, async (err, result) => {
             if (err) return res.status(500).json({ message: "Server error" });
 
-            // Cek apakah email sudah terdaftar
             if (result.length > 0) {
                 return res.status(400).json({ message: "Email sudah terdaftar" });
             }
 
-            // Hash password sebelum disimpan
             const hashedPassword = await bcrypt.hash(password, 10);
-
-            const data = { username, name, email, password: hashedPassword, status: 'active' };
+            const data = { username, name, email, password: hashedPassword, role: 'editor', status: 'active' };
 
             Users.create(data, (err, result) => {
                 if (err) return res.status(500).json({ message: "Gagal mendaftar" });
@@ -33,27 +29,27 @@ class UsersController {
         });
     }
 
-    // Login user
     async login(req, res) {
-        const { email, password } = req.body;
+        const { identifier, password } = req.body;
 
-        Users.findByEmail(email, async (err, result) => {
+        if (!identifier || !password) {
+            return res.status(400).json({ message: "Username/email dan password wajib diisi" });
+        }
+
+        Users.findByUsernameOrEmail(identifier, async (err, result) => {
             if (err) return res.status(500).json({ message: "Server error" });
 
-            // Cek apakah user ditemukan
             if (result.length === 0) {
-                return res.status(401).json({ message: "Email atau password salah" });
+                return res.status(401).json({ message: "Username/email atau password salah" });
             }
 
             const user = result[0];
 
-            // Bandingkan password dengan hash
-            const isMatch = password === user.password;
+            const isMatch = await bcrypt.compare(password, user.password);
             if (!isMatch) {
-                return res.status(401).json({ message: "Email atau password salah" });
+                return res.status(401).json({ message: "Username/email atau password salah" });
             }
 
-            // Buat token JWT
             const token = generateToken({ id: user.id, email: user.email, role: user.role });
 
             res.status(200).json({
@@ -62,6 +58,7 @@ class UsersController {
                 user: {
                     id: user.id,
                     username: user.username,
+                    name: user.name,
                     email: user.email,
                     role: user.role
                 }
@@ -69,9 +66,37 @@ class UsersController {
         });
     }
 
+    // ✅ Update profil milik user yang login
+    async updateProfile(req, res) {
+        try {
+            const userId = req.user.id; // diambil dari token (authenticate middleware)
+            const { name, password } = req.body;
+
+            const data = {};
+            if (name) data.name = name;
+            if (password) {
+                data.password = await bcrypt.hash(password, 10);
+            }
+
+            if (Object.keys(data).length === 0) {
+                return res.status(400).json({ message: "Tidak ada data yang diperbarui" });
+            }
+
+            Users.updateProfile(userId, data, (err, result) => {
+                if (err) return res.status(500).json({ message: "Gagal memperbarui profil" });
+
+                res.status(200).json({
+                    message: "Profil berhasil diperbarui",
+                    user: { name: data.name }
+                });
+            });
+        } catch (err) {
+            res.status(500).json({ message: "Server error", error: err.message });
+        }
+    }
+
     // ==================== CRUD ====================
 
-    // Menampilkan semua users
     index(req, res) {
         Users.getAll((err, results) => {
             if (err) return res.status(500).json({ message: "Gagal mengambil data users" });
@@ -79,7 +104,6 @@ class UsersController {
         });
     }
 
-    // Menampilkan user berdasarkan ID
     show(req, res) {
         const { id } = req.params;
         Users.getByID(id, (err, result) => {
@@ -88,7 +112,6 @@ class UsersController {
         });
     }
 
-    // Menambah user baru
     store(req, res) {
         const data = req.body;
         Users.create(data, (err, result) => {
@@ -97,7 +120,6 @@ class UsersController {
         });
     }
 
-    // Memperbarui data user
     update(req, res) {
         const { id } = req.params;
         const data = req.body;
@@ -107,7 +129,6 @@ class UsersController {
         });
     }
 
-    // Menghapus user
     destroy(req, res) {
         const { id } = req.params;
         Users.delete(id, (err, result) => {

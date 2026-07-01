@@ -2,13 +2,12 @@ const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 
-// Buat folder uploads kalau belum ada
-const uploadDir = './uploads';
+// ✅ simpan ke uploads/thumbnails, samakan dengan data lama
+const uploadDir = './uploads/thumbnails';
 if (!fs.existsSync(uploadDir)) {
     fs.mkdirSync(uploadDir, { recursive: true });
 }
 
-// Konfigurasi storage
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, uploadDir);
@@ -19,7 +18,6 @@ const storage = multer.diskStorage({
     }
 });
 
-// Validasi file (hanya gambar)
 const fileFilter = (req, file, cb) => {
     const allowedTypes = /jpeg|jpg|png|gif|webp/;
     const extname = allowedTypes.test(path.extname(file.originalname).toLowerCase());
@@ -32,11 +30,10 @@ const fileFilter = (req, file, cb) => {
     }
 };
 
-// Export upload middleware
 const upload = multer({
     storage,
     fileFilter,
-    limits: { fileSize: 5 * 1024 * 1024 } // Maks 5MB
+    limits: { fileSize: 5 * 1024 * 1024 }
 });
 
 module.exports = upload;

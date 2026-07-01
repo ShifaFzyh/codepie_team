@@ -17,10 +17,10 @@ class CategoriesController {
     }
 
     static store(req, res) {
-        const { name, slug } = req.body;
-        if (!name || !slug) return res.status(400).json({ message: "Name dan Slug harus diisi" });
+        const { category_name, slug } = req.body;
+        if (!category_name || !slug) return res.status(400).json({ message: "Nama kategori dan Slug harus diisi" });
 
-        Categories.create({ name, slug }, (err, result) => {
+        Categories.create({ category_name, slug }, (err, result) => {
             if (err) return res.status(500).json({ error: err.message });
             res.status(201).json({ message: "Kategori berhasil dibuat", id: result.insertId });
         });

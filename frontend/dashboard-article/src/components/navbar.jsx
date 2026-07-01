@@ -1,142 +1,273 @@
-import { useState, useEffect } from "react";
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import logo from '../assets/logocodepie.png';
 
-const Navbar = ({ onLoginClick }) => {
-  // State: apakah header sudah di-scroll atau belum
-  const [isScrolled, setIsScrolled] = useState(false);
-  // State: nilai input pencarian
-  const [searchQuery, setSearchQuery] = useState("");
-  // State: apakah search bar mobile sedang terbuka
-  const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false);
-  // State: link navbar yang sedang aktif
-  const [activeNav, setActiveNav] = useState("Explore");
+const Navbar = () => {
+  const navigate = useNavigate();
+  const [search, setSearch] = useState('');
 
-  // Handling Event: scroll window → ubah tampilan header
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  // Cek status login dari localStorage
+  const token = localStorage.getItem('token');
+  const username = localStorage.getItem('username');
+  const name = localStorage.getItem('name');
+  const role = localStorage.getItem('role');
+  const isLoggedIn = !!token;
 
-  // Handling Event: submit form pencarian
   const handleSearchSubmit = (e) => {
     e.preventDefault();
-    if (searchQuery.trim()) {
-      alert(`Mencari: "${searchQuery}"`);
+    if (search.trim()) {
+      navigate(`/?search=${encodeURIComponent(search.trim())}`);
     }
   };
 
-  const navLinks = ["Explore", "Writers", "About"];
-
   return (
-    <header
-      className={`w-full top-0 sticky z-50 bg-surface-container-lowest border-b border-outline-variant transition-all duration-300 ${
-        isScrolled
-          ? "shadow-md bg-opacity-95 backdrop-blur-md"
-          : "shadow-sm"
-      }`}
-    >
-      <nav className="flex justify-between items-center w-full px-margin-desktop py-sm max-w-[1280px] mx-auto">
-        {/* Brand Logo */}
-        <div className="flex items-center gap-xs">
-          <span className="font-display-lg text-display-lg font-extrabold text-primary">
-            InkFlow
-          </span>
+    <nav style={styles.navbar}>
+      <div style={styles.navContainer}>
+
+        {/* Kiri: Logo */}
+        <div style={styles.logoWrapper} onClick={() => navigate('/')}>
+          <img src={logo} alt="Article Flow Codepie" style={styles.logoImg} />
+          <div style={styles.logoText}>
+            <span style={styles.logoMain}>ArticleFlow</span>
+            <span style={styles.logoSub}>by Codepie</span>
+          </div>
         </div>
 
-        {/* Navigation Links */}
-        <div className="hidden md:flex items-center gap-lg">
-          {navLinks.map((link) => (
-            <a
-              key={link}
-              href="#"
-              onClick={(e) => {
-                e.preventDefault();
-                // Handling Event: klik nav link → update state activeNav
-                setActiveNav(link);
-              }}
-              className={`font-label-md text-label-md transition-all duration-200 ${
-                activeNav === link
-                  ? "text-primary border-b-2 border-primary pb-1"
-                  : "text-on-surface-variant hover:text-primary"
-              }`}
-            >
-              {link}
-            </a>
-          ))}
+        {/* Tengah: Nav Links */}
+        <div style={styles.navLinks}>
+          <span style={styles.navLink} onClick={() => navigate('/')}>Jelajah</span>
+          
+          {/* Menu Penulis & About HANYA muncul jika SUDAH login */}
+          {isLoggedIn && (
+            <>
+              <span style={styles.navLink} onClick={() => navigate('/writers')}>Penulis</span>
+              <span style={styles.navLink} onClick={() => navigate('/about')}>About</span>
+            </>
+          )}
         </div>
 
-        {/* Search & Actions */}
-        <div className="flex items-center gap-md">
-          {/* Search Desktop */}
-          <form
-            onSubmit={handleSearchSubmit}
-            className="hidden lg:flex items-center bg-surface-container px-sm py-xs rounded-full border border-outline-variant"
-          >
-            <span className="material-symbols-outlined text-on-surface-variant mr-xs">
-              search
-            </span>
-            <input
-              className="bg-transparent border-none focus:ring-0 text-body-md w-48 outline-none"
-              placeholder="Search stories..."
-              type="text"
-              value={searchQuery}
-              // Handling Event: perubahan input → update state searchQuery
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
-          </form>
+        {/* Kanan */}
+        <div style={styles.navRight}>
 
-          {/* Search Icon Mobile */}
-          <button
-            className="lg:hidden p-xs rounded-full hover:bg-surface-container transition-all"
-            onClick={() => setIsMobileSearchOpen(!isMobileSearchOpen)}
-          >
-            <span className="material-symbols-outlined text-on-surface-variant">
-              search
-            </span>
-          </button>
+          {isLoggedIn ? (
+            /* ===== SUDAH LOGIN ===== */
+            <>
+              {/* Search Bar (Hanya muncul jika sudah login) */}
+              <form onSubmit={handleSearchSubmit} style={styles.searchForm}>
+                <div style={styles.searchWrapper}>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#9CA3AF" strokeWidth="2.5" style={{ flexShrink: 0 }}>
+                    <circle cx="11" cy="11" r="8" />
+                    <path strokeLinecap="round" d="M21 21l-4.35-4.35" />
+                  </svg>
+                  <input
+                    type="text"
+                    placeholder="Telusuri"
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                    style={styles.searchInput}
+                  />
+                </div>
+              </form>
 
-          {/* Login Button — memanggil handler dari props */}
-          <button
-            onClick={onLoginClick}
-            className="bg-primary-container text-on-primary px-lg py-xs rounded-full font-label-md hover:brightness-110 active:scale-95 transition-all duration-200"
-          >
-            Log In
-          </button>
-        </div>
-      </nav>
+              {/* Tulis Artikel - hanya untuk editor/admin */}
+              {(role === 'editor' || role === 'admin') && (
+                <button
+                  style={styles.btnTulis}
+                  onClick={() => navigate(role === 'admin' ? '/admin/articles/create' : '/editor/create')}
+                >
+                  ✏️ Tulis Artikel
+                </button>
+              )}
 
-      {/* Mobile Search Bar — tampil kondisional berdasarkan state */}
-      {isMobileSearchOpen && (
-        <div className="lg:hidden px-margin-desktop pb-sm">
-          <form
-            onSubmit={handleSearchSubmit}
-            className="flex items-center bg-surface-container px-sm py-xs rounded-full border border-outline-variant"
-          >
-            <span className="material-symbols-outlined text-on-surface-variant mr-xs">
-              search
-            </span>
-            <input
-              className="bg-transparent border-none focus:ring-0 text-body-md flex-1 outline-none"
-              placeholder="Search stories..."
-              type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              autoFocus
-            />
+              {/* Profil User (Klik mengarah ke halaman profil) */}
+              <div style={styles.profileWrapper} onClick={() => navigate('/profile')}>
+                <div style={styles.profileAvatar}>
+                  {(name || username || '?')[0].toUpperCase()}
+                </div>
+                <div style={styles.profileInfo}>
+                  <span style={styles.profileName}>{name || username}</span>
+                  <span style={styles.profileRole}>{role?.toUpperCase()}</span>
+                </div>
+              </div>
+              
+              {/* Tombol Keluar di Navbar utama sudah dihapus sesuai request */}
+            </>
+          ) : (
+            /* ===== BELUM LOGIN ===== */
             <button
-              type="button"
-              onClick={() => setIsMobileSearchOpen(false)}
-              className="ml-xs text-on-surface-variant"
+              style={styles.btnLogin}
+              onClick={() => navigate('/login')}
             >
-              <span className="material-symbols-outlined text-sm">close</span>
+              Login
             </button>
-          </form>
+          )}
         </div>
-      )}
-    </header>
+
+      </div>
+    </nav>
   );
+};
+
+const styles = {
+  navbar: {
+    position: 'sticky',
+    top: 0,
+    zIndex: 100,
+    backgroundColor: 'white',
+    borderBottom: '1px solid #E5E7EB',
+    boxShadow: '0 1px 4px rgba(0,0,0,0.06)'
+  },
+  navContainer: {
+    maxWidth: '1200px',
+    margin: '0 auto',
+    padding: '0 24px',
+    height: '64px',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: '16px'
+  },
+
+  /* Logo */
+  logoWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '10px',
+    cursor: 'pointer',
+    flexShrink: 0
+  },
+  logoImg: {
+    height: '36px',
+    width: 'auto',
+    objectFit: 'contain'
+  },
+  logoText: {
+    display: 'flex',
+    flexDirection: 'column',
+    lineHeight: 1.1
+  },
+  logoMain: {
+    fontSize: '16px',
+    fontWeight: '800',
+    color: '#1e3a5f',
+    letterSpacing: '-0.3px'
+  },
+  logoSub: {
+    fontSize: '10px',
+    fontWeight: '500',
+    color: '#1e3a5f',
+    opacity: 0.6,
+    letterSpacing: '0.5px'
+  },
+
+  /* Nav Links Tengah */
+  navLinks: {
+    display: 'flex',
+    gap: '28px',
+    alignItems: 'center',
+    position: 'absolute',
+    left: '50%',
+    transform: 'translateX(-50%)'
+  },
+  navLink: {
+    fontSize: '14px',
+    fontWeight: '500',
+    color: '#374151',
+    cursor: 'pointer',
+    transition: 'color 0.2s',
+    whiteSpace: 'nowrap'
+  },
+
+  /* Kanan */
+  navRight: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '16px', // Sedikit dinaikkan agar jarak antar item konsisten setelah tombol keluar dihapus
+    flexShrink: 0
+  },
+
+  /* Search */
+  searchForm: {
+    display: 'flex'
+  },
+  searchWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '8px',
+    backgroundColor: '#F3F4F6',
+    border: '1px solid #E5E7EB',
+    borderRadius: '20px',
+    padding: '7px 14px',
+  },
+  searchInput: {
+    background: 'transparent',
+    border: 'none',
+    outline: 'none',
+    fontSize: '13px',
+    color: '#374151',
+    width: '110px'
+  },
+
+  /* Tombol Tulis Artikel */
+  btnTulis: {
+    padding: '8px 16px',
+    fontSize: '13px',
+    fontWeight: '600',
+    color: 'white',
+    background: 'linear-gradient(135deg, #630ed4 0%, #7c3aed 100%)',
+    border: 'none',
+    borderRadius: '8px',
+    cursor: 'pointer',
+    whiteSpace: 'nowrap'
+  },
+
+  /* Profil */
+  profileWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '8px',
+    cursor: 'pointer'
+  },
+  profileAvatar: {
+    width: '34px',
+    height: '34px',
+    borderRadius: '50%',
+    background: 'linear-gradient(135deg, #630ed4 0%, #7c3aed 100%)',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    color: 'white',
+    fontSize: '14px',
+    fontWeight: '700',
+    flexShrink: 0
+  },
+  profileInfo: {
+    display: 'flex',
+    flexDirection: 'column',
+    lineHeight: 1.2
+  },
+  profileName: {
+    fontSize: '13px',
+    fontWeight: '700',
+    color: '#191c1e'
+  },
+  profileRole: {
+    fontSize: '10px',
+    fontWeight: '500',
+    color: '#630ed4'
+  },
+
+  /* Tombol Login (belum login) */
+  btnLogin: {
+    padding: '8px 20px',
+    fontSize: '14px',
+    fontWeight: '600',
+    color: 'white',
+    background: 'linear-gradient(135deg, #630ed4 0%, #7c3aed 100%)',
+    border: 'none',
+    borderRadius: '8px',
+    cursor: 'pointer'
+  }
 };
 
 export default Navbar;

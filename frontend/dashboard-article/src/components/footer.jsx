@@ -1,5 +1,5 @@
 const Footer = () => {
-  const publicationLinks = ["Explore", "Writers", "Archive", "The Weekly Insight"];
+  const publicationLinks = ["Jelajah", "Penulis", "About", "The Weekly Insight"];
   const companyLinks = ["About", "Careers", "Contact", "Help Center"];
   const legalLinks = ["Privacy Policy", "Terms of Service", "Cookie Policy"];
 

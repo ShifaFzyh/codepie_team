@@ -1,147 +1,419 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import logo from "../assets/logocodepie.png";
 
-const styles = `
-  @import url('https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&display=swap');
-  @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap');
-
-  body { 
-    font-family: 'Hanken Grotesk', sans-serif; 
-    background-color: #f7f9fb;
-    min-height: max(884px, 100dvh);
-    margin: 0;
-  }
-  .material-symbols-outlined {
-    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-  }
-  .transition-cubic { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
-`;
+const API_BASE = "http://localhost:3000/api";
 
 export default function Register() {
   const [showPassword, setShowPassword] = useState(false);
+  const [showConfirm, setShowConfirm] = useState(false);
+  const [form, setForm] = useState({
+    name: "",
+    username: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const handleRegisterSubmit = (e) => {
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    navigate("/");
+    setError("");
+    setSuccess("");
+
+    if (form.password.length < 6) {
+      return setError("Password minimal 6 karakter");
+    }
+    if (form.password !== form.confirmPassword) {
+      return setError("Password dan konfirmasi password tidak cocok");
+    }
+
+    setLoading(true);
+    try {
+      const response = await fetch(`${API_BASE}/register`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: form.name,
+          username: form.username,
+          email: form.email,
+          password: form.password,
+        }),
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        setSuccess("Registrasi berhasil! Silakan login.");
+        setTimeout(() => navigate("/login"), 1500);
+      } else {
+        setError(result.message || "Gagal mendaftar. Coba lagi.");
+      }
+    } catch (err) {
+      setError("Gagal terhubung ke server. Pastikan backend sudah berjalan.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const focusStyle = {
+    borderColor: "#630ed4",
+    boxShadow: "0 0 0 4px rgba(99,14,212,0.1)",
+  };
+  const blurStyle = {
+    borderColor: "#c6c6cd",
+    boxShadow: "none",
+  };
+
+  const handleFocus = (e) => {
+    Object.assign(e.currentTarget.style, focusStyle);
+  };
+  const handleBlur = (e) => {
+    Object.assign(e.currentTarget.style, blurStyle);
   };
 
   return (
-    <>
-      <style>{styles}</style>
-
-      <div style={{ backgroundColor: "#f7f9fb", color: "#191c1e", minHeight: "100dvh", display: "flex", flexDirection: "column" }}>
-        
-        {/* Header - Logo Tengah */}
-        <header style={{ backgroundColor: "#f7f9fb", display: "flex", alignItems: "center", justifyContent: "center", width: "100%", padding: "24px", fixed: "top", zIndex: 50 }}>
-          <img 
-            alt="Article Flow Logo" 
-            style={{ height: "155px", width: "auto", objectFit: "contain" }} 
-            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDSExBgzhJWTbltZ3q1ePhsvyvOSXfmWrZCR8HQkGiBnOBHIkpq8xDux73IBJ8bAPgAiwtbCS0C81NeSsXfMliKYXLow8k62lFGp0Uq9CppG8Acc5iMA_fWkPEdsToN7EC1drsLkwxCaYftEdxtPkVDjS4UBzODNgx3nBjA-4qdRtRluL_yVsNQ4lBXVO5wtyf9AxLlecNYjs3t0ywJOAjEH18gnByclugfcf61Lkt5E2Xm7SYM3HmnHkX-2uoOQFbuCkCuROhQI8c"
-          />
-        </header>
-
-        {/* Main Container (Dipaksa melebar lewat inline style) */}
-        <main style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "40px 24px", maxWidth: "448px", margin: "0 auto", width: "100%" }}>
-          
-          {/* Header Judul */}
-          <div style={{ width: "100%", textAlign: "center", marginBottom: "32px" }}>
-            <h2 style={{ fontSize: "28px", fontWeight: "700", tracking: "-0.02em" }}>Create Account</h2>
-            <p style={{ fontSize: "16px", color: "#45464d", marginTop: "8px" }}>Sign up to get started</p>
-          </div>
-
-          {/* Form Container Card */}
-          <div style={{ width: "100%", backgroundColor: "#ffffff", border: "1px solid #c6c6cd", borderRadius: "12px", padding: "24px", boxShadow: "0 4px 12px rgba(19,27,46,0.04)" }}>
-            <form style={{ display: "flex", flexDirection: "column", gap: "16px" }} onSubmit={handleRegisterSubmit}>
-              
-              {/* Full Name Field */}
-              <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
-                <label style={{ fontSize: "14px", fontWeight: "600", color: "#45464d", marginLeft: "4px" }}>Full Name</label>
-                <div style={{ position: "relative" }}>
-                  <input 
-                    style={{ window: "100%", width: "100%", backgroundColor: "#f7f9fb", border: "1px solid #c6c6cd", borderRadius: "12px", padding: "12px 12px 12px 40px", fontSize: "16px", outline: "none" }} 
-                    placeholder="John Doe" 
-                    type="text"
-                    required
-                  />
-                  <span className="material-symbols-outlined" style={{ position: "absolute", left: "12px", top: "50%", transform: "translateY(-50%)", color: "#76777d" }}>person</span>
-                </div>
-              </div>
-
-              {/* Email Field */}
-              <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
-                <label style={{ fontSize: "14px", fontWeight: "600", color: "#45464d", marginLeft: "4px" }}>Email</label>
-                <div style={{ position: "relative" }}>
-                  <input 
-                    style={{ width: "100%", backgroundColor: "#f7f9fb", border: "1px solid #c6c6cd", borderRadius: "12px", padding: "12px 12px 12px 40px", fontSize: "16px", outline: "none" }} 
-                    placeholder="name@example.com" 
-                    type="email"
-                    required
-                  />
-                  <span className="material-symbols-outlined" style={{ position: "absolute", left: "12px", top: "50%", transform: "translateY(-50%)", color: "#76777d" }}>mail</span>
-                </div>
-              </div>
-
-              {/* Password Field */}
-              <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
-                <label style={{ fontSize: "14px", fontWeight: "600", color: "#45464d", marginLeft: "4px" }}>Password</label>
-                <div style={{ position: "relative" }}>
-                  <input 
-                    style={{ width: "100%", backgroundColor: "#f7f9fb", border: "1px solid #c6c6cd", borderRadius: "12px", padding: "12px 40px 12px 40px", fontSize: "16px", outline: "none" }} 
-                    placeholder="••••••••" 
-                    type={showPassword ? "text" : "password"}
-                    required
-                  />
-                  <span className="material-symbols-outlined" style={{ position: "absolute", left: "12px", top: "50%", transform: "translateY(-50%)", color: "#76777d" }}>lock</span>
-                  <button 
-                    style={{ position: "absolute", right: "12px", top: "50%", transform: "translateY(-50%)", color: "#45464d", background: "none", border: "none", cursor: "pointer" }} 
-                    onClick={() => setShowPassword(!showPassword)} 
-                    type="button"
-                  >
-                    <span className="material-symbols-outlined">{showPassword ? "visibility_off" : "visibility"}</span>
-                  </button>
-                </div>
-              </div>
-
-              {/* Register Button */}
-              <button type="submit" style={{ width: "100%", backgroundColor: "#000000", color: "#ffffff", fontSize: "14px", fontWeight: "600", py: "16px", padding: "16px", borderRadius: "12px", border: "none", cursor: "pointer", marginTop: "8px", boxShadow: "0 1px 2px rgba(0,0,0,0.1)" }}>
-                Register
-              </button>
-            </form>
-
-            {/* Divider */}
-            <div style={{ display: "flex", alignItems: "center", gap: "16px", margin: "24px 0" }}>
-              <div style={{ height: "1px", flex: 1, backgroundColor: "#c6c6cd" }}></div>
-              <span style={{ fontSize: "12px", color: "#45464d", fontWeight: "500" }}>Or register with</span>
-              <div style={{ height: "1px", flex: 1, backgroundColor: "#c6c6cd" }}></div>
-            </div>
-
-            {/* Social Buttons */}
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" }}>
-              <button onClick={() => navigate("/")} type="button" style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "8px", border: "1px solid #c6c6cd", backgroundColor: "#ffffff", borderRadius: "12px", py: "12px", padding: "12px", cursor: "pointer" }}>
-                <img alt="Google" style={{ width: "20px", height: "20px" }} src="https://lh3.googleusercontent.com/aida-public/AB6AXuB8OqEBcAdJvw22mN4V7qJFz_kvWJFefEaa5vDHJVWyuNAhVFmnJ3PoTsPBtZaDc4s2KmXWDGtOdtkJj7dQLh5TS_ZOm6xnCCIc5H31809evnSJJc2NDF7Nm1dYTD8VDV2nIXS10JEbeZZGrygye4KbDzw9c5ADcvqmOOYQCf8WBw1cmODT0pLcupQH42VIsjHRTZN2o92vltDZDCvOcNRcfMTsKchR3F0KdyY2w6e1K7S7SeNmR34zlBCpMez_TFCUt3D421Dou2k"/>
-                <span style={{ fontSize: "14px", fontWeight: "600", color: "#45464d" }}>Google</span>
-              </button>
-              <button onClick={() => navigate("/")} type="button" style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "8px", border: "1px solid #c6c6cd", backgroundColor: "#ffffff", borderRadius: "12px", py: "12px", padding: "12px", cursor: "pointer" }}>
-                <span className="material-symbols-outlined" style={{ color: "#000000" }}>ios</span>
-                <span style={{ fontSize: "14px", fontWeight: 600, color: "#45464d" }}>Apple</span>
-              </button>
-            </div>
-          </div>
-
-          {/* Link Kembali ke Login */}
-          <p style={{ fontSize: "16px", color: "#45464d", marginTop: "24px" }}>
-            Already have an account?{" "}
-            <button 
-              type="button"
-              onClick={() => navigate("/login")} 
-              style={{ color: "#0058be", fontWeight: "600", background: "none", border: "none", cursor: "pointer", padding: 0 }}
-            >
-              Login
-            </button>
-          </p>
-        </main>
+    <div style={styles.page}>
+      {/* Logo */}
+      <div style={styles.logoWrapper}>
+        <img src={logo} alt="ArticleFlow Logo" style={styles.logo} />
       </div>
-    </>
+
+      {/* Card */}
+      <div style={styles.card}>
+        <div style={styles.cardHeader}>
+          <h2 style={styles.title}>Daftar Akun Baru</h2>
+          <p style={styles.subtitle}>Bergabunglah dengan ribuan editor untuk berkontribusi fakta</p>
+        </div>
+
+        {/* Error / Success */}
+        {error && <div style={styles.errorBox}>{error}</div>}
+        {success && <div style={styles.successBox}>{success}</div>}
+
+        <form onSubmit={handleSubmit} style={styles.form}>
+
+          {/* Nama Lengkap */}
+          <div style={styles.fieldGroup}>
+            <label style={styles.label}>Nama Lengkap</label>
+            <div style={styles.inputWrapper} onFocus={handleFocus} onBlur={handleBlur}>
+              <span style={styles.icon}>👤</span>
+              <input
+                name="name"
+                type="text"
+                placeholder="Masukkan nama lengkap"
+                required
+                value={form.name}
+                onChange={handleChange}
+                style={styles.input}
+              />
+            </div>
+          </div>
+
+          {/* Username */}
+          <div style={styles.fieldGroup}>
+            <label style={styles.label}>Username</label>
+            <div style={styles.inputWrapper} onFocus={handleFocus} onBlur={handleBlur}>
+              <span style={styles.icon}>@</span>
+              <input
+                name="username"
+                type="text"
+                placeholder="Masukkan username"
+                required
+                value={form.username}
+                onChange={handleChange}
+                style={styles.input}
+              />
+            </div>
+          </div>
+
+          {/* Email */}
+          <div style={styles.fieldGroup}>
+            <label style={styles.label}>Alamat Email</label>
+            <div style={styles.inputWrapper} onFocus={handleFocus} onBlur={handleBlur}>
+              <span style={styles.icon}>✉️</span>
+              <input
+                name="email"
+                type="email"
+                placeholder="nama@domain.com"
+                required
+                value={form.email}
+                onChange={handleChange}
+                style={styles.input}
+              />
+            </div>
+          </div>
+
+          {/* Password */}
+          <div style={styles.fieldGroup}>
+            <label style={styles.label}>Password</label>
+            <div style={styles.inputWrapper} onFocus={handleFocus} onBlur={handleBlur}>
+              <span style={styles.icon}>🔑</span>
+              <input
+                name="password"
+                type={showPassword ? "text" : "password"}
+                placeholder="Minimal 6 karakter"
+                required
+                value={form.password}
+                onChange={handleChange}
+                style={styles.input}
+              />
+              <button type="button" onClick={() => setShowPassword(!showPassword)} style={styles.eyeBtn}>
+                {showPassword ? "🙈" : "👁️"}
+              </button>
+            </div>
+          </div>
+
+          {/* Konfirmasi Password */}
+          <div style={styles.fieldGroup}>
+            <label style={styles.label}>Konfirmasi Password</label>
+            <div style={styles.inputWrapper} onFocus={handleFocus} onBlur={handleBlur}>
+              <span style={styles.icon}>🔑</span>
+              <input
+                name="confirmPassword"
+                type={showConfirm ? "text" : "password"}
+                placeholder="Ketik ulang password"
+                required
+                value={form.confirmPassword}
+                onChange={handleChange}
+                style={styles.input}
+              />
+              <button type="button" onClick={() => setShowConfirm(!showConfirm)} style={styles.eyeBtn}>
+                {showConfirm ? "🙈" : "👁️"}
+              </button>
+            </div>
+          </div>
+
+          {/* Submit */}
+          <button
+            type="submit"
+            disabled={loading}
+            style={{
+              ...styles.submitBtn,
+              background: loading ? "#999" : "linear-gradient(135deg, #630ed4 0%, #7c3aed 100%)",
+              cursor: loading ? "not-allowed" : "pointer",
+            }}
+          >
+            {loading ? "Mendaftar..." : "Daftar Sekarang"}
+          </button>
+
+          {/* Divider */}
+          <div style={styles.divider}>
+            <div style={styles.dividerLine} />
+            <span style={styles.dividerText}>Atau daftar dengan</span>
+            <div style={styles.dividerLine} />
+          </div>
+
+          {/* Social */}
+          <div style={styles.socialGrid}>
+            <button
+              type="button"
+              style={styles.socialBtn}
+              onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#f2f4f6")}
+              onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#ffffff")}
+            >
+              <span style={{ fontSize: "16px", fontWeight: 700 }}>G</span>
+              <span style={styles.socialLabel}>Google</span>
+            </button>
+            <button
+              type="button"
+              style={styles.socialBtn}
+              onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#f2f4f6")}
+              onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#ffffff")}
+            >
+              <span style={{ fontSize: "16px" }}>🍎</span>
+              <span style={styles.socialLabel}>Apple</span>
+            </button>
+          </div>
+        </form>
+
+        {/* Login link */}
+        <p style={styles.loginText}>
+          Sudah punya akun?{" "}
+          <button type="button" onClick={() => navigate("/login")} style={styles.loginLink}>
+            Masuk di sini
+          </button>
+        </p>
+      </div>
+    </div>
   );
 }
+
+const styles = {
+  page: {
+    minHeight: "100dvh",
+    backgroundColor: "#f7f9fb",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    padding: "32px 16px",
+    fontFamily: "'Inter', sans-serif",
+  },
+  logoWrapper: {
+    marginBottom: "20px",
+  },
+  logo: {
+    height: "90px",
+    width: "auto",
+    objectFit: "contain",
+  },
+  card: {
+    backgroundColor: "#ffffff",
+    borderRadius: "16px",
+    padding: "36px 32px",
+    width: "100%",
+    maxWidth: "440px",
+    boxShadow: "0 4px 24px rgba(19,27,46,0.08)",
+    border: "1px solid rgba(0,0,0,0.06)",
+  },
+  cardHeader: {
+    textAlign: "center",
+    marginBottom: "24px",
+  },
+  title: {
+    fontSize: "24px",
+    fontWeight: 700,
+    color: "#191c1e",
+    marginBottom: "6px",
+    letterSpacing: "-0.02em",
+  },
+  subtitle: {
+    fontSize: "13px",
+    color: "#45464d",
+    lineHeight: 1.5,
+  },
+  errorBox: {
+    backgroundColor: "#ffdad6",
+    color: "#93000a",
+    padding: "12px 16px",
+    borderRadius: "8px",
+    marginBottom: "16px",
+    fontSize: "14px",
+  },
+  successBox: {
+    backgroundColor: "#d4edda",
+    color: "#155724",
+    padding: "12px 16px",
+    borderRadius: "8px",
+    marginBottom: "16px",
+    fontSize: "14px",
+  },
+  form: {
+    display: "flex",
+    flexDirection: "column",
+    gap: "14px",
+  },
+  fieldGroup: {
+    display: "flex",
+    flexDirection: "column",
+    gap: "6px",
+  },
+  label: {
+    fontSize: "14px",
+    fontWeight: 600,
+    color: "#45464d",
+  },
+  inputWrapper: {
+    display: "flex",
+    alignItems: "center",
+    backgroundColor: "#f7f9fb",
+    border: "1px solid #c6c6cd",
+    borderRadius: "10px",
+    padding: "11px 14px",
+    transition: "all 0.2s",
+  },
+  icon: {
+    marginRight: "10px",
+    fontSize: "15px",
+  },
+  input: {
+    background: "transparent",
+    border: "none",
+    outline: "none",
+    width: "100%",
+    fontSize: "15px",
+    color: "#191c1e",
+  },
+  eyeBtn: {
+    background: "none",
+    border: "none",
+    cursor: "pointer",
+    padding: 0,
+    marginLeft: "8px",
+    fontSize: "15px",
+  },
+  submitBtn: {
+    width: "100%",
+    color: "#ffffff",
+    fontSize: "15px",
+    fontWeight: 700,
+    padding: "14px",
+    borderRadius: "12px",
+    border: "none",
+    marginTop: "4px",
+    transition: "opacity 0.2s",
+    letterSpacing: "0.3px",
+  },
+  divider: {
+    display: "flex",
+    alignItems: "center",
+    gap: "12px",
+    margin: "4px 0",
+  },
+  dividerLine: {
+    height: "1px",
+    backgroundColor: "#c6c6cd",
+    flex: 1,
+  },
+  dividerText: {
+    fontSize: "12px",
+    fontWeight: 500,
+    color: "#45464d",
+    whiteSpace: "nowrap",
+  },
+  socialGrid: {
+    display: "grid",
+    gridTemplateColumns: "1fr 1fr",
+    gap: "12px",
+  },
+  socialBtn: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: "8px",
+    border: "1px solid #c6c6cd",
+    backgroundColor: "#ffffff",
+    padding: "11px",
+    borderRadius: "10px",
+    cursor: "pointer",
+    transition: "background 0.2s",
+  },
+  socialLabel: {
+    fontSize: "14px",
+    fontWeight: 600,
+    color: "#191c1e",
+  },
+  loginText: {
+    textAlign: "center",
+    fontSize: "14px",
+    color: "#45464d",
+    marginTop: "20px",
+  },
+  loginLink: {
+    color: "#630ed4",
+    fontWeight: 700,
+    background: "none",
+    border: "none",
+    cursor: "pointer",
+    padding: 0,
+    fontSize: "14px",
+    textDecoration: "underline",
+  },
+};
