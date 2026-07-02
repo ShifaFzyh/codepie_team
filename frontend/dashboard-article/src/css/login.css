@@ -1,0 +1,266 @@
+/* ==========================================================================
+   login.css
+   Import file di pages/login.jsx
+   ========================================================================== */
+
+:root {
+  --login-primary: #630ed4;
+  --login-primary-hover: #7c3aed;
+  --login-bg: #f7f9fb;
+  --login-border: #c6c6cd;
+  --login-dark-text: #191c1e;
+  --login-light-text: #45464d;
+  --login-error-bg: #ffdad6;
+  --login-error-text: #93000a;
+}
+
+/* ---------- Layout halaman ---------- */
+.login-page {
+  min-height: 100dvh;
+  background-color: var(--login-bg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 16px;
+  font-family: 'Inter', sans-serif;
+}
+
+.login-logo-wrapper {
+  margin-bottom: 24px;
+}
+
+.login-logo {
+  height: 100px;
+  width: auto;
+  object-fit: contain;
+}
+
+/* ---------- Kartu ---------- */
+.login-card {
+  background-color: #ffffff;
+  border-radius: 16px;
+  padding: 36px 32px;
+  width: 100%;
+  max-width: 440px;
+  box-shadow: 0 4px 24px rgba(19, 27, 46, 0.08);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.login-card-header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.login-title {
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--login-dark-text);
+  margin-bottom: 8px;
+  letter-spacing: -0.02em;
+}
+
+.login-subtitle {
+  font-size: 14px;
+  color: var(--login-light-text);
+  line-height: 1.5;
+}
+
+.login-error-box {
+  background-color: var(--login-error-bg);
+  color: var(--login-error-text);
+  padding: 12px 16px;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  font-size: 14px;
+}
+
+/* ---------- Form ---------- */
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.login-field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.login-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--login-light-text);
+}
+
+.login-label-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.login-forgot-link {
+  font-size: 12px;
+  color: var(--login-primary);
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.login-input-wrapper {
+  display: flex;
+  align-items: center;
+  background-color: var(--login-bg);
+  border: 1px solid var(--login-border);
+  border-radius: 10px;
+  padding: 12px 14px;
+  transition: all 0.2s;
+}
+
+.login-input-wrapper:focus-within {
+  border-color: var(--login-primary);
+  box-shadow: 0 0 0 4px rgba(99, 14, 212, 0.1);
+}
+
+.login-input-icon {
+  margin-right: 10px;
+  font-size: 16px;
+}
+
+.login-input {
+  background: transparent;
+  border: none;
+  outline: none;
+  width: 100%;
+  font-size: 15px;
+  color: var(--login-dark-text);
+}
+
+.login-eye-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin-left: 8px;
+  font-size: 16px;
+}
+
+/* ---------- Remember me ---------- */
+.login-remember-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.login-checkbox {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--login-primary);
+}
+
+.login-remember-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--login-light-text);
+}
+
+/* ---------- Tombol submit ---------- */
+.login-submit-btn {
+  width: 100%;
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 700;
+  padding: 14px;
+  border-radius: 12px;
+  border: none;
+  margin-top: 4px;
+  transition: opacity 0.2s;
+  letter-spacing: 0.3px;
+  background: linear-gradient(135deg, var(--login-primary) 0%, var(--login-primary-hover) 100%);
+  cursor: pointer;
+}
+
+.login-submit-btn:hover:not(:disabled) {
+  opacity: 0.92;
+}
+
+.login-submit-btn--loading,
+.login-submit-btn:disabled {
+  background: #999;
+  cursor: not-allowed;
+}
+
+/* ---------- Divider ---------- */
+.login-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 4px 0;
+}
+
+.login-divider-line {
+  height: 1px;
+  background-color: var(--login-border);
+  flex: 1;
+}
+
+.login-divider-text {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--login-light-text);
+  white-space: nowrap;
+}
+
+/* ---------- Social login ---------- */
+.login-social-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.login-social-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  border: 1px solid var(--login-border);
+  background-color: #ffffff;
+  padding: 11px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.login-social-btn:hover {
+  background-color: #f2f4f6;
+}
+
+.login-social-icon {
+  font-size: 18px;
+}
+
+.login-social-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--login-dark-text);
+}
+
+/* ---------- Register link ---------- */
+.login-register-text {
+  text-align: center;
+  font-size: 14px;
+  color: var(--login-light-text);
+  margin-top: 24px;
+}
+
+.login-register-link {
+  color: var(--login-primary);
+  font-weight: 700;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  font-size: 14px;
+  text-decoration: underline;
+}

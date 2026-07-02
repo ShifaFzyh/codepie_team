@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import API from '../services/api';
+import '../css/articleDetail.css';
 
 const ArticleDetail = () => {
   const { slug: postSlug } = useParams();
@@ -28,8 +29,8 @@ const ArticleDetail = () => {
 
   if (loading) {
     return (
-      <div className="container" style={styles.centerContainer}>
-        <div style={styles.spinner}></div>
+      <div className="container detail-center-container">
+        <div className="detail-spinner"></div>
         <p>Memuat konten artikel...</p>
       </div>
     );
@@ -37,7 +38,7 @@ const ArticleDetail = () => {
 
   if (error || !post) {
     return (
-      <div className="container" style={styles.centerContainer}>
+      <div className="container detail-center-container">
         <div className="alert alert-error">{error || 'Artikel tidak ditemukan'}</div>
         <button className="btn btn-primary" onClick={() => navigate('/')}>Kembali ke Jelajah</button>
       </div>
@@ -49,9 +50,9 @@ const ArticleDetail = () => {
   };
 
   return (
-    <div className="container" style={styles.detailContainer}>
+    <div className="container detail-container">
       {/* Navigation & Back Action */}
-      <div style={styles.backNav}>
+      <div className="detail-back-nav">
         <button className="btn btn-secondary" onClick={() => navigate('/')}>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
             <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
@@ -60,26 +61,26 @@ const ArticleDetail = () => {
         </button>
       </div>
 
-      <article style={styles.article}>
+      <article className="detail-article">
         {/* Header Metadata */}
-        <header style={styles.header}>
+        <header className="detail-header">
           <span className={getCategoryClass(post.category_slug || 'default')}>
             {post.category_name}
           </span>
-          <h1 style={styles.title}>{post.title}</h1>
-          
-          <div style={styles.metaRow}>
-            <div style={styles.authorSection}>
-              <div style={styles.authorAvatar}>
+          <h1 className="detail-title">{post.title}</h1>
+
+          <div className="detail-meta-row">
+            <div className="detail-author-section">
+              <div className="detail-author-avatar">
                 {post.author_name ? post.author_name.charAt(0) : 'U'}
               </div>
               <div>
-                <div style={styles.authorName}>{post.author_name || post.author_username}</div>
-                <div style={styles.authorEmail}>{post.author_email}</div>
+                <div className="detail-author-name">{post.author_name || post.author_username}</div>
+                <div className="detail-author-email">{post.author_email}</div>
               </div>
             </div>
-            
-            <div style={styles.metaDetails}>
+
+            <div className="detail-meta-details">
               <div>Dipublikasikan: <strong>{new Date(post.created_at).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}</strong></div>
               <div>Dilihat: <strong>{post.views || 0} kali</strong></div>
             </div>
@@ -88,35 +89,34 @@ const ArticleDetail = () => {
 
         {/* Thumbnail Image */}
         {post.thumbnail && (
-          <div style={styles.thumbnailContainer}>
-            <img 
-              src={`http://localhost:3000/uploads/thumbnails/${post.thumbnail}`} 
-              alt={post.title} 
-              style={styles.thumbnail}
+          <div className="detail-thumbnail-container">
+            <img
+              src={`http://localhost:3000/uploads/thumbnails/${post.thumbnail}`}
+              alt={post.title}
+              className="detail-thumbnail"
             />
           </div>
         )}
 
         {/* Content Body */}
-        <div style={styles.contentBody}>
+        <div className="detail-content-body">
           {post.content.split('\n').map((paragraph, index) => {
             if (!paragraph.trim()) return null;
-            return <p key={index} style={styles.paragraph}>{paragraph}</p>;
+            return <p key={index} className="detail-paragraph">{paragraph}</p>;
           })}
         </div>
 
         {/* Document Download & Exports Footer */}
-        <footer style={styles.footerSection}>
-          <h3 style={styles.footerTitle}>Unduh Artikel & Lampiran</h3>
-          <p style={styles.footerText}>
+        <footer className="detail-footer-section">
+          <h3 className="detail-footer-title">Unduh Artikel & Lampiran</h3>
+          <p className="detail-footer-text">
             Simpan artikel ini ke perangkat Anda dalam berbagai format dokumen yang tersedia.
           </p>
 
-          <div style={styles.downloadGrid}>
-            <a 
-              href={`http://localhost:3000/api/posts/${post.slug}/download/pdf`} 
-              className="btn btn-primary" 
-              style={styles.downloadBtn}
+          <div className="detail-download-grid">
+            <a
+              href={`http://localhost:3000/api/posts/${post.slug}/download/pdf`}
+              className="btn btn-primary detail-download-btn"
               download
             >
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
@@ -125,10 +125,9 @@ const ArticleDetail = () => {
               Unduh Format PDF
             </a>
 
-            <a 
-              href={`http://localhost:3000/api/posts/${post.slug}/download/docx`} 
-              className="btn btn-secondary" 
-              style={styles.downloadBtn}
+            <a
+              href={`http://localhost:3000/api/posts/${post.slug}/download/docx`}
+              className="btn btn-secondary detail-download-btn"
               download
             >
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
@@ -139,10 +138,9 @@ const ArticleDetail = () => {
 
             {/* Original Uploaded Document Attachment */}
             {post.document_path && (
-              <a 
-                href={`http://localhost:3000/uploads/documents/${post.document_path}`} 
-                className="btn btn-secondary" 
-                style={{ ...styles.downloadBtn, gridColumn: 'span 2', borderColor: 'var(--secondary)', color: 'var(--secondary)' }}
+              <a
+                href={`http://localhost:3000/uploads/documents/${post.document_path}`}
+                className="btn btn-secondary detail-download-btn detail-download-btn-attachment"
                 target="_blank"
                 rel="noopener noreferrer"
                 download
@@ -158,135 +156,6 @@ const ArticleDetail = () => {
       </article>
     </div>
   );
-};
-
-const styles = {
-  detailContainer: {
-    paddingTop: '30px',
-    paddingBottom: '80px'
-  },
-  backNav: {
-    marginBottom: '24px'
-  },
-  centerContainer: {
-    padding: '80px 20px',
-    textAlign: 'center',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    gap: '20px'
-  },
-  spinner: {
-    width: '40px',
-    height: '40px',
-    border: '4px solid rgba(79, 70, 229, 0.1)',
-    borderRadius: '50%',
-    borderLeftColor: 'var(--primary)',
-    animation: 'spin 1s linear infinite'
-  },
-  article: {
-    backgroundColor: '#ffffff',
-    borderRadius: 'var(--radius-lg)',
-    border: '1px solid var(--border)',
-    boxShadow: 'var(--shadow)',
-    padding: '40px',
-    maxWidth: '850px',
-    margin: '0 auto'
-  },
-  header: {
-    marginBottom: '32px'
-  },
-  title: {
-    fontSize: '32px',
-    fontWeight: '800',
-    marginTop: '16px',
-    marginBottom: '20px',
-    lineHeight: '1.2'
-  },
-  metaRow: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    flexWrap: 'wrap',
-    gap: '20px',
-    paddingTop: '16px',
-    borderTop: '1px solid var(--border)'
-  },
-  authorSection: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '12px'
-  },
-  authorAvatar: {
-    width: '44px',
-    height: '44px',
-    borderRadius: '50%',
-    backgroundColor: 'rgba(79, 70, 229, 0.1)',
-    color: 'var(--primary)',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    fontSize: '18px',
-    fontWeight: '800'
-  },
-  authorName: {
-    fontSize: '15px',
-    fontWeight: '700',
-    color: 'var(--dark-text)'
-  },
-  authorEmail: {
-    fontSize: '12px',
-    color: 'var(--muted-text)'
-  },
-  metaDetails: {
-    fontSize: '13px',
-    color: 'var(--light-text)',
-    textAlign: 'right'
-  },
-  thumbnailContainer: {
-    borderRadius: 'var(--radius)',
-    overflow: 'hidden',
-    marginBottom: '32px',
-    maxHeight: '450px'
-  },
-  thumbnail: {
-    width: '100%',
-    height: '100%',
-    objectFit: 'cover'
-  },
-  contentBody: {
-    fontSize: '16px',
-    color: 'var(--dark-text)',
-    lineHeight: '1.8',
-    marginBottom: '40px'
-  },
-  paragraph: {
-    marginBottom: '20px',
-    textAlign: 'justify'
-  },
-  footerSection: {
-    borderTop: '1px solid var(--border)',
-    paddingTop: '32px'
-  },
-  footerTitle: {
-    fontSize: '18px',
-    fontWeight: '700',
-    marginBottom: '8px'
-  },
-  footerText: {
-    fontSize: '14px',
-    color: 'var(--light-text)',
-    marginBottom: '20px'
-  },
-  downloadGrid: {
-    display: 'grid',
-    gridTemplateColumns: '1fr 1fr',
-    gap: '16px'
-  },
-  downloadBtn: {
-    padding: '12px 20px',
-    fontWeight: '700'
-  }
 };
 
 export default ArticleDetail;

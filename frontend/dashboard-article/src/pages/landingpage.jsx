@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import API from '../services/api';
+import '../css/landingPage.css';
 
 const TRENDING_POSTS = [
   { id: 1, title: 'The Decentralized Web: Myths vs Reality', readTime: '4 min read' },
@@ -86,52 +87,59 @@ const PublicLanding = () => {
   };
 
   return (
-    <div className="container" style={styles.landingContainer}>
-      <header style={styles.header}>
-        <div style={styles.headerBadge}>WADAH BERSUARA & BERBAGI FAKTA</div>
-        <h1 style={styles.mainTitle}>Temukan Isu Hangat & <span style={styles.gradientText}>Artikel Terkini</span></h1>
-        <p style={styles.subtitle}>Referensi terpercaya untuk programming, cyber security, tips & trik, kesehatan, hingga isu global terbaru.</p>
+    <div className="container landing-container">
+      <header className="header">
+        <div className="header-badge">WADAH BERSUARA & BERBAGI FAKTA</div>
+        <h1 className="main-title">
+          Temukan Isu Hangat & <span className="gradient-text">Artikel Terkini</span>
+        </h1>
+        <p className="subtitle">
+          Referensi terpercaya untuk programming, cyber security, tips & trik, kesehatan, hingga isu global terbaru.
+        </p>
       </header>
 
       <div className="grid-sidebar">
         {/* Main Content Area */}
         <main>
           {loading ? (
-            <div style={styles.stateContainer}>
-              <div style={styles.spinner}></div>
+            <div className="state-container">
+              <div className="spinner"></div>
               <p>Memuat artikel terbaik untuk Anda...</p>
             </div>
           ) : error ? (
             <div className="alert alert-error">{error}</div>
           ) : posts.length === 0 ? (
-            <div style={styles.stateContainer}>
+            <div className="state-container">
               <h3>Tidak Ada Artikel</h3>
               <p>Tidak ditemukan artikel yang sesuai dengan filter pencarian Anda.</p>
               <button className="btn btn-secondary mt-4" onClick={handleResetFilters}>Reset Semua Filter</button>
             </div>
           ) : (
-            <div style={styles.articleList}>
+            <div className="article-list">
               {posts.map(post => (
-                <article className="card" key={post.id} style={styles.articleCard}>
-                  <div style={styles.thumbnailWrapper}>
+                <article className="card article-card" key={post.id}>
+                  <div className="thumbnail-wrapper">
                     {post.thumbnail ? (
                       <img
                         src={`http://localhost:3000/uploads/thumbnails/${post.thumbnail}`}
                         alt={post.title}
-                        style={styles.thumbnail}
+                        className="thumbnail"
                       />
                     ) : (
-                      <div style={{ ...styles.thumbnailPlaceholder, background: getPlaceholderGradient(post.category_slug) }}>
+                      <div
+                        className="thumbnail-placeholder"
+                        style={{ background: getPlaceholderGradient(post.category_slug) }}
+                      >
                         <span>{post.category_name}</span>
                       </div>
                     )}
-                    <span className={getCategoryClass(post.category_slug || 'default')} style={styles.floatingBadge}>
+                    <span className={`${getCategoryClass(post.category_slug || 'default')} floating-badge`}>
                       {post.category_name || 'Umum'}
                     </span>
                   </div>
 
-                  <div style={styles.articleBody}>
-                    <div style={styles.articleMeta}>
+                  <div className="article-body">
+                    <div className="article-meta">
                       <span>Oleh <strong>{post.author_name || post.author_username || 'Anonim'}</strong></span>
                       <span>•</span>
                       <span>{new Date(post.created_at).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}</span>
@@ -139,12 +147,12 @@ const PublicLanding = () => {
                       <span>👁️ {post.views || 0} kali dibaca</span>
                     </div>
 
-                    <h2 style={styles.articleTitle} onClick={() => viewDetail(post.slug)}>{post.title}</h2>
-                    <p style={styles.articleExcerpt}>
+                    <h2 className="article-title" onClick={() => viewDetail(post.slug)}>{post.title}</h2>
+                    <p className="article-excerpt">
                       {post.content.substring(0, 160)}...
                     </p>
 
-                    <div style={styles.articleFooter}>
+                    <div className="article-footer">
                       <button className="btn btn-primary" onClick={() => viewDetail(post.slug)}>
                         Baca Selengkapnya
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
@@ -153,7 +161,7 @@ const PublicLanding = () => {
                       </button>
 
                       {post.document_path && (
-                        <span style={styles.docIndicator} title="Artikel ini memiliki file dokumen lampiran">
+                        <span className="doc-indicator" title="Artikel ini memiliki file dokumen lampiran">
                           📄 Lampiran Tersedia
                         </span>
                       )}
@@ -166,12 +174,12 @@ const PublicLanding = () => {
         </main>
 
         {/* Sidebar */}
-        <aside style={styles.sidebar}>
+        <aside className="sidebar">
           {/* Filter Card */}
-          <div style={styles.sidebarCard}>
-            <h3 style={styles.sidebarTitle}>Cari & Filter</h3>
+          <div className="sidebar-card">
+            <h3 className="sidebar-title">Cari & Filter</h3>
 
-            <form onSubmit={handleSearchSubmit} style={styles.searchForm}>
+            <form onSubmit={handleSearchSubmit} className="search-form">
               <div className="form-group">
                 <label>Pencarian</label>
                 <input
@@ -185,13 +193,13 @@ const PublicLanding = () => {
               <button type="submit" className="btn btn-primary full-width">Cari Artikel</button>
             </form>
 
-            <hr style={styles.hr} />
+            <hr className="hr" />
 
-            <div style={styles.filterSection}>
-              <h4 style={styles.sectionTitle}>Kategori</h4>
-              <div style={styles.categoryTags}>
+            <div className="filter-section">
+              <h4 className="section-title">Kategori</h4>
+              <div className="category-tags">
                 <button
-                  style={selectedCategory === '' ? styles.catTagActive : styles.catTag}
+                  className={selectedCategory === '' ? 'cat-tag-active' : 'cat-tag'}
                   onClick={() => setSelectedCategory('')}
                 >
                   Semua Kategori
@@ -199,7 +207,7 @@ const PublicLanding = () => {
                 {categories.map(cat => (
                   <button
                     key={cat.id}
-                    style={selectedCategory === cat.slug ? styles.catTagActive : styles.catTag}
+                    className={selectedCategory === cat.slug ? 'cat-tag-active' : 'cat-tag'}
                     onClick={() => setSelectedCategory(cat.slug)}
                   >
                     {cat.category_name}
@@ -208,12 +216,12 @@ const PublicLanding = () => {
               </div>
             </div>
 
-            <hr style={styles.hr} />
+            <hr className="hr" />
 
-            <div style={styles.filterSection}>
-              <h4 style={styles.sectionTitle}>Tanggal Publish</h4>
+            <div className="filter-section">
+              <h4 className="section-title">Tanggal Publish</h4>
               <div className="form-group">
-                <label style={styles.subLabel}>Mulai Dari</label>
+                <label className="sub-label">Mulai Dari</label>
                 <input
                   type="date"
                   className="form-control"
@@ -222,7 +230,7 @@ const PublicLanding = () => {
                 />
               </div>
               <div className="form-group">
-                <label style={styles.subLabel}>Sampai Dengan</label>
+                <label className="sub-label">Sampai Dengan</label>
                 <input
                   type="date"
                   className="form-control"
@@ -238,28 +246,28 @@ const PublicLanding = () => {
           </div>
 
           {/* ===== TRENDING NOW ===== */}
-          <div style={styles.sidebarCard}>
-            <div style={styles.trendingHeader}>
+          <div className="sidebar-card">
+            <div className="trending-header">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" strokeWidth="2.5" style={{ flexShrink: 0 }}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941" />
               </svg>
-              <h3 style={styles.sidebarTitle}>Trending Now</h3>
+              <h3 className="sidebar-title">Trending Now</h3>
             </div>
             {TRENDING_POSTS.map((item, index) => (
-              <div key={item.id} style={styles.trendingItem}>
-                <span style={styles.trendingNum}>0{index + 1}</span>
+              <div key={item.id} className="trending-item">
+                <span className="trending-num">0{index + 1}</span>
                 <div>
-                  <p style={styles.trendingTitle}>{item.title}</p>
-                  <p style={styles.trendingMeta}>{item.readTime}</p>
+                  <p className="trending-title">{item.title}</p>
+                  <p className="trending-meta">{item.readTime}</p>
                 </div>
               </div>
             ))}
           </div>
 
           {/* ===== THE WEEKLY INSIGHT (NEWSLETTER) ===== */}
-          <div style={styles.newsletterCard}>
-            <h3 style={styles.newsletterTitle}>The Weekly Insight</h3>
-            <p style={styles.newsletterBody}>
+          <div className="newsletter-card">
+            <h3 className="newsletter-title">The Weekly Insight</h3>
+            <p className="newsletter-body">
               Join 50,000+ readers. Get curated stories and visionary perspectives delivered to your inbox every Sunday.
             </p>
             <input
@@ -267,81 +275,81 @@ const PublicLanding = () => {
               placeholder="Email address"
               value={newsletterEmail}
               onChange={(e) => setNewsletterEmail(e.target.value)}
-              style={styles.newsletterInput}
+              className="newsletter-input"
             />
             <button
-              style={styles.newsletterBtn}
+              className="newsletter-btn"
               onClick={() => alert('Terima kasih sudah subscribe!')}
             >
               Subscribe
             </button>
-            <p style={styles.newsletterDisclaimer}>No spam. Unsubscribe anytime.</p>
+            <p className="newsletter-disclaimer">No spam. Unsubscribe anytime.</p>
           </div>
 
           {/* ===== RECOMMENDED WRITERS ===== */}
-          <div style={styles.sidebarCard}>
-            <h3 style={{ ...styles.sidebarTitle, textTransform: 'uppercase', fontSize: '11px', letterSpacing: '1.5px', color: 'var(--muted-text)' }}>
+          <div className="sidebar-card">
+            <h3 className="sidebar-title" style={{ textTransform: 'uppercase', fontSize: '11px', letterSpacing: '1.5px', color: 'var(--muted-text)' }}>
               Recommended Writers
             </h3>
             {RECOMMENDED_WRITERS.map(writer => (
-              <div key={writer.id} style={styles.writerRow}>
-                <div style={styles.writerInfo}>
-                  <div style={styles.writerAvatar}>{writer.initials}</div>
+              <div key={writer.id} className="writer-row">
+                <div className="writer-info">
+                  <div className="writer-avatar">{writer.initials}</div>
                   <div>
-                    <p style={styles.writerName}>{writer.name}</p>
-                    <p style={styles.writerRole}>{writer.role}</p>
+                    <p className="writer-name">{writer.name}</p>
+                    <p className="writer-role">{writer.role}</p>
                   </div>
                 </div>
-                <button style={styles.followBtn}>Follow</button>
+                <button className="follow-btn">Follow</button>
               </div>
             ))}
           </div>
-          
+
         </aside>
-        
+
       </div>
 
       {/* ===== FOOTER ===== */}
-      <footer style={styles.footer}>
-        <div style={styles.footerGrid}>
+      <footer className="footer">
+        <div className="footer-grid">
           <div>
-            <p style={styles.footerBrandName}>Codepie</p>
-            <p style={styles.footerDesc}>
+            <p className="footer-brand-name">Codepie</p>
+            <p className="footer-desc">
               Cultivating a new standard for digital editorial. We blend high-fidelity technology with prestige journalism to explore the frontiers of human ingenuity.
             </p>
-            <div style={styles.footerIcons}>
-              <span style={styles.footerIconBtn} title="Website">🌐</span>
-              <span style={styles.footerIconBtn} title="Share">⎘</span>
-              <span style={styles.footerIconBtn} title="Email">@</span>
+            <div className="footer-icons">
+              <span className="footer-icon-btn" title="Website">🌐</span>
+              <span className="footer-icon-btn" title="Share">⎘</span>
+              <span className="footer-icon-btn" title="Email">@</span>
             </div>
           </div>
           <div>
-            <p style={styles.footerColTitle}>Publication</p>
-            <p style={styles.footerLink}>Jelajah</p>
-            <p style={styles.footerLink}>Penulis</p>
-            <p style={styles.footerLink}>About</p>
-            <p style={styles.footerLink}>The Weekly Insight</p>
+            <p className="footer-col-title">Publication</p>
+            <p className="footer-link">Jelajah</p>
+            <p className="footer-link">Penulis</p>
+            <p className="footer-link">About</p>
+            <p className="footer-link">The Weekly Insight</p>
           </div>
           <div>
-            <p style={styles.footerColTitle}>Company</p>
-            <p style={styles.footerLink}>About</p>
-            <p style={styles.footerLink}>Careers</p>
-            <p style={styles.footerLink}>Contact</p>
-            <p style={styles.footerLink}>Help Center</p>
+            <p className="footer-col-title">Company</p>
+            <p className="footer-link">About</p>
+            <p className="footer-link">Careers</p>
+            <p className="footer-link">Contact</p>
+            <p className="footer-link">Help Center</p>
           </div>
           <div>
-            <p style={styles.footerColTitle}>Legal</p>
-            <p style={styles.footerLink}>Privacy Policy</p>
-            <p style={styles.footerLink}>Terms of Service</p>
-            <p style={styles.footerLink}>Cookie Policy</p>
+            <p className="footer-col-title">Legal</p>
+            <p className="footer-link">Privacy Policy</p>
+            <p className="footer-link">Terms of Service</p>
+            <p className="footer-link">Cookie Policy</p>
           </div>
         </div>
-        <div style={styles.footerBottom}>
+        <div className="footer-bottom">
           <p>© 2026 Codepie. All rights reserved.</p>
           <p>Made with <span style={{ color: '#7C6FE4' }}>♥</span> in Fullstack</p>
         </div>
       </footer>
-      
+
     </div>
   );
 };
@@ -365,387 +373,5 @@ const getPlaceholderGradient = (slug) => {
   }
 };
 
-const styles = {
-  landingContainer: {
-    paddingTop: '40px',
-    paddingBottom: '0px'
-  },
-  header: {
-    textAlign: 'center',
-    marginBottom: '50px'
-  },
-  headerBadge: {
-    display: 'inline-block',
-    padding: '6px 14px',
-    borderRadius: '30px',
-    backgroundColor: 'rgba(79, 70, 229, 0.08)',
-    border: '1px solid rgba(79, 70, 229, 0.15)',
-    color: 'var(--primary)',
-    fontSize: '12px',
-    fontWeight: '700',
-    letterSpacing: '1px',
-    marginBottom: '16px'
-  },
-  mainTitle: {
-    fontSize: '38px',
-    fontWeight: '800',
-    letterSpacing: '-1px',
-    marginBottom: '12px'
-  },
-  gradientText: {
-    background: 'linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%)',
-    WebkitBackgroundClip: 'text',
-    WebkitTextFillColor: 'transparent'
-  },
-  subtitle: {
-    fontSize: '16px',
-    color: 'var(--light-text)',
-    maxWidth: '650px',
-    margin: '0 auto'
-  },
-  articleList: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '30px'
-  },
-  articleCard: {
-    display: 'flex',
-    flexDirection: 'row',
-    height: '240px'
-  },
-  thumbnailWrapper: {
-    width: '280px',
-    minWidth: '280px',
-    position: 'relative',
-    overflow: 'hidden'
-  },
-  thumbnail: {
-    width: '100%',
-    height: '100%',
-    objectFit: 'cover',
-    transition: 'var(--transition)'
-  },
-  thumbnailPlaceholder: {
-    width: '100%',
-    height: '100%',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    color: 'white',
-    fontSize: '18px',
-    fontWeight: '700',
-    textTransform: 'uppercase'
-  },
-  floatingBadge: {
-    position: 'absolute',
-    top: '16px',
-    left: '16px',
-    zIndex: 1
-  },
-  articleBody: {
-    padding: '24px',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    flexGrow: 1
-  },
-  articleMeta: {
-    display: 'flex',
-    gap: '8px',
-    fontSize: '12px',
-    color: 'var(--muted-text)',
-    alignItems: 'center'
-  },
-  articleTitle: {
-    fontSize: '20px',
-    fontWeight: '700',
-    cursor: 'pointer',
-    transition: 'var(--transition)'
-  },
-  articleExcerpt: {
-    fontSize: '14px',
-    color: 'var(--light-text)',
-    lineHeight: '1.5'
-  },
-  articleFooter: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center'
-  },
-  docIndicator: {
-    fontSize: '12px',
-    fontWeight: '600',
-    color: 'var(--secondary)'
-  },
-  sidebar: {
-    position: 'sticky',
-    top: '94px',
-    alignSelf: 'start',
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '20px'
-  },
-  sidebarCard: {
-    backgroundColor: 'white',
-    borderRadius: 'var(--radius)',
-    border: '1px solid var(--border)',
-    padding: '24px',
-    boxShadow: 'var(--shadow-sm)'
-  },
-  sidebarTitle: {
-    fontSize: '16px',
-    fontWeight: '700',
-    marginBottom: '16px',
-    color: 'var(--dark-text)'
-  },
-  searchForm: {
-    marginBottom: '20px'
-  },
-  hr: {
-    border: 'none',
-    borderTop: '1px solid var(--border)',
-    margin: '20px 0'
-  },
-  filterSection: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '12px'
-  },
-  sectionTitle: {
-    fontSize: '14px',
-    fontWeight: '700',
-    color: 'var(--dark-text)'
-  },
-  subLabel: {
-    fontSize: '12px',
-    color: 'var(--light-text)'
-  },
-  categoryTags: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    gap: '8px'
-  },
-  catTag: {
-    background: 'var(--bg-light)',
-    border: '1px solid var(--border)',
-    padding: '6px 12px',
-    borderRadius: '20px',
-    fontSize: '12px',
-    fontWeight: '600',
-    color: 'var(--light-text)',
-    cursor: 'pointer',
-    transition: 'var(--transition)'
-  },
-  catTagActive: {
-    background: 'linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%)',
-    border: '1px solid transparent',
-    padding: '6px 12px',
-    borderRadius: '20px',
-    fontSize: '12px',
-    fontWeight: '600',
-    color: 'white',
-    cursor: 'pointer',
-    boxShadow: '0 2px 8px rgba(79, 70, 229, 0.2)'
-  },
-  stateContainer: {
-    textAlign: 'center',
-    padding: '60px 20px',
-    backgroundColor: 'white',
-    borderRadius: 'var(--radius)',
-    border: '1px solid var(--border)'
-  },
-  spinner: {
-    width: '40px',
-    height: '40px',
-    border: '4px solid rgba(79, 70, 229, 0.1)',
-    borderRadius: '50%',
-    borderLeftColor: 'var(--primary)',
-    animation: 'spin 1s linear infinite',
-    margin: '0 auto 16px'
-  },
-  trendingHeader: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '8px',
-    marginBottom: '16px',
-    borderBottom: '1px solid var(--border)',
-    paddingBottom: '8px'
-  },
-  trendingItem: {
-    display: 'flex',
-    gap: '14px',
-    paddingTop: '10px',
-    paddingBottom: '10px',
-    borderBottom: '1px solid var(--border)',
-    alignItems: 'flex-start'
-  },
-  trendingNum: {
-    fontSize: '15px',
-    fontWeight: '700',
-    color: 'var(--border)',
-    minWidth: '24px',
-    marginTop: '1px'
-  },
-  trendingTitle: {
-    fontSize: '13px',
-    fontWeight: '600',
-    color: 'var(--dark-text)',
-    lineHeight: '1.4',
-    marginBottom: '3px'
-  },
-  trendingMeta: {
-    fontSize: '11px',
-    color: 'var(--muted-text)'
-  },
-  newsletterCard: {
-    background: 'linear-gradient(135deg, #5B21B6 0%, #7C3AED 100%)',
-    borderRadius: 'var(--radius)',
-    padding: '24px',
-    color: 'white'
-  },
-  newsletterTitle: {
-    fontSize: '16px',
-    fontWeight: '700',
-    marginBottom: '8px'
-  },
-  newsletterBody: {
-    fontSize: '13px',
-    lineHeight: '1.6',
-    opacity: '0.9',
-    marginBottom: '16px'
-  },
-  newsletterInput: {
-    width: '100%',
-    background: 'rgba(255,255,255,0.15)',
-    border: '1px solid rgba(255,255,255,0.35)',
-    borderRadius: 'var(--radius)',
-    padding: '9px 12px',
-    fontSize: '13px',
-    color: 'white',
-    marginBottom: '10px',
-    outline: 'none'
-  },
-  newsletterBtn: {
-    width: '100%',
-    background: 'rgba(255,255,255,0.2)',
-    border: '1px solid rgba(255,255,255,0.4)',
-    borderRadius: 'var(--radius)',
-    padding: '9px',
-    fontSize: '13px',
-    fontWeight: '700',
-    color: 'white',
-    cursor: 'pointer',
-    marginBottom: '8px'
-  },
-  newsletterDisclaimer: {
-    fontSize: '11px',
-    textAlign: 'center',
-    opacity: '0.6'
-  },
-  writerRow: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingTop: '12px',
-    paddingBottom: '12px',
-    borderBottom: '1px solid var(--border)'
-  },
-  writerInfo: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '12px'
-  },
-  writerAvatar: {
-    width: '38px',
-    height: '38px',
-    borderRadius: '50%',
-    background: 'linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%)',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    color: 'white',
-    fontSize: '13px',
-    fontWeight: '700'
-  },
-  writerName: {
-    fontSize: '14px',
-    fontWeight: '700',
-    color: 'var(--dark-text)',
-    marginBottom: '2px'
-  },
-  writerRole: {
-    fontSize: '12px',
-    color: 'var(--secondary)'
-  },
-  followBtn: {
-    background: 'transparent',
-    border: '1px solid var(--border)',
-    borderRadius: '20px',
-    padding: '5px 14px',
-    fontSize: '12px',
-    fontWeight: '600',
-    color: 'var(--dark-text)',
-    cursor: 'pointer'
-  },
-  footer: {
-    background: '#1f1f23',
-    color: 'rgba(255,255,255,0.6)',
-    padding: '56px 40px 28px',
-    marginTop: '60px',
-    marginLeft: '-20px',
-    marginRight: '-20px'
-  },
-  footerGrid: {
-    display: 'grid',
-    gridTemplateColumns: '2fr 1fr 1fr 1fr',
-    gap: '40px',
-    maxWidth: '1100px',
-    margin: '0 auto 40px'
-  },
-  footerBrandName: {
-    fontSize: '16px',
-    fontWeight: '700',
-    color: '#7C6FE4',
-    marginBottom: '12px'
-  },
-  footerDesc: {
-    fontSize: '13px',
-    lineHeight: '1.7',
-    color: 'rgba(255,255,255,0.45)',
-    marginBottom: '16px'
-  },
-  footerIcons: {
-    display: 'flex',
-    gap: '14px'
-  },
-  footerIconBtn: {
-    fontSize: '18px',
-    opacity: '0.5',
-    cursor: 'pointer'
-  },
-  footerColTitle: {
-    fontSize: '13px',
-    fontWeight: '700',
-    color: '#7C6FE4',
-    marginBottom: '14px'
-  },
-  footerLink: {
-    fontSize: '13px',
-    color: 'rgba(255,255,255,0.45)',
-    marginBottom: '10px',
-    cursor: 'pointer',
-    transition: 'color 0.2s'
-  },
-  footerBottom: {
-    borderTop: '1px solid rgba(255,255,255,0.1)',
-    paddingTop: '24px',
-    display: 'flex',
-    justifyContent: 'space-between',
-    fontSize: '12px',
-    color: 'rgba(255,255,255,0.3)',
-    maxWidth: '1100px',
-    margin: '0 auto'
-  }
-};
 
 export default PublicLanding;

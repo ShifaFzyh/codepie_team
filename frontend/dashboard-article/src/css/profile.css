@@ -1,0 +1,288 @@
+/* ==========================================================================
+   profile.css
+   Import file di pages/profile.jsx
+   ========================================================================== */
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ---------- Grid 3 kolom (statistik) ---------- */
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+@media (max-width: 700px) {
+  .grid-3 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---------- Layout utama ---------- */
+.profile-container {
+  padding-top: 40px;
+  padding-bottom: 60px;
+}
+
+.profile-header {
+  margin-bottom: 32px;
+}
+
+.profile-header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.profile-title {
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--dark-text);
+}
+
+.profile-subtitle {
+  font-size: 15px;
+  color: var(--light-text);
+  margin-top: 6px;
+}
+
+.profile-logout-btn {
+  background-color: #7C3AED;
+  color: #ffffff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 700;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.profile-logout-btn:hover {
+  opacity: 0.92;
+}
+
+/* ---------- Loader ---------- */
+.profile-loader-container {
+  text-align: center;
+  padding: 60px;
+}
+
+.profile-spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid rgba(79, 70, 229, 0.1);
+  border-radius: 50%;
+  border-left-color: var(--primary);
+  animation: spin 1s linear infinite;
+  margin: 0 auto 16px;
+}
+
+/* ---------- Statistik ---------- */
+.profile-stats-section {
+  margin-bottom: 20px;
+}
+
+.profile-section-title {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 16px;
+  border-bottom: 2px solid var(--border);
+  padding-bottom: 8px;
+  color: var(--dark-text);
+}
+
+.profile-stats-grid {
+  margin-top: 12px;
+}
+
+.profile-stat-card {
+  padding: 24px;
+  text-align: center;
+  background-color: #ffffff;
+}
+
+.profile-stat-card--wide {
+  grid-column: span 3;
+}
+
+.profile-stat-icon {
+  font-size: 28px;
+  margin-bottom: 8px;
+}
+
+.profile-stat-val {
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--primary);
+}
+
+.profile-stat-val--secondary {
+  color: var(--secondary);
+}
+
+.profile-stat-label {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--light-text);
+  margin-top: 4px;
+}
+
+/* ---------- Card umum halaman profil ---------- */
+.profile-card-padding {
+  padding: 32px;
+  background-color: #ffffff;
+}
+
+/* ---------- Form ---------- */
+.profile-disabled-input {
+  background-color: var(--bg-light);
+  color: var(--light-text);
+  border: 1px dashed var(--border);
+  cursor: not-allowed;
+}
+
+.profile-field-hint {
+  font-size: 11px;
+  color: var(--muted-text);
+  margin-top: 2px;
+  display: block;
+}
+
+/* ---------- Daftar artikel saya ---------- */
+.profile-empty-posts {
+  padding: 40px 16px;
+  text-align: center;
+}
+
+.profile-posts-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-height: 520px;
+  overflow-y: auto;
+  padding-right: 8px;
+}
+
+.profile-post-item {
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.profile-post-item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.profile-status-tag {
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.profile-status-tag--published {
+  background-color: #ECFDF5;
+  color: #10B981;
+}
+
+.profile-status-tag--pending {
+  background-color: #FFFBEB;
+  color: #D97706;
+}
+
+.profile-post-item-title {
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  color: var(--dark-text);
+  transition: var(--transition);
+}
+
+.profile-post-item-title:hover {
+  color: var(--primary);
+}
+
+.profile-post-item-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  color: var(--muted-text);
+}
+
+.profile-post-item-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.profile-text-link-btn {
+  background: none;
+  border: none;
+  color: var(--primary);
+  font-weight: 700;
+  cursor: pointer;
+  font-size: 12px;
+  font-family: var(--font);
+}
+
+.profile-text-link-btn--danger {
+  color: var(--danger, #DC2626);
+}
+
+/* ---------- Footer ---------- */
+.profile-footer {
+  border-top: 1px solid #E5E7EB;
+  background-color: #ffffff;
+  padding: 24px 0;
+  margin-top: auto;
+}
+
+.profile-footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.profile-footer-text {
+  font-size: 13px;
+  color: #9CA3AF;
+}
+
+.profile-footer-links {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.profile-footer-link {
+  font-size: 13px;
+  color: #6B7280;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.profile-footer-link:hover {
+  color: var(--primary);
+}
+
+.profile-footer-divider {
+  color: #D1D5DB;
+  font-size: 13px;
+}

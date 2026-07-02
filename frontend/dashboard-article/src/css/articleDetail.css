@@ -1,0 +1,184 @@
+/* ==========================================================================
+   articledetail.css
+   Import file di pages/articledetail.jsx
+   ========================================================================== */
+
+:root {
+  --primary: #4F46E5;
+  --secondary: #7C3AED;
+  --dark-text: #1f1f23;
+  --light-text: #6b7280;
+  --muted-text: #9ca3af;
+  --border: #e5e7eb;
+  --bg-light: #f9fafb;
+  --radius: 12px;
+  --radius-lg: 20px;
+  --shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+  --transition: all 0.2s ease;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ---------- Layout utama ---------- */
+.detail-container {
+  padding-top: 30px;
+  padding-bottom: 80px;
+}
+
+.detail-back-nav {
+  margin-bottom: 24px;
+}
+
+.detail-center-container {
+  padding: 80px 20px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.detail-spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid rgba(79, 70, 229, 0.1);
+  border-radius: 50%;
+  border-left-color: var(--primary);
+  animation: spin 1s linear infinite;
+}
+
+/* ---------- Artikel ---------- */
+.detail-article {
+  background-color: #ffffff;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  padding: 40px;
+  max-width: 850px;
+  margin: 0 auto;
+}
+
+.detail-header {
+  margin-bottom: 32px;
+}
+
+.detail-title {
+  font-size: 32px;
+  font-weight: 800;
+  margin-top: 16px;
+  margin-bottom: 20px;
+  line-height: 1.2;
+}
+
+.detail-meta-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+
+.detail-author-section {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.detail-author-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background-color: rgba(79, 70, 229, 0.1);
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.detail-author-name {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--dark-text);
+}
+
+.detail-author-email {
+  font-size: 12px;
+  color: var(--muted-text);
+}
+
+.detail-meta-details {
+  font-size: 13px;
+  color: var(--light-text);
+  text-align: right;
+}
+
+/* ---------- Thumbnail ---------- */
+.detail-thumbnail-container {
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin-bottom: 32px;
+  max-height: 450px;
+}
+
+.detail-thumbnail {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ---------- Isi Konten ---------- */
+.detail-content-body {
+  font-size: 16px;
+  color: var(--dark-text);
+  line-height: 1.8;
+  margin-bottom: 40px;
+}
+
+.detail-paragraph {
+  margin-bottom: 20px;
+  text-align: justify;
+}
+
+/* ---------- Footer Unduhan ---------- */
+.detail-footer-section {
+  border-top: 1px solid var(--border);
+  padding-top: 32px;
+}
+
+.detail-footer-title {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.detail-footer-text {
+  font-size: 14px;
+  color: var(--light-text);
+  margin-bottom: 20px;
+}
+
+.detail-download-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.detail-download-btn {
+  padding: 12px 20px;
+  font-weight: 700;
+}
+
+.detail-download-btn-attachment {
+  grid-column: span 2;
+  border-color: var(--secondary);
+  color: var(--secondary);
+}

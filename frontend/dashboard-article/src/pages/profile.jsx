@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import API from '../services/api';
+import '../css/profile.css';
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -115,24 +116,24 @@ const Profile = () => {
   return (
     <>
       {/* Konten Utama — Navbar & Footer sudah dihandle di App.jsx via WithNavbar */}
-      <div className="container" style={styles.profileContainer}>
+      <div className="container profile-container">
 
         {/* Header + Tombol Logout */}
-        <header style={styles.header}>
-          <div style={styles.headerTop}>
+        <header className="profile-header">
+          <div className="profile-header-top">
             <div>
-              <h1 style={styles.title}>Profil Pengguna</h1>
-              <p style={styles.subtitle}>Kelola detail akun Anda dan tinjau metrik artikel Anda.</p>
+              <h1 className="profile-title">Profil Pengguna</h1>
+              <p className="profile-subtitle">Kelola detail akun Anda dan tinjau metrik artikel Anda.</p>
             </div>
-            <button style={styles.logoutBtn} onClick={handleLogout}>
+            <button className="profile-logout-btn" onClick={handleLogout}>
               🚪 Keluar / Logout
             </button>
           </div>
         </header>
 
         {loadingData ? (
-          <div style={styles.loaderContainer}>
-            <div style={styles.spinner}></div>
+          <div className="profile-loader-container">
+            <div className="profile-spinner"></div>
             <p>Memuat profil dan statistik Anda...</p>
           </div>
         ) : (
@@ -140,48 +141,48 @@ const Profile = () => {
             {dataError && <div className="alert alert-error">{dataError}</div>}
 
             {/* Statistik */}
-            <section style={styles.statsSection}>
-              <h3 style={styles.sectionTitle}>Statistik & Metrik Ringkasan</h3>
+            <section className="profile-stats-section">
+              <h3 className="profile-section-title">Statistik & Metrik Ringkasan</h3>
 
               {user.role === 'admin' ? (
-                <div className="grid-3" style={styles.statsGrid}>
-                  <div className="card" style={styles.statCard}>
-                    <div style={styles.statIcon}>👥</div>
-                    <div style={styles.statVal}>{stats?.totalUsers || 0}</div>
-                    <div style={styles.statLabel}>Total Pengguna</div>
+                <div className="grid-3 profile-stats-grid">
+                  <div className="card profile-stat-card">
+                    <div className="profile-stat-icon">👥</div>
+                    <div className="profile-stat-val">{stats?.totalUsers || 0}</div>
+                    <div className="profile-stat-label">Total Pengguna</div>
                   </div>
-                  <div className="card" style={styles.statCard}>
-                    <div style={styles.statIcon}>📰</div>
-                    <div style={styles.statVal}>{stats?.totalPublished || 0}</div>
-                    <div style={styles.statLabel}>Artikel Dipublikasikan</div>
+                  <div className="card profile-stat-card">
+                    <div className="profile-stat-icon">📰</div>
+                    <div className="profile-stat-val">{stats?.totalPublished || 0}</div>
+                    <div className="profile-stat-label">Artikel Dipublikasikan</div>
                   </div>
-                  <div className="card" style={styles.statCard}>
-                    <div style={styles.statIcon}>⏳</div>
-                    <div style={{ ...styles.statVal, color: 'var(--secondary)' }}>{stats?.totalPending || 0}</div>
-                    <div style={styles.statLabel}>Menunggu Moderasi</div>
+                  <div className="card profile-stat-card">
+                    <div className="profile-stat-icon">⏳</div>
+                    <div className="profile-stat-val profile-stat-val--secondary">{stats?.totalPending || 0}</div>
+                    <div className="profile-stat-label">Menunggu Moderasi</div>
                   </div>
-                  <div className="card" style={{ ...styles.statCard, gridColumn: 'span 3' }}>
-                    <div style={styles.statIcon}>👁️</div>
-                    <div style={styles.statVal}>{stats?.totalViews || 0}</div>
-                    <div style={styles.statLabel}>Total Pembaca Platform (Views)</div>
+                  <div className="card profile-stat-card profile-stat-card--wide">
+                    <div className="profile-stat-icon">👁️</div>
+                    <div className="profile-stat-val">{stats?.totalViews || 0}</div>
+                    <div className="profile-stat-label">Total Pembaca Platform (Views)</div>
                   </div>
                 </div>
               ) : (
-                <div className="grid-3" style={styles.statsGrid}>
-                  <div className="card" style={styles.statCard}>
-                    <div style={styles.statIcon}>📰</div>
-                    <div style={styles.statVal}>{stats?.totalPublished || 0}</div>
-                    <div style={styles.statLabel}>Artikel Anda Rilis</div>
+                <div className="grid-3 profile-stats-grid">
+                  <div className="card profile-stat-card">
+                    <div className="profile-stat-icon">📰</div>
+                    <div className="profile-stat-val">{stats?.totalPublished || 0}</div>
+                    <div className="profile-stat-label">Artikel Anda Rilis</div>
                   </div>
-                  <div className="card" style={styles.statCard}>
-                    <div style={styles.statIcon}>⏳</div>
-                    <div style={{ ...styles.statVal, color: 'var(--secondary)' }}>{stats?.totalPending || 0}</div>
-                    <div style={styles.statLabel}>Artikel Pending Review</div>
+                  <div className="card profile-stat-card">
+                    <div className="profile-stat-icon">⏳</div>
+                    <div className="profile-stat-val profile-stat-val--secondary">{stats?.totalPending || 0}</div>
+                    <div className="profile-stat-label">Artikel Pending Review</div>
                   </div>
-                  <div className="card" style={styles.statCard}>
-                    <div style={styles.statIcon}>👁️</div>
-                    <div style={styles.statVal}>{stats?.totalViews || 0}</div>
-                    <div style={styles.statLabel}>Total Tayangan Pembaca</div>
+                  <div className="card profile-stat-card">
+                    <div className="profile-stat-icon">👁️</div>
+                    <div className="profile-stat-val">{stats?.totalViews || 0}</div>
+                    <div className="profile-stat-label">Total Tayangan Pembaca</div>
                   </div>
                 </div>
               )}
@@ -190,8 +191,8 @@ const Profile = () => {
             <div className="grid-sidebar" style={{ marginTop: '32px' }}>
               {/* Kiri: Form Update */}
               <div>
-                <div className="card" style={styles.cardPadding}>
-                  <h3 style={styles.sectionTitle}>Perbarui Detail Akun</h3>
+                <div className="card profile-card-padding">
+                  <h3 className="profile-section-title">Perbarui Detail Akun</h3>
 
                   {formError && <div className="alert alert-error">{formError}</div>}
                   {formSuccess && <div className="alert alert-success">{formSuccess}</div>}
@@ -201,24 +202,22 @@ const Profile = () => {
                       <label>Username</label>
                       <input
                         type="text"
-                        className="form-control"
+                        className="form-control profile-disabled-input"
                         value={`@${user.username}`}
                         disabled
-                        style={styles.disabledInput}
                       />
-                      <span style={styles.fieldHint}>Username unik Anda tidak dapat diubah</span>
+                      <span className="profile-field-hint">Username unik Anda tidak dapat diubah</span>
                     </div>
 
                     <div className="form-group">
                       <label>Alamat Email</label>
                       <input
                         type="email"
-                        className="form-control"
+                        className="form-control profile-disabled-input"
                         value={user.email}
                         disabled
-                        style={styles.disabledInput}
                       />
-                      <span style={styles.fieldHint}>Alamat email Anda terikat pada pendaftaran</span>
+                      <span className="profile-field-hint">Alamat email Anda terikat pada pendaftaran</span>
                     </div>
 
                     <div className="form-group">
@@ -271,11 +270,11 @@ const Profile = () => {
 
               {/* Kanan: Daftar Artikel */}
               <aside>
-                <div className="card" style={styles.cardPadding}>
-                  <h3 style={styles.sectionTitle}>Daftar Artikel Saya ({myPosts.length})</h3>
+                <div className="card profile-card-padding">
+                  <h3 className="profile-section-title">Daftar Artikel Saya ({myPosts.length})</h3>
 
                   {myPosts.length === 0 ? (
-                    <div style={styles.emptyPostsContainer}>
+                    <div className="profile-empty-posts">
                       <p style={{ color: 'var(--light-text)' }}>Anda belum menulis artikel apapun.</p>
                       <button
                         className="btn btn-primary mt-4"
@@ -285,40 +284,45 @@ const Profile = () => {
                       </button>
                     </div>
                   ) : (
-                    <div style={styles.postsList}>
+                    <div className="profile-posts-list">
                       {myPosts.map(post => (
-                        <div key={post.id} style={styles.postItem}>
-                          <div style={styles.postItemHeader}>
-                            <span className={`badge badge-${post.category_slug || 'default'}`} style={{ fontSize: '10px' }}>
+                        <div key={post.id} className="profile-post-item">
+                          <div className="profile-post-item-header">
+                            <span
+                              className={`badge badge-${post.category_slug || 'default'}`}
+                              style={{ fontSize: '10px' }}
+                            >
                               {post.category_name}
                             </span>
-                            <span style={{
-                              ...styles.statusTag,
-                              backgroundColor: post.status === 'published' ? '#ECFDF5' : '#FFFBEB',
-                              color: post.status === 'published' ? '#10B981' : '#D97706',
-                            }}>
+                            <span
+                              className={`profile-status-tag ${
+                                post.status === 'published'
+                                  ? 'profile-status-tag--published'
+                                  : 'profile-status-tag--pending'
+                              }`}
+                            >
                               {post.status === 'published' ? 'Published' : 'Pending Review'}
                             </span>
                           </div>
 
                           <h4
-                            style={styles.postItemTitle}
+                            className="profile-post-item-title"
                             onClick={() => navigate(`/article/${post.slug}`)}
                           >
                             {post.title}
                           </h4>
 
-                          <div style={styles.postItemFooter}>
+                          <div className="profile-post-item-footer">
                             <span>👁️ {post.views || 0} views</span>
-                            <div style={styles.postItemActions}>
+                            <div className="profile-post-item-actions">
                               <button
-                                style={styles.textLinkBtn}
+                                className="profile-text-link-btn"
                                 onClick={() => navigate(`/article/${post.slug}`)}
                               >
                                 Tinjau
                               </button>
                               <button
-                                style={{ ...styles.textLinkBtn, color: 'var(--danger)' }}
+                                className="profile-text-link-btn profile-text-link-btn--danger"
                                 onClick={() => handleDeletePost(post.id)}
                               >
                                 Hapus
@@ -337,122 +341,20 @@ const Profile = () => {
       </div>
 
       {/* Footer */}
-      <footer style={styles.footer}>
-        <div style={styles.footerInner}>
-          <p style={styles.footerText}>© 2026 ArticleFlow by Codepie. All rights reserved.</p>
-          <div style={styles.footerLinks}>
-            <span style={styles.footerLink} onClick={() => navigate('/')}>Beranda</span>
-            <span style={styles.footerDivider}>·</span>
-            <span style={styles.footerLink} onClick={() => navigate('/about')}>About</span>
-            <span style={styles.footerDivider}>·</span>
-            <span style={styles.footerLink} onClick={() => navigate('/writers')}>Penulis</span>
+      <footer className="profile-footer">
+        <div className="profile-footer-inner">
+          <p className="profile-footer-text">© 2026 ArticleFlow by Codepie. All rights reserved.</p>
+          <div className="profile-footer-links">
+            <span className="profile-footer-link" onClick={() => navigate('/')}>Beranda</span>
+            <span className="profile-footer-divider">·</span>
+            <span className="profile-footer-link" onClick={() => navigate('/about')}>About</span>
+            <span className="profile-footer-divider">·</span>
+            <span className="profile-footer-link" onClick={() => navigate('/writers')}>Penulis</span>
           </div>
         </div>
       </footer>
     </>
   );
-};
-
-const styles = {
-  profileContainer: { paddingTop: '40px', paddingBottom: '60px' },
-  header: { marginBottom: '32px' },
-  headerTop: {
-    display: 'flex', justifyContent: 'space-between',
-    alignItems: 'center', flexWrap: 'wrap', gap: '16px'
-  },
-  title: { fontSize: '32px', fontWeight: '800', color: 'var(--dark-text)' },
-  subtitle: { fontSize: '15px', color: 'var(--light-text)', marginTop: '6px' },
-
-  // ✅ Tombol Logout Ungu
-  logoutBtn: {
-    backgroundColor: '#7C3AED',
-    color: '#ffffff',
-    border: 'none',
-    padding: '10px 20px',
-    borderRadius: '8px',
-    fontWeight: '700',
-    cursor: 'pointer',
-    fontSize: '14px',
-  },
-
-  loaderContainer: { textAlign: 'center', padding: '60px' },
-  spinner: {
-    width: '40px', height: '40px',
-    border: '4px solid rgba(79, 70, 229, 0.1)',
-    borderRadius: '50%',
-    borderLeftColor: 'var(--primary)',
-    animation: 'spin 1s linear infinite',
-    margin: '0 auto 16px'
-  },
-  statsSection: { marginBottom: '20px' },
-  sectionTitle: {
-    fontSize: '18px', fontWeight: '700',
-    marginBottom: '16px', borderBottom: '2px solid var(--border)',
-    paddingBottom: '8px', color: 'var(--dark-text)'
-  },
-  statsGrid: { marginTop: '12px' },
-  statCard: { padding: '24px', textAlign: 'center', backgroundColor: '#ffffff' },
-  statIcon: { fontSize: '28px', marginBottom: '8px' },
-  statVal: { fontSize: '28px', fontWeight: '800', color: 'var(--primary)' },
-  statLabel: {
-    fontSize: '12px', fontWeight: '600',
-    textTransform: 'uppercase', letterSpacing: '0.5px',
-    color: 'var(--light-text)', marginTop: '4px'
-  },
-  cardPadding: { padding: '32px', backgroundColor: '#ffffff' },
-  disabledInput: {
-    backgroundColor: 'var(--bg-light)', color: 'var(--light-text)',
-    border: '1px dashed var(--border)', cursor: 'not-allowed'
-  },
-  fieldHint: { fontSize: '11px', color: 'var(--muted-text)', marginTop: '2px' },
-  emptyPostsContainer: { padding: '40px 16px', textAlign: 'center' },
-  postsList: {
-    display: 'flex', flexDirection: 'column', gap: '16px',
-    maxHeight: '520px', overflowY: 'auto', paddingRight: '8px'
-  },
-  postItem: {
-    borderBottom: '1px solid var(--border)', paddingBottom: '16px',
-    display: 'flex', flexDirection: 'column', gap: '6px'
-  },
-  postItemHeader: { display: 'flex', justifyContent: 'space-between', alignItems: 'center' },
-  statusTag: { padding: '2px 6px', borderRadius: '4px', fontSize: '10px', fontWeight: '700' },
-  postItemTitle: {
-    fontSize: '14px', fontWeight: '700',
-    cursor: 'pointer', color: 'var(--dark-text)',
-    transition: 'var(--transition)'
-  },
-  postItemFooter: {
-    display: 'flex', justifyContent: 'space-between',
-    alignItems: 'center', fontSize: '12px', color: 'var(--muted-text)'
-  },
-  postItemActions: { display: 'flex', gap: '12px' },
-  textLinkBtn: {
-    background: 'none', border: 'none',
-    color: 'var(--primary)', fontWeight: '700',
-    cursor: 'pointer', fontSize: '12px',
-    fontFamily: 'var(--font)'
-  },
-
-  // Footer
-  footer: {
-    borderTop: '1px solid #E5E7EB',
-    backgroundColor: '#ffffff',
-    padding: '24px 0',
-    marginTop: 'auto'
-  },
-  footerInner: {
-    maxWidth: '1200px', margin: '0 auto',
-    padding: '0 24px',
-    display: 'flex', justifyContent: 'space-between',
-    alignItems: 'center', flexWrap: 'wrap', gap: '12px'
-  },
-  footerText: { fontSize: '13px', color: '#9CA3AF' },
-  footerLinks: { display: 'flex', alignItems: 'center', gap: '8px' },
-  footerLink: {
-    fontSize: '13px', color: '#6B7280',
-    cursor: 'pointer', fontWeight: '500'
-  },
-  footerDivider: { color: '#D1D5DB', fontSize: '13px' }
 };
 
 export default Profile;

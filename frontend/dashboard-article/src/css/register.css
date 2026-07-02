@@ -1,0 +1,248 @@
+/* ==========================================================================
+   register.css
+   Import file di pages/register.jsx
+   ========================================================================== */
+
+:root {
+  --register-primary: #630ed4;
+  --register-primary-hover: #7c3aed;
+  --register-bg: #f7f9fb;
+  --register-border: #c6c6cd;
+  --register-dark-text: #191c1e;
+  --register-light-text: #45464d;
+  --register-error-bg: #ffdad6;
+  --register-error-text: #93000a;
+  --register-success-bg: #d4edda;
+  --register-success-text: #155724;
+}
+
+/* ---------- Layout halaman ---------- */
+.register-page {
+  min-height: 100dvh;
+  background-color: var(--register-bg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 16px;
+  font-family: 'Inter', sans-serif;
+}
+
+.register-logo-wrapper {
+  margin-bottom: 20px;
+}
+
+.register-logo {
+  height: 90px;
+  width: auto;
+  object-fit: contain;
+}
+
+/* ---------- Kartu ---------- */
+.register-card {
+  background-color: #ffffff;
+  border-radius: 16px;
+  padding: 36px 32px;
+  width: 100%;
+  max-width: 440px;
+  box-shadow: 0 4px 24px rgba(19, 27, 46, 0.08);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.register-card-header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.register-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--register-dark-text);
+  margin-bottom: 6px;
+  letter-spacing: -0.02em;
+}
+
+.register-subtitle {
+  font-size: 13px;
+  color: var(--register-light-text);
+  line-height: 1.5;
+}
+
+.register-error-box {
+  background-color: var(--register-error-bg);
+  color: var(--register-error-text);
+  padding: 12px 16px;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  font-size: 14px;
+}
+
+.register-success-box {
+  background-color: var(--register-success-bg);
+  color: var(--register-success-text);
+  padding: 12px 16px;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  font-size: 14px;
+}
+
+/* ---------- Form ---------- */
+.register-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.register-field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.register-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--register-light-text);
+}
+
+.register-input-wrapper {
+  display: flex;
+  align-items: center;
+  background-color: var(--register-bg);
+  border: 1px solid var(--register-border);
+  border-radius: 10px;
+  padding: 11px 14px;
+  transition: all 0.2s;
+}
+
+.register-input-wrapper:focus-within {
+  border-color: var(--register-primary);
+  box-shadow: 0 0 0 4px rgba(99, 14, 212, 0.1);
+}
+
+.register-icon {
+  margin-right: 10px;
+  font-size: 15px;
+}
+
+.register-input {
+  background: transparent;
+  border: none;
+  outline: none;
+  width: 100%;
+  font-size: 15px;
+  color: var(--register-dark-text);
+}
+
+.register-eye-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin-left: 8px;
+  font-size: 15px;
+}
+
+/* ---------- Tombol submit ---------- */
+.register-submit-btn {
+  width: 100%;
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 700;
+  padding: 14px;
+  border-radius: 12px;
+  border: none;
+  margin-top: 4px;
+  transition: opacity 0.2s;
+  letter-spacing: 0.3px;
+  background: linear-gradient(135deg, var(--register-primary) 0%, var(--register-primary-hover) 100%);
+  cursor: pointer;
+}
+
+.register-submit-btn:hover:not(:disabled) {
+  opacity: 0.92;
+}
+
+.register-submit-btn--loading,
+.register-submit-btn:disabled {
+  background: #999;
+  cursor: not-allowed;
+}
+
+/* ---------- Divider ---------- */
+.register-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 4px 0;
+}
+
+.register-divider-line {
+  height: 1px;
+  background-color: var(--register-border);
+  flex: 1;
+}
+
+.register-divider-text {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--register-light-text);
+  white-space: nowrap;
+}
+
+/* ---------- Social login ---------- */
+.register-social-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.register-social-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 1px solid var(--register-border);
+  background-color: #ffffff;
+  padding: 11px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.register-social-btn:hover {
+  background-color: #f2f4f6;
+}
+
+.register-social-icon {
+  font-size: 16px;
+}
+
+.register-social-icon--bold {
+  font-weight: 700;
+}
+
+.register-social-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--register-dark-text);
+}
+
+/* ---------- Login link ---------- */
+.register-login-text {
+  text-align: center;
+  font-size: 14px;
+  color: var(--register-light-text);
+  margin-top: 20px;
+}
+
+.register-login-link {
+  color: var(--register-primary);
+  font-weight: 700;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  font-size: 14px;
+  text-decoration: underline;
+}
